@@ -1,0 +1,6 @@
+@Axia_Analyse_HostAddress = http://localhost:5259
+
+GET {{Axia_Analyse_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8B5B70EF-C0F5-46E3-88A8-8D4FBF7C31E4}|Services{8B5B70EF-C0F5-46E3-88A8-8D4FBF7C31E4}|C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5B70EF-C0F5-46E3-88A8-8D4FBF7C31E4}|Services{8B5B70EF-C0F5-46E3-88A8-8D4FBF7C31E4}|solutionrelative:Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Class1.cs",
+              "RelativeDocumentMoniker": "Class1.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Class1.cs",
+              "RelativeToolTip": "Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T13:59:03.084Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
