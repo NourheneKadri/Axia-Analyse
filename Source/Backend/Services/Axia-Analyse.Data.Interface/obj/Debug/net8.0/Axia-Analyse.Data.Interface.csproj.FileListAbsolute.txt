@@ -1,0 +1,12 @@
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\bin\Debug\net8.0\Axia-Analyse.Data.Interface.deps.json
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\bin\Debug\net8.0\Axia-Analyse.Data.Interface.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\bin\Debug\net8.0\Axia-Analyse.Data.Interface.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.AssemblyInfoInputs.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.AssemblyInfo.cs
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.csproj.CoreCompileInputs.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.sourcelink.json
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\refint\Axia-Analyse.Data.Interface.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\Axia-Analyse.Data.Interface.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data.Interface\obj\Debug\net8.0\ref\Axia-Analyse.Data.Interface.dll

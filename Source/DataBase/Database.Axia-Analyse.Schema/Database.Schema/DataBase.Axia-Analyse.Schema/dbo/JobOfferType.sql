@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[JobOfferType]
+(
+	
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+	[Value] VARCHAR(30),
+)
+

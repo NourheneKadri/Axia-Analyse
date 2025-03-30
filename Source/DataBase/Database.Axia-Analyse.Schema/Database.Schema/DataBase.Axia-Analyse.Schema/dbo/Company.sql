@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Company]
+(
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+	[Name] NVARCHAR(255) NOT NULL,
+    [SIRET] NVARCHAR(255) NOT NULL,
+	[Phone] NVARCHAR(255) ,
+	[Email] NVARCHAR(255) ,
+	[LogoUrl] NVARCHAR(max),
+
+)

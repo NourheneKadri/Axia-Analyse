@@ -1,0 +1,10 @@
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\bin\Debug\Database.Schema.dacpac
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\Database.Schema.sqlproj.AssemblyReference.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\Database.Schema.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\Database.Schema.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\bin\Debug\Database.Schema.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\bin\Debug\Database.Schema.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\Model.xml
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\refactor.xml
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\postdeploy.sql
+C:\Projects\Axia Solutions\Axia-Analyse\Source\DataBase\Database.Axia-Analyse.Schema\Database.Schema\obj\Debug\predeploy.sql

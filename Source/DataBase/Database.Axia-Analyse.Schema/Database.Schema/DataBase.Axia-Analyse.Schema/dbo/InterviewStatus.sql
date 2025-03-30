@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[InterviewStatus]
+(
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+    [StatusName] NVARCHAR(50) NOT NULL
+)

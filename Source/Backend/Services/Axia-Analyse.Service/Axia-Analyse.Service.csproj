@@ -8,7 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.27.4" />
+    <PackageReference Include="CryptoHelper" Version="4.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.2" />
+    <PackageReference Include="PdfPig" Version="0.1.10" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.5.0" />
   </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Axia-Analyse.Service.Interfaces\Axia-Analyse.Service.Interfaces.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Axia-Analyse.Data.Interface\Axia-Analyse.Data.Interface.csproj" />
+	</ItemGroup>
 
 </Project>

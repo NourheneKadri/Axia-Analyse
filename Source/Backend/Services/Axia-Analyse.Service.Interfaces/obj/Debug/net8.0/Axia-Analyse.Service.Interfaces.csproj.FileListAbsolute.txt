@@ -1,0 +1,16 @@
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\bin\Debug\net8.0\Axia-Analyse.Service.Interfaces.deps.json
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\bin\Debug\net8.0\Axia-Analyse.Service.Interfaces.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\bin\Debug\net8.0\Axia-Analyse.Service.Interfaces.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\bin\Debug\net8.0\Axia-Analyse.Data.Interface.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\bin\Debug\net8.0\Axia-Analyse.Data.Interface.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.csproj.AssemblyReference.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.AssemblyInfoInputs.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.AssemblyInfo.cs
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.csproj.CoreCompileInputs.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.sourcelink.json
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Ana.818B1E9E.Up2Date
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\refint\Axia-Analyse.Service.Interfaces.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\Axia-Analyse.Service.Interfaces.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Service.Interfaces\obj\Debug\net8.0\ref\Axia-Analyse.Service.Interfaces.dll

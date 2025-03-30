@@ -4,14 +4,14 @@
     "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj": {
+    "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
-        "projectName": "Axia-Analyse.Service",
-        "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
+        "projectUniqueName": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj",
+        "projectName": "Axia-Analyse.Data.Interface",
+        "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj",
         "packagesPath": "C:\\Users\\Nourhene Kadri\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\obj\\",
+        "outputPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nourhene Kadri\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,10 +45,185 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj",
+        "projectName": "Axia-Analyse.Service.Interfaces",
+        "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj",
+        "packagesPath": "C:\\Users\\Nourhene Kadri\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Nourhene Kadri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj": {
+                "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
+            "CryptoHelper": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
+        "projectName": "Axia-Analyse.Service",
+        "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
+        "packagesPath": "C:\\Users\\Nourhene Kadri\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Nourhene Kadri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj": {
+                "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj"
+              },
+              "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj": {
+                "projectPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "BCrypt.Net": {
+              "target": "Package",
+              "version": "[0.1.0, )"
+            },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.27.4, )"
+            },
+            "CryptoHelper": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
+            "PdfPig": {
+              "target": "Package",
+              "version": "[0.1.10, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.5.0, )"
             }
           },
           "imports": [

@@ -1,0 +1,16 @@
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\bin\Debug\net8.0\Axia-Analyse.Data.deps.json
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\bin\Debug\net8.0\Axia-Analyse.Data.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\bin\Debug\net8.0\Axia-Analyse.Data.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\bin\Debug\net8.0\Axia-Analyse.Data.Interface.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\bin\Debug\net8.0\Axia-Analyse.Data.Interface.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.csproj.AssemblyReference.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.AssemblyInfoInputs.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.AssemblyInfo.cs
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.csproj.CoreCompileInputs.cache
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.sourcelink.json
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Ana.A196E4B4.Up2Date
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\refint\Axia-Analyse.Data.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\Axia-Analyse.Data.pdb
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\Services\Axia-Analyse.Data\obj\Debug\net8.0\ref\Axia-Analyse.Data.dll
