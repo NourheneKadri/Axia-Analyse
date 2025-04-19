@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudinaryDotNet;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Axia_Analyse.Service
 {
@@ -139,7 +140,7 @@ namespace Axia_Analyse.Service
                     return candidatures;
             }
         }
-
+        public async Task<List<JobOfferCandidancy>> GetCandidaciesByUserAccountIdAsync(int userAccountId) => await _repository.GetCandidaciesByUserAccountIdAsync(userAccountId);
         public async Task<bool> UpdateCandidacyStatusAsync(int candidateId, int jobOfferId, int statusId)
         {
             try
@@ -162,7 +163,10 @@ namespace Axia_Analyse.Service
                 return false;
             }
         }
-      
-        }
+
+       
+
+
+    }
     
 }

@@ -21,6 +21,9 @@ namespace Axia_Analyse.Data
             public DbSet<JobOfferCandidancy> JobOfferCandidancy { get; set; }
             public DbSet<JobOfferCategories> JobOfferCategories { get; set; }
 
+            public DbSet<Slot> Slot { get; set; }
+            public DbSet<Interview> Interview { get; set; }
+
 
 
 

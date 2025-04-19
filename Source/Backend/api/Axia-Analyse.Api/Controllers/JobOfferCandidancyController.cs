@@ -17,17 +17,19 @@ namespace Axia_Analyse.Controllers
         private readonly IJobOfferService _jobOfferService;
         private readonly PdfService _pdfService;
         private readonly GeminiService _geminiService;
+        private readonly MailNotificationService _mailNotificationService;
 
         private readonly CloudinaryService _cloudinaryService;
 
         public JobOfferCandidancyController(IJobOfferCandidancyService jobOfferCandidancyService, CloudinaryService cloudinaryService, IJobOfferService 
-            jobOfferService,PdfService pdfService, GeminiService geminiService)
+            jobOfferService,PdfService pdfService, GeminiService geminiService,MailNotificationService mailNotificationService )
         {
             _jobOfferCandidancyService = jobOfferCandidancyService;
             _cloudinaryService = cloudinaryService;
             _jobOfferService = jobOfferService;
             _pdfService = pdfService;
             _geminiService = geminiService;
+            _mailNotificationService = mailNotificationService;
         }
 
         // Get by ID
@@ -55,8 +57,6 @@ namespace Axia_Analyse.Controllers
 
         // Add new Candidacy
         [HttpPost]
-        [AllowAnonymous]  
-        [RequestSizeLimit(100_000_000)]  // Ajustez la taille maximale des fichiers si nécessaire
 
         public async Task<bool> AddAsync([FromForm] JobOfferCandidancyDto dto)
         {
@@ -109,25 +109,23 @@ namespace Axia_Analyse.Controllers
 
         // Update Candidacy
         [HttpPut("update")]
-        [AllowAnonymous]
         public async Task<IActionResult> UpdateAsync([FromBody] JobOfferCandidancy dto)
         {
-            
 
-            try
+            await _jobOfferCandidancyService.UpdateAsync(dto);
+            bool isAccepted = dto.StatusId == 5;
+
+            if (dto.StatusId == 5 || dto.StatusId == 6)
             {
-                await _jobOfferCandidancyService.UpdateAsync(dto);
-                return NoContent();
+                // Envoyez une notification par e-mail au candidat
+                await _mailNotificationService.NotifyCandidateAsync(dto.CandidateProfileId, isAccepted);
             }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new { message = "Candidature non trouvée" });
-            }
+
+            return Ok();
         }
 
         // Delete Candidacy
         [HttpDelete("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try
@@ -170,6 +168,18 @@ namespace Axia_Analyse.Controllers
             }
 
             return NoContent();
+        }
+        [HttpGet("user/{userAccountId}")]
+        public async Task<IActionResult> GetCandidaciesByUserAccountId(int userAccountId)
+        {
+            var candidacies = await _jobOfferCandidancyService.GetCandidaciesByUserAccountIdAsync(userAccountId);
+
+            if (candidacies == null)
+            {
+                return NotFound("Aucune candidature trouvée pour cet utilisateur.");
+            }
+
+            return Ok(candidacies);
         }
     }
 }

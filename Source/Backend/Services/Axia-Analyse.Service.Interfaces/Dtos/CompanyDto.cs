@@ -13,6 +13,8 @@ namespace Axia_Analyse.Service.Interfaces.Dtos
         public string Name { get; set; }
         public string SIRET { get; set; }
         public string Phone { get; set; }
+        public string adress { get; set; }
+
         public string Email { get; set; }
         public IFormFile? Logo { get; set; }
 

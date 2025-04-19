@@ -9,6 +9,7 @@ namespace Axia_Analyse.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class JobOfferController : ControllerBase
     {
         private readonly IJobOfferService _jobOfferServices;
@@ -20,7 +21,6 @@ namespace Axia_Analyse.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [AllowAnonymous]
 
         public JobOffer GetById(int id)
         {
@@ -28,7 +28,7 @@ namespace Axia_Analyse.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
 
         public IEnumerable<JobOffer> GetAll()
         {
@@ -37,7 +37,6 @@ namespace Axia_Analyse.Controllers
 
         [HttpGet]
         [Route("delete/{id}")]
-        [AllowAnonymous]
 
         public bool Remove(int id)
         {
@@ -45,7 +44,6 @@ namespace Axia_Analyse.Controllers
         }
         [HttpPost]
         [Route("Add")]
-        [AllowAnonymous]
 
         public bool Add([FromBody] JobOfferDto JobOffer)
         {
@@ -53,7 +51,6 @@ namespace Axia_Analyse.Controllers
         }
         [HttpPost]
         [Route("Update")]
-        [AllowAnonymous]
 
         public bool Update([FromBody] JobOffer JobOffer)
         {
@@ -62,7 +59,6 @@ namespace Axia_Analyse.Controllers
         }
         [HttpGet]
         [Route("search")]
-        [AllowAnonymous]
 
         public async Task<IActionResult> SearchJobOffers(string? title, string? address, int? categoryId)
         {
@@ -79,7 +75,6 @@ namespace Axia_Analyse.Controllers
         }
 
         [HttpGet("category/{categoryId}")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetJobOffersByCategoryId(int categoryId)
         {
             var jobOffers = await _jobOfferServices.GetJobOffersByCategoryIdAsync(categoryId);
@@ -92,7 +87,6 @@ namespace Axia_Analyse.Controllers
             return Ok(jobOffers);
         }
         [HttpGet("Type/{jobTypeId}")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetJobOffersByTypeId(int jobTypeId)
         {
             var jobOffers = await _jobOfferServices.GetJobOffersByTypeIdAsync(jobTypeId);
@@ -139,6 +133,14 @@ namespace Axia_Analyse.Controllers
         {
             var result = await _jobOfferServices.GetJobOfferCountByCompanyAsync();
             return Ok(result);
+        }
+
+        [HttpGet("by-user/{userAccountId}")]
+
+        public IActionResult GetJobOffersByUserAccountId(int userAccountId)
+        {
+            var offers = _jobOfferServices.GetJobOffersByUserAccountId(userAccountId);
+            return Ok(offers);
         }
 
 

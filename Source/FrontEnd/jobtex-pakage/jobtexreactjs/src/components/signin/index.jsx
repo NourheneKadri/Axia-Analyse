@@ -33,10 +33,10 @@ function Login() {
         console.log("user", user);
   
         // Vérifie le rôle de l'utilisateur et redirige en conséquence
-        if (user.appRoleId === 2) {
+        if (user.appRoleId === 1) {
           // Rediriger vers le tableau de bord de l'administrateur
           window.location.href = 'http://localhost:3039/';
-        } else if (user.appRoleId !== 2) {
+        } else if (user.appRoleId !== 1) {
           // Rediriger vers le template utilisateur
           window.location.href = 'http://localhost:3000';
         }

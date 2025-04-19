@@ -21,6 +21,9 @@ function Header2({ clname = "", handleMobile }) {
 
   const [scroll, setScroll] = useState(0);
   const navigate = useNavigate();
+  const user = Authentification?.getStoredUser?.()
+  const [Role, setRole] = useState("");
+
 
 
  
@@ -455,38 +458,9 @@ function Header2({ clname = "", handleMobile }) {
                         <div className="menu-bar">
                           <ul className="sub-menu-bar">
                             <li className="menu-item">
-                              <NavLink to="/">Home Page 01 </NavLink>
+                              <NavLink to="/">Home Page </NavLink>
                             </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v2">Home Page 02 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v3">Home Page 03 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v4">Home Page 04 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v5">Home Page 05 </NavLink>
-                            </li>
-                          </ul>
-
-                          <ul className="sub-menu-bar">
-                            <li className="menu-item">
-                              <NavLink to="/home_v6">Home Page 06 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v7">Home Page 07 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v8">Home Page 08 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v9">Home Page 09 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v10">Home Page 10 </NavLink>
-                            </li>
+                           
                           </ul>
                         </div>
                       </li>
@@ -494,73 +468,33 @@ function Header2({ clname = "", handleMobile }) {
                         <Link to="#">Find jobs </Link>
                         <ul className="sub-menu st1">
                           <li className="nav-sub subnav1">
-                            <Link to="#">
-                              Jobs Listing
-                              <span className="icon-keyboard_arrow_right"></span>
-                            </Link>
-                            <ul className="nav-sub-menu">
+                          {user.appRoleId === 3 && (
+      <>
                               <li className="nav-menu-item subitem1">
-                                <NavLink to="/joblist_v1">List Layout</NavLink>
+                                <NavLink to="/joblist_v1">Job List </NavLink>
                               </li>
+
+                              
+                          <li className="nav-sub subnav5">
+                            <NavLink to="/employernotfound">
+                              My candidancy
+                            </NavLink>
+                          </li>
+                              </>
+    )}
+    
                               <li className="nav-menu-item subitem2">
                                 <NavLink to="/job-grid">Grid Layout</NavLink>
                               </li>
-                              <li className="nav-menu-item subitem3">
-                                <NavLink to="/job-list-sidebar">
-                                  List Sidebar
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item subitem4">
-                                <NavLink to="/job-grid-sidebar">
-                                  Grid Sidebar
-                                </NavLink>
-                              </li>
-
-                              <li className="nav-menu-item subitem5">
-                                <NavLink to="/joblist_v5">
-                                  List Sidebar Fullwidth
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item subitem6">
-                                <NavLink to="/joblist_v6">
-                                  Grid Sidebar Fullwidth
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item subitem7">
-                                <NavLink to="/joblist_v7">Top Map</NavLink>
-                              </li>
-                              <li className="nav-menu-item subitem8">
-                                <NavLink to="/joblist_v8">
-                                  Top Map Sidebar
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item subitem9">
-                                <NavLink to="/joblist_v9">
-                                  Half Map - V1
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item subitem10">
-                                <NavLink to="/joblist_v10">
-                                  Half Map - V2
-                                </NavLink>
-                              </li>
-                            </ul>
+                          
                           </li>
+
                           <li className="nav-sub subnav2">
                             <NavLink to="/jobCandidancy">
                              Job Candidancy
                             </NavLink>
                           </li>
-                          <li className="nav-sub subnav2">
-                            <NavLink to="/jobsingle_v1">
-                              Jobs Single - V1
-                            </NavLink>
-                          </li>
-                          <li className="nav-sub subnav3">
-                            <NavLink to="/jobsingle_v2">
-                              Jobs Single - V2
-                            </NavLink>
-                          </li>
+                        
                         </ul>
                       </li>
 
@@ -583,50 +517,9 @@ function Header2({ clname = "", handleMobile }) {
                                   Grid Layout
                                 </NavLink>
                               </li>
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v3">
-                                  List Sidebar
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v4">
-                                  Grid Sidebar
-                                </NavLink>
-                              </li>
-
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v5">Full width</NavLink>
-                              </li>
-
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v6">Top Map</NavLink>
-                              </li>
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v7">Half Map</NavLink>
-                              </li>
                             </ul>
                           </li>
-                          <li className="nav-sub subnav2">
-                            <NavLink to="/employersingle_v1">
-                              Employers Single - V1
-                            </NavLink>
-                          </li>
-                          <li className="nav-sub subnav3">
-                            <NavLink to="/employersingle_v2">
-                              Employers Single - V2
-                            </NavLink>
-                          </li>
-
-                          <li className="nav-sub subnav4">
-                            <NavLink to="/employerreview">
-                              Employers Reviews
-                            </NavLink>
-                          </li>
-                          <li className="nav-sub subnav5">
-                            <NavLink to="/employernotfound">
-                              Employers Not Found
-                            </NavLink>
-                          </li>
+                          
                         </ul>
                       </li>
                       <li className="menu-item menu-item-has-children sub4">

@@ -9,6 +9,8 @@ namespace Axia_Analyse.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
+
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyService _companyService;
@@ -67,6 +69,8 @@ namespace Axia_Analyse.Controllers
 
         // PUT: api/companies/{id}
         [HttpPut("{id}")]
+        [AllowAnonymous]
+
         public async Task<IActionResult> UpdateCompany(int id, Company company)
         {
             if (id != company.Id)
@@ -80,6 +84,8 @@ namespace Axia_Analyse.Controllers
 
         // DELETE: api/companies/{id}
         [HttpDelete("{id}")]
+        [AllowAnonymous]
+
         public async Task<IActionResult> DeleteCompany(int id)
         {
             var result = await _companyService.DeleteCompanyAsync(id);

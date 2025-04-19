@@ -92,33 +92,7 @@ function Joblist_v1(props) {
                             <li className="menu-item menu-item-mobile">
                               <Link to="/">Home Page 01 </Link>
                             </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v2">Home Page 02 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v3">Home Page 03 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v4">Home Page 04 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v5">Home Page 05 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v6">Home Page 06 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v7">Home Page 07 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v8">Home Page 08 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v9">Home Page 09 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v10">Home Page 10 </Link>
-                            </li>
+                           
                           </ul>
                         </Collapse>
                       </li>
@@ -244,7 +218,7 @@ function Joblist_v1(props) {
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                Employers Not Found
+                                 My candidancyt Found
                               </Link>
                             </li>
                           </ul>

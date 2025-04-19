@@ -36,6 +36,8 @@ namespace Axia_Analyse.Service
                 SIRET = companyDto.SIRET,
                 Phone = companyDto.Phone,
                 Email = companyDto.Email,
+                adress = companyDto.adress,
+
                 LogoUrl = companyDto.LogoUrl
             };
 

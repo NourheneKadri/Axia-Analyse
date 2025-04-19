@@ -22,6 +22,8 @@ namespace Axia_Analyse.Service.Interfaces
         Task<IEnumerable<JobOffer>> GetJobOffersByTypeIdAsync(int jobTypeId);
         Task<IEnumerable<JobOffer>> GetJobOffersByCategoryIdAsync(int categoryId);
         Task<IEnumerable<dynamic>> GetJobOfferCountByCompanyAsync();
+        List<JobOffer> GetJobOffersByUserAccountId(int userAccountId);
+
 
 
 

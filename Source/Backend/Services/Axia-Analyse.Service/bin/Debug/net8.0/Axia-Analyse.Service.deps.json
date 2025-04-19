@@ -13,6 +13,7 @@
           "BCrypt.Net": "0.1.0",
           "CloudinaryDotNet": "1.27.4",
           "CryptoHelper": "4.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.2",
           "Microsoft.EntityFrameworkCore": "9.0.2",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.2",
           "PdfPig": "0.1.10",
@@ -55,6 +56,17 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.2": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.1.2"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "8.0.2.0",
+            "fileVersion": "8.0.224.6804"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/8.0.1": {
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -77,12 +89,6 @@
       "Microsoft.AspNetCore.Http.Features/2.3.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {
-            "assemblyVersion": "2.3.0.0",
-            "fileVersion": "2.3.0.25014"
-          }
         }
       },
       "Microsoft.Bcl.Memory/9.0.0": {
@@ -244,6 +250,30 @@
           "lib/net8.0/Microsoft.IdentityModel.Logging.dll": {
             "assemblyVersion": "8.5.0.0",
             "fileVersion": "8.5.0.60214"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Protocols/7.1.2": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Logging": "8.5.0",
+          "Microsoft.IdentityModel.Tokens": "8.5.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.IdentityModel.Protocols.dll": {
+            "assemblyVersion": "7.1.2.0",
+            "fileVersion": "7.1.2.41121"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Protocols.OpenIdConnect/7.1.2": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols": "7.1.2",
+          "System.IdentityModel.Tokens.Jwt": "8.5.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
+            "assemblyVersion": "7.1.2.0",
+            "fileVersion": "7.1.2.41121"
           }
         }
       },
@@ -795,6 +825,13 @@
       "path": "cryptohelper/4.0.0",
       "hashPath": "cryptohelper.4.0.0.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7qJkk5k5jabATZZrMIQgpUB9yjDNAAApSqw+8d0FEyK1AJ4j+wv1qOMl2byUr837xbK+MjehtPnQ32yZ5Gtzlw==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.2",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.2.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Cryptography.Internal/8.0.1": {
       "type": "package",
       "serviceable": true,
@@ -927,6 +964,20 @@
       "sha512": "sha512-UCTOGVp7h+PHrI4Q/yV0LT2k7dbjlzrnFhfqDUsQ91rOFH8ZNRMZYFY/J79KWSl+SZNnu3ecap31z//NevUaEw==",
       "path": "microsoft.identitymodel.logging/8.5.0",
       "hashPath": "microsoft.identitymodel.logging.8.5.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Protocols/7.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SydLwMRFx6EHPWJ+N6+MVaoArN1Htt92b935O3RUWPY1yUF63zEjvd3lBu79eWdZUwedP8TN2I5V9T3nackvIQ==",
+      "path": "microsoft.identitymodel.protocols/7.1.2",
+      "hashPath": "microsoft.identitymodel.protocols.7.1.2.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Protocols.OpenIdConnect/7.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6lHQoLXhnMQ42mGrfDkzbIOR3rzKM1W1tgTeMPLgLCqwwGw0d96xFi/UiX/fYsu7d6cD5MJiL3+4HuI8VU+sVQ==",
+      "path": "microsoft.identitymodel.protocols.openidconnect/7.1.2",
+      "hashPath": "microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Tokens/8.5.0": {
       "type": "package",

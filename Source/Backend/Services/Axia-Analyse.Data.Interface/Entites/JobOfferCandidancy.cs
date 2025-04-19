@@ -12,7 +12,7 @@ namespace Axia_Analyse.Data.Interface.Entites
         public string LastName { get; set; }
         public string Email { get; set; }
         public int CandidateProfileId { get; set; }
-        public int? JobOfferId { get; set; }
+        public int JobOfferId { get; set; }
         public DateTime SubmissionDate { get; set; }
         public DateTime UpdatedAt { get; set; }
         public int StatusId { get; set; }

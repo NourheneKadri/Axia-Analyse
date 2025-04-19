@@ -4,15 +4,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using CryptoHelper;
 
-
 namespace Axia_Analyse.Service
 {
-    public  static class TokenService
+    public static class TokenService
     {
         private static string jwtSecret = "bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m";
-        private static int jwtLifespan = 900;
+        private static int jwtLifespan = 2592000;
 
-        public static string GetAuthData(string id)
+        public static string GetAuthData(string id, string email)
         {
             var expirationTime = DateTime.UtcNow.AddSeconds(jwtLifespan);
 
@@ -20,7 +19,8 @@ namespace Axia_Analyse.Service
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, id)
+                    new Claim(ClaimTypes.Name, id),
+                    new Claim(ClaimTypes.Email, email)
                 }),
                 Expires = expirationTime,
                 SigningCredentials = new SigningCredentials(
@@ -28,10 +28,11 @@ namespace Axia_Analyse.Service
                     SecurityAlgorithms.HmacSha256Signature
                 )
             };
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
 
-            return token;
+            var tokenHandler = new JwtSecurityTokenHandler();  // Use JwtSecurityTokenHandler instead of JsonWebTokenHandler
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);  // Serialize the JWT to a string
         }
 
         public static string HashPassword(string password)

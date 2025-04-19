@@ -67,6 +67,10 @@
               "target": "Package",
               "version": "[4.10.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
             "Microsoft.AspNetCore.Authentication.Negotiate": {
               "target": "Package",
               "version": "[8.0.7, )"
@@ -98,10 +102,6 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
-            },
-            "System.IdentityModel.Tokens.Jwt": {
-              "target": "Package",
-              "version": "[8.5.0, )"
             },
             "iTextSharp": {
               "target": "Package",
@@ -402,6 +402,10 @@
             "CryptoHelper": {
               "target": "Package",
               "version": "[4.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

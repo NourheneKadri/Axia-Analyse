@@ -83,6 +83,10 @@ namespace Axia_Analyse.Service
         {
             return await _jobOfferRepository.GetJobOfferCountByCompanyAsync();
         }
+        public List<JobOffer> GetJobOffersByUserAccountId(int userAccountId)
+        {
+            return _jobOfferRepository.GetJobOffersByUserAccountId(userAccountId);
+        }   
 
     }
 }

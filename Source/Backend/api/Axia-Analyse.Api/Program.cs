@@ -8,12 +8,38 @@ using Axia_Analyse.Data;
 using Axia_Analyse.Data.Interface.Entites;
 using Axia_Analyse.Service;
 using CloudinaryDotNet;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
+var issuer = configuration["Issuer"];
+var audience = configuration["Audience"];
 
 // Add services to the container.
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["JWTSecretKey"])
+            
+            ),
+            ClockSkew = TimeSpan.Zero  // Pour éviter les petits écarts de temps
 
+        };
+        options.IncludeErrorDetails = true;
+    });
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
@@ -22,7 +48,8 @@ builder.Services.AddSingleton<CloudinaryService>();
 
 
 
-builder.Services.AddScoped<IAuthentificationService, Axia_Analyse.Service.AuthenticationService>(); // Register the interface with its implementation
+builder.Services.AddScoped<IAuthentificationService, Axia_Analyse.Service.AuthenticationService>();
+builder.Services.AddScoped<MailNotificationService>();// Register the interface with its implementation
 builder.Services.AddScoped<IUserAccountRepository, UserAccountRepository>();
 builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -32,8 +59,15 @@ builder.Services.AddScoped<IJobOfferService, JobOfferServices>();
 builder.Services.AddScoped<IJobOfferCandidancyService, JobOfferCandidancyService>();
 builder.Services.AddScoped<IJobOfferCandidancyRepository, JobOfferCandidancyRepository>();
 builder.Services.AddSingleton<CloudinaryService>();
+
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IInterviewRepository, InterviewRepository>();
+builder.Services.AddScoped<ISlotRepository, SlotRepository>();
+
+// Services
+builder.Services.AddScoped<IInterviewService, InterviewService>();
+builder.Services.AddScoped<ISlotService, SlotService>();
 
 
 
@@ -91,7 +125,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers().RequireAuthorization(); // Assure que l'auth est appliquée sauf pour AllowAnonymous

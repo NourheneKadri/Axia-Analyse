@@ -18,5 +18,6 @@ namespace Axia_Analyse.Data.Interface.IRepositories
         Task<JobOfferCandidancy> GetByCandidateAndJobOfferIdsAsync(int candidateProfileId, int jobOfferId);
         Task<List<UserAccount>> GetCandidateProfilesByJobOfferId(int jobOfferId);
         Task<List<JobOfferCandidancy>> GetSortedCandidaturesAsync(int jobOfferId, string sortBy);
+        Task<List<JobOfferCandidancy>> GetCandidaciesByUserAccountIdAsync(int userAccountId);
     }
 }

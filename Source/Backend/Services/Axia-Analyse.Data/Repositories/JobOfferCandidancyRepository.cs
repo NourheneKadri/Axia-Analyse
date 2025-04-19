@@ -92,5 +92,21 @@ namespace Axia_Analyse.Data.Repositories
 
             return await query.ToListAsync();
         }
+
+        public async Task<List<JobOfferCandidancy>> GetCandidaciesByUserAccountIdAsync(int userAccountId)
+        {
+            // Récupérer toutes les offres d'emploi publiées par l'utilisateur
+            var jobOffers = await _dbContext.JobOffer
+                .Where(jo => jo.UserAccountId == userAccountId)  // Filtrer par UserAccountId
+                .Select(jo => jo.Id)  // Sélectionner l'ID des JobOffers
+                .ToListAsync();
+
+            // Récupérer les candidatures correspondantes aux JobOffers de cet utilisateur
+            var candidacies = await _dbContext.JobOfferCandidancy
+                .Where(c => jobOffers.Contains(c.JobOfferId))  // Filtrer par les JobOfferIds
+                .ToListAsync();
+
+            return candidacies;
+        }
     }
 }

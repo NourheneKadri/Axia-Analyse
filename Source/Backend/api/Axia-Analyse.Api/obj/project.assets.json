@@ -210,6 +210,25 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.1.2"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Authentication.Negotiate/8.0.7": {
         "type": "package",
         "dependencies": {
@@ -2649,6 +2668,7 @@
           "BCrypt.Net": "0.1.0",
           "CloudinaryDotNet": "1.27.4",
           "CryptoHelper": "4.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.2",
           "Microsoft.EntityFrameworkCore": "9.0.2",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.2",
           "PdfPig": "0.1.10",
@@ -2892,6 +2912,21 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.xml",
         "microsoft.aspnetcore.authentication.core.2.3.0.nupkg.sha512",
         "microsoft.aspnetcore.authentication.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.2": {
+      "sha512": "7qJkk5k5jabATZZrMIQgpUB9yjDNAAApSqw+8d0FEyK1AJ4j+wv1qOMl2byUr837xbK+MjehtPnQ32yZ5Gtzlw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
+        "microsoft.aspnetcore.authentication.jwtbearer.8.0.2.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Negotiate/8.0.7": {
@@ -7684,6 +7719,7 @@
       "Axia-Analyse.Service.Interfaces >= 1.0.0",
       "CloudinaryDotNet >= 1.27.4",
       "MailKit >= 4.10.0",
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.2",
       "Microsoft.AspNetCore.Authentication.Negotiate >= 8.0.7",
       "Microsoft.AspNetCore.Identity >= 2.3.0",
       "Microsoft.Data.SqlClient >= 6.0.1",
@@ -7692,7 +7728,6 @@
       "Microsoft.Extensions.Configuration.Binder >= 9.0.2",
       "Microsoft.Extensions.Configuration.Json >= 9.0.2",
       "Swashbuckle.AspNetCore >= 6.4.0",
-      "System.IdentityModel.Tokens.Jwt >= 8.5.0",
       "iTextSharp >= 5.5.13.4"
     ]
   },
@@ -7762,6 +7797,10 @@
             "target": "Package",
             "version": "[4.10.0, )"
           },
+          "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "target": "Package",
+            "version": "[8.0.2, )"
+          },
           "Microsoft.AspNetCore.Authentication.Negotiate": {
             "target": "Package",
             "version": "[8.0.7, )"
@@ -7793,10 +7832,6 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.4.0, )"
-          },
-          "System.IdentityModel.Tokens.Jwt": {
-            "target": "Package",
-            "version": "[8.5.0, )"
           },
           "iTextSharp": {
             "target": "Package",

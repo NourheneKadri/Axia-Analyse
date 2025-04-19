@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Axia-Analyse.Service.Interfaces")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d9ed4705d86adbb5f4adc55ae2c880f7fe77594")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+838d20e5da68ab559d3f7405181924276a4a2b61")]
 [assembly: System.Reflection.AssemblyProductAttribute("Axia-Analyse.Service.Interfaces")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Axia-Analyse.Service.Interfaces")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

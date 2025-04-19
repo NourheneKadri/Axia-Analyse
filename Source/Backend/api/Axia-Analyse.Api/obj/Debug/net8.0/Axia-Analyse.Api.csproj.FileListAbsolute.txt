@@ -137,3 +137,4 @@ C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\api\Axia-Analyse.Api\bin\
 C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\api\Axia-Analyse.Api\bin\Debug\net8.0\UglyToad.PdfPig.Tokenization.dll
 C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\api\Axia-Analyse.Api\bin\Debug\net8.0\UglyToad.PdfPig.Tokens.dll
 C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\api\Axia-Analyse.Api\bin\Debug\net8.0\UglyToad.PdfPig.dll
+C:\Projects\Axia Solutions\Axia-Analyse\Source\Backend\api\Axia-Analyse.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

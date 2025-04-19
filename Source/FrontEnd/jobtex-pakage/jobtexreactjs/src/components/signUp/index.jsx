@@ -30,8 +30,11 @@ function SignUp() {
   const [name, setName] = useState('');
   const [siret, setSiret] = useState(""); // Assurez-vous que setSiret est bien initialisé
   const [phone, setPhone] = useState('');
+  const [adress, setadress] = useState('');
   const [emailCompany, setEmailCompany] = useState('');
   const [logo, setLogo] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
 
 
@@ -78,7 +81,8 @@ function SignUp() {
       email: emailCompany,  // Utilisation correcte de l'email de l'entreprise
       siret,
       phone,
-      logo
+      logo,
+      adress
     };
 
     const formData = new FormData();
@@ -88,6 +92,8 @@ function SignUp() {
       formData.append('email', emailCompany);
       formData.append('siret', siret);
       formData.append('phone', phone);
+      formData.append('adress', adress);
+
 
       // Ajouter le fichier logo s'il existe
       if (logo) {
@@ -114,16 +120,23 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Empêcher un double clic rapide
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    // Vérifier si les mots de passe correspondent
     if (password !== confirmPassword) {
       setMessage("❌ Les mots de passe ne correspondent pas !");
+      setIsSubmitting(false); // Réactiver le bouton
       return;
     }
 
     const userData = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
+      firstName,
+      lastName,
+      email,
+      password,
       companyId: companyId || null, 
       appRoleId: role === "candidate" ? 3 : 2,
     };
@@ -131,14 +144,19 @@ function SignUp() {
     try {
       await Authentification.register(userData);
       setMessage("✅ Inscription réussie ! Redirection vers la connexion...");
+      
+      // Redirection après un délai
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
       setMessage("❌ Erreur lors de l'inscription !");
       console.error("Erreur:", error);
+    } finally {
+      setIsSubmitting(false); // Réactiver le bouton après la réponse
     }
-  };
+};
+
 
   return (
     <section className="account-section">
@@ -169,6 +187,8 @@ function SignUp() {
                     setShowPass={setShowPass}
                     setShowPass2={setShowPass2}
                     handleSubmit={handleSubmit}
+                    isSubmitting={isSubmitting}
+                    setIsSubmitting={setIsSubmitting}
                     message={message}
                   />
                 )}
@@ -204,6 +224,8 @@ function SignUp() {
                     setPhone={setPhone}
                     logo={logo}
                     setLogo={setLogo}
+                    adress={adress}
+                    setadress={setadress}
                     message={message}
                     isRecruiter={true}
                     role={role}
@@ -212,6 +234,8 @@ function SignUp() {
                     //setNewCompany={setNewCompany}
                     handleCreateCompany={handleCreateCompany}
                     showModal={showModal}
+                    isSubmitting={isSubmitting}
+
                   />
                 )}
               </TabPanel>
@@ -255,9 +279,12 @@ function SignUpForm({
   emailCompany,
   setEmailCompany,
   siret,setSiret,
+  adress,setadress,
   handleLogoUpload,
   phone,setPhone,logo,setLogo,
   isRecruiter = false,
+  isSubmitting,
+  setIsSubmitting
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -344,6 +371,12 @@ function SignUpForm({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
+             <input
+              type="text"
+              placeholder="adress"
+              value={adress}
+              onChange={(e) => setadress(e.target.value)}
+            />
             <input
               type="email"
               placeholder="Email"
@@ -362,8 +395,10 @@ function SignUpForm({
         <Modal.Footer> <Button type="submit" onClick={handleCreateCompany}>Créer l'entreprise</Button></Modal.Footer>
       </Modal>
 
-                <button type="submit">S'inscrire</button>
-                {message && <div className="message">{message}</div>}
+      <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "En cours..." : "S'inscrire"}
+            </button>
+            {message && <div className="message">{message}</div>}
               </form>
             );
 }

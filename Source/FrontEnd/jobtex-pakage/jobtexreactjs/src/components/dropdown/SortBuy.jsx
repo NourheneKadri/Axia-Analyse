@@ -103,11 +103,9 @@ function SortBuy(props) {
       const response = await axios.post(API_URL, jobOffer);
 
       // Si la requête est réussie, afficher un message de succès
-      alert("Offre d'emploi ajoutée avec succès !");
       toggleModal();
     } catch (error) {
       console.error("Erreur lors de la soumission de l'offre d'emploi:", error);
-      alert("Une erreur est survenue. Veuillez réessayer.");
     }
   };
 
@@ -199,15 +197,15 @@ function SortBuy(props) {
 
             <Row className="mb-3">
             <Col md={12}>
-  <Label>Exigences</Label>
-  <Input 
-    type="text" 
-    name="requirements" 
-    value={jobOffer.requirements} 
-    onChange={handleInputChange} 
-    placeholder="Exigences spécifiques" 
-  />
-</Col>
+                <Label>Exigences</Label>
+                <Input 
+                  type="text" 
+                  name="requirements" 
+                  value={jobOffer.requirements} 
+                  onChange={handleInputChange} 
+                  placeholder="Exigences spécifiques" 
+                />
+              </Col>
               <Col md={12}>
                 <Label>Compétences requises</Label>
                 <textarea 
@@ -236,5 +234,4 @@ function SortBuy(props) {
       </>
   );
 }
-
-export default SortBuy;
+export default SortBuy; 

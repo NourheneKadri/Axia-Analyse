@@ -239,7 +239,7 @@ function Login(props) {
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                Employers Not Found
+                                 My candidancyt Found
                               </Link>
                             </li>
                           </ul>

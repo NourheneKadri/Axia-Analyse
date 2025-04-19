@@ -17,19 +17,10 @@ import JobOfferServices from "../Services/JobOfferService";
 import moment from "moment";
 import { Button, Modal, ModalBody, Form, Label, Input, Row, Col } from "reactstrap";
 import Authentification from "../Services/AuthentificationService";
+import axios from "axios";
 Jobsingle_v1.propTypes = {};
 
-const marKers = [
-  {
-    id: 1,
-    title: "Rockstar Games New York",
-    name: "Senior UI/UX Designer",
-    address: "Las Vegas, NV 89107, USA",
-    longitude: -74.00122,
-    latitude: 40.71023,
-    img: lo1,
-  },
-];
+
 
 function Jobsingle_v1(props) {
   const progressRef = useRef();
@@ -42,7 +33,10 @@ function Jobsingle_v1(props) {
    const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
   const [showModal, setShowModal] = useState(false);
-    
+  const [companyLogo, setCompanyLogo] = useState(null);
+  const [company, setCompany] = useState("");
+
+  
   const [jobDetails, setJobDetails] = useState({
     title: "",
     description: "",
@@ -69,19 +63,25 @@ const [application, setApplication] = useState({
   statusId: 1,          // Statut de la demande (ex: "En attente")
 });
 useEffect(() => {
-   
   const fetchJobOffer = async () => {
     try {
-
       const response = await JobOfferServices.getJobOfferById(id);
-      console.log(response.data);
-      setJobDetails(response.data);
+      const job = response.data;
+      setJobDetails(job);
+
+      const companyResponse = await axios.get(`http://localhost:5259/api/Authentication/company/${job.userAccountId}`);
+      setCompanyLogo(companyResponse.data.logoUrl); 
+      setCompany(companyResponse.data)
+      console.log("company" , company)
+
     } catch (error) {
-      console.error("Error fetching job offer:", error);
+      console.error("Error fetching job offer or company logo:", error);
     }
   };
+
   fetchJobOffer();
 }, [id]);
+
 
 
 const deadline = moment(jobDetails.deadlineTimestamp);
@@ -180,6 +180,18 @@ const deadline = moment(jobDetails.deadlineTimestamp);
       console.error("Erreur lors de la soumission de la candidature", error);
     }
   };
+  
+  const jobMarkers = [  // Renommage de `markers` pour éviter la redéclaration
+    {
+      id: jobDetails.id,
+      title: jobDetails.title,
+      name: jobDetails.name,
+      address: jobDetails.adress,
+      longitude: -74.00122,
+      latitude: 40.71023,
+      img: companyLogo,  // Utilisation du logo de l'entreprise
+    }
+  ];
   
   
   
@@ -391,7 +403,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                Employers Not Found
+                                 My candidancyt Found
                               </Link>
                             </li>
                           </ul>
@@ -681,7 +693,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
 
       <section className="single-job-thumb">
         <img
-          src={require("../assets/images/home.png")}
+          src={require("../assets/images/image.png")}
           alt="images"
           style={{width:"2000px"}}
         />
@@ -695,7 +707,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                 <div className="content-left">
                   <div className="thumb">
                     <img
-                      src={require("../assets/images/logo-company/cty4.png")}
+                      src={companyLogo}
                       alt="logo"
                     />
                   </div>
@@ -824,127 +836,30 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                     </p>
                     <p className="mg-19">
                     </p>
-                    <h6>The Work You'll Do:</h6>
+                    <h6>Qualifications</h6>
                     <ul className="list-dot">
-                      <li>
-                        {jobDetails.requirements}
-                      </li>
-                      <li>
-                        Make strategic and tactical UX decisions related to
-                        design and usability as well as features and functions.
-                      </li>
-                      <li>
-                        Creates low- and high-fidelity wireframes that represent
-                        a user's journey.
-                      </li>
-                      <li>
-                        Effectively pitch wireframes to and solutions to
-                        stakeholders. You'll be the greatest advocate for our
-                        work, but you'll also listen and internalize feedback so
-                        that we can come back with creative that exceeds
-                        expectations.
-                      </li>
+                    {jobDetails.requirements && (
+  <ul>
+    {jobDetails.requirements.split('\n').map((requirement, index) => (
+      <li key={index}>{requirement.replace('• ', '').trim()}</li>
+    ))}
+  </ul>
+)}
+
+                      
                     </ul>
-                    <h6>What you'll bring:</h6>
+                    <h6>Skills Required</h6>
                     <ul className="list-dot mg-bt-15">
-                      <li>
-                        Passion for Human-Centered Design-a drive to make
-                        interactive technology better for people.
-                      </li>
-                      <li>Thorough knowledge of UX/UI best practices.</li>
-                      <li>
-                        Understanding of brand identity and working within a
-                        defined design system as well as contributing to it.
-                      </li>
-                      <li>
-                        A mastery of craft. You dream about color, typography,
-                        and interaction design every day. You are proficient
-                        using tools like Figma and Adobe XD. You can efficiently
-                        use your skill set to develop new designs within
-                        existing and new visual systems and design languages.
-                      </li>
-                      <li>
-                        A portfolio which highlights strong understanding of UX
-                        design including but not limited to: user flows, IA, and
-                        translating customer research, analytics, and insights
-                        into wireframes and high-fidelity designs.
-                      </li>
-                      <li>
-                        Possess problem-solving skills, an investigative
-                        mentality, and a proactive nature-committed to
-                        delivering solutions.
-                      </li>
-                      <li>Possess problem-solving skills</li>
+                    {jobDetails.skillsRequired && (
+  <ul>
+    {jobDetails.skillsRequired.split(',').map((skill, index) => (
+      <li key={index}>{skill.trim()}</li>
+    ))}
+  </ul>
+)}
+                      
                     </ul>
-                    <h6>Qualifications:</h6>
-                    <ul className="list-dot mg-bt-15">
-                      <li>
-                        Bachelor's degree preferred, or equivalent experience.
-                      </li>
-                      <li>
-                        At least 5-8 years of experience with UX and UI design.
-                      </li>
-                      <li>
-                        2 years of experience with design thinking or similar
-                        framework that focuses on defining users' needs early.
-                      </li>
-                      <li>
-                        Strong portfolio showing expert concept, layout, and
-                        typographic skills, as well as creativity and ability to
-                        adhere to brand standards.
-                      </li>
-                      <li>
-                        Expertise in Figma, Adobe Creative Cloud suite,
-                        Microsoft suite.
-                      </li>
-                      <li>
-                        Ability to collaborate well with cross-disciplinary
-                        agency team and stakeholders at all levels.
-                      </li>
-                      <li>
-                        Forever learning: Relentless desire to learn and
-                        leverage the latest web technologies.
-                      </li>
-                      <li>
-                        Detail-oriented: You must be highly organized, be able
-                        to multi-task, and meet tight deadlines.
-                      </li>
-                      <li>
-                        Independence: The ability to make things happen with
-                        limited direction. Excellent proactive attitude,
-                        take-charge personality, and "can-do" demeanor.
-                      </li>
-                      <li>
-                        Proficiency with Front-End UI technologies a bonus but
-                        not necessary (such as HTML, CSS, JavaScript).
-                      </li>
-                    </ul>
-                    <p>
-                      For individuals assigned and/or hired to work in Colorado
-                      or Nevada, Deloitte is required by law to include a
-                      reasonable estimate of the compensation range for this
-                      role. This compensation range is specific to the State of
-                      Colorado and the State of Nevada and takes into account
-                      the wide range of factors that are considered in making
-                      compensation decisions including but not limited to skill
-                      sets; experience and training; licensure and
-                      certifications; and other business and organizational
-                      needs. The disclosed range estimate has not been adjusted
-                      for the applicable geographic differential associated with
-                      the location at which the position may be filled. At
-                      Deloitte, it is not typical for an individual to be hired
-                      at or near the top of the range for their role and
-                      compensation decisions are dependent on the facts and
-                      circumstances of each case. A reasonable estimate of the
-                      current range is $86425- $177470.
-                    </p>
-                    <p>
-                      You may also be eligible to participate in a discretionary
-                      annual incentive program, subject to the rules governing
-                      the program, whereby an award, if any, depends on various
-                      factors, including, without limitation, individual and
-                      organizational performance.
-                    </p>
+                   
                     <div className="post-navigation d-flex aln-center">
                       <div className="wd-social d-flex aln-center">
                         <span>Social Profiles:</span>
@@ -1501,35 +1416,32 @@ const deadline = moment(jobDetails.deadlineTimestamp);
             </div>
             <div className="col-lg-4">
               <div className="cv-form-details po-sticky job-sg single-stick">
-                <MapSingle marKers={marKers} />
+                <MapSingle marKers={jobMarkers}/>
                 <ul className="list-infor">
                   <li>
-                    <div className="category">Website</div>
+                    <div className="category">Company</div>
                     <div className="detail">
                       <Link to="https://themeforest.net/user/themesflat">
-                        Themesflat.vn
+                       {company.name}
                       </Link>
                     </div>
                   </li>
                   <li>
                     <div className="category">Email</div>
-                    <div className="detail">themesflat@gmail.com</div>
+                    <div className="detail">{company.email|| ''}</div>
                   </li>
                   <li>
-                    <div className="category">Industry</div>
-                    <div className="detail">Internet Publishing</div>
+                    <div className="category">Location</div>
+                    <div className="detail">{company.adress}</div>
                   </li>
                   <li>
-                    <div className="category">Company size</div>
-                    <div className="detail">51-200 employees</div>
+                    <div className="category">Phone</div>
+                    <div className="detail">{company.phone}</div>
                   </li>
-                  <li>
-                    <div className="category">Headquarters</div>
-                    <div className="detail">3 S Valley , Las Vegas, USA</div>
-                  </li>
+                 
                   <li>
                     <div className="category">Founded</div>
-                    <div className="detail">2017</div>
+                    <div className="detail">---</div>
                   </li>
                 </ul>
 

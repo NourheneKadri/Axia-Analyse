@@ -13,5 +13,7 @@ namespace Axia_Analyse.Data.Interface.IRepositories
         Task<IEnumerable<dynamic>> GetJobsByCategoryAsync();
         Task<IEnumerable<dynamic>> GetMonthlyApplicationsTrendAsync();
         Task<IEnumerable<dynamic>> GetWeeklyJobsAsync();
+        Task<List<Dictionary<string, int>>> GetVisitsByMonth();
+        Task<List<Dictionary<string, int>>> GetUsersByMonth();
     }
 }

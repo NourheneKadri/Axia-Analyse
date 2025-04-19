@@ -25,6 +25,8 @@ namespace Axia_Analyse.Data.Interface.IRepositories
 
         Task<List<JobOffer>> GetRecentJobsAsync();
         Task<IEnumerable<dynamic>> GetJobOfferCountByCompanyAsync();
+        List<JobOffer> GetJobOffersByUserAccountId(int userAccountId);
+
 
 
 

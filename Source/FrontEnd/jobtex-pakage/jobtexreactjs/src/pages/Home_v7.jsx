@@ -43,6 +43,8 @@ function Home_v7(props) {
   const [isShowMobile, setShowMobile] = useState(false);
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [userRole, setUserRole] = useState("");
+
 
 
 
@@ -61,8 +63,7 @@ function Home_v7(props) {
   const handleLogout = () => {
     const result =  Authentification.logout()
     window.href.location("http://localhost:3000/login")
-    console.log("User logged out");
-    // Redirect or clear session/cookies, etc.
+  
   };
   
   const handleMobile = () => {
@@ -76,11 +77,11 @@ function Home_v7(props) {
   useEffect(() => {
     try {
       const userId = Authentification?.getStoredUser?.(); 
-      console.log("userId", userId)// Vérifie si la méthode existe
       if (!userId) {
-        navigate("/login"); // Redirige vers login si non connecté
+        navigate("/login"); 
       } else {
         setIsAuthenticated(true);
+        setUserRole(userId.appRoleId);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération de UserAccountId :", error);
@@ -124,7 +125,7 @@ function Home_v7(props) {
                             handleToggle("home");
                           }}
                         >
-                          Home
+                          Homee
                         </Link>
                         <Collapse isOpened={toggle.key === "home"}>
                           <ul
@@ -136,35 +137,9 @@ function Home_v7(props) {
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
-                              <Link to="/">Home Page 01 </Link>
+                              <Link to="/">Home Page  </Link>
                             </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v2">Home Page 02 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v3">Home Page 03 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v4">Home Page 04 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v5">Home Page 05 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v6">Home Page 06 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile current-item">
-                              <Link to="/home_v7">Home Page 07 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v8">Home Page 08 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v9">Home Page 09 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v10">Home Page 10 </Link>
-                            </li>
+                           
                           </ul>
                         </Collapse>
                       </li>
@@ -188,46 +163,16 @@ function Home_v7(props) {
                               }`,
                             }}
                           >
+                            {userRole === 3 && (
+      <>
                             <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v1">List Layout</Link>
+                              <Link to="/joblist_v1">List </Link>
                             </li>
+                            </> )}
                             <li className="menu-item menu-item-mobile">
                               <Link to="/job-grid">Grid Layout</Link>
                             </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/job-list-sidebar">List Sidebar</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/job-grid-sidebar">Grid Sidebar</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v5">
-                                List Sidebar Fullwidth
-                              </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v6">
-                                Grid Sidebar Fullwidth
-                              </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v7">Top Map</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v8">Top Map Sidebar</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v9">Half Map - V1</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v10">Half Map - V2</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/jobsingle_v1">Jobs Single - V1</Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/jobsingle_v2">Jobs Single - V2</Link>
-                            </li>
+                            
                           </ul>
                         </Collapse>
                       </li>
@@ -290,7 +235,7 @@ function Home_v7(props) {
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                Employers Not Found
+                                 My candidancyt Found
                               </Link>
                             </li>
                           </ul>

@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Modal, ModalBody, Form, Label, Input, Row, Col } from "reactstrap";
 import SelectLocation from "../dropdown";
+import Authentification from "../../Services/AuthentificationService";
 
 
 
@@ -35,6 +36,7 @@ function JobSec1(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedJobType, setSelectedJobType] = useState("");
+  const user = Authentification.getStoredUser() 
   const options = [
     { value: "12", label: "12 Per Page" },
     { value: "1", label: "1 Per Page" },
@@ -79,12 +81,18 @@ function JobSec1(props) {
       setCurrentPage(1); // Réinitialiser la page à 1 lorsque "All Locations" est sélectionné
     }
   };
+
+  const normalizeText = (text) => {
+    if (text && typeof text === 'string') {
+      return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+    return ''; // Retourne une chaîne vide si text est undefined ou non une chaîne
+  };
   const filteredJobs = data.filter((job) => {
     
     const matchesLocation = selectedLocation && selectedLocation.label !== "All Location"
     ? job.adress.includes(selectedLocation.label)
     : true;
-    const normalizeText = (text) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     const matchesSearch = normalizeText(job.title).includes(normalizeText(searchTerm));
     const matchesJobType = selectedJobType ? job.jobTypeId.toString() === selectedJobType : true;
       return matchesSearch && matchesLocation && matchesJobType;
@@ -146,8 +154,12 @@ function JobSec1(props) {
           throw new Error("Erreur lors de la récupération des données");
         }
         const result = await response.json();
-        setData(result); 
-        result.forEach(async (job) => {
+
+        const filteredJobOffers = result.filter(job => job.userAccountId === user.userAccountId);
+        console.log("filteredJobOffers",user)
+
+        setData(filteredJobOffers); 
+        filteredJobOffers.forEach(async (job) => {
           const companyLogo = await fetchCompanyLogo(job.userAccountId);
           setCompanyLogos((prevLogos) => ({
             ...prevLogos,
@@ -241,6 +253,9 @@ function JobSec1(props) {
     return <div>Error: {error}</div>;
   }
  
+  const addJobOffer = (newJobOffer) => {
+    setData((prevOffers) => [...prevOffers, newJobOffer]);
+  };
 
 
   return (
@@ -593,7 +608,7 @@ function JobSec1(props) {
                   value={sortOptions.find((option) => option.value === sortBy)}
                   onChange={handleSortChange}
                 /> </div>
-                <SortBuy currentJobs={data} />
+                <SortBuy data={data} addJobOffer={addJobOffer} />
               </div>
             </div>
             <div className="content-tab">
@@ -785,6 +800,11 @@ function JobSec1(props) {
             onChange={handleInputChange} 
             placeholder="Titre du poste" 
             required 
+          />
+          <Input
+            type="hidden"
+            name="userAccountId"
+            value={selectedJob?.userAccountId || ''} 
           />
         </Col>
         <Col md={6}>

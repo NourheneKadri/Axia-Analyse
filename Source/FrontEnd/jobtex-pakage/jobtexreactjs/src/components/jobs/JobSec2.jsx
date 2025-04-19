@@ -6,6 +6,7 @@ import SortBuy from "../dropdown/SortBuy";
 import axios from 'axios';
 import moment from "moment";
 import SelectLocation from "../dropdown";
+import JobOfferServices from "../../Services/JobOfferService";
 
 
 function JobSec2(props) {
@@ -91,11 +92,11 @@ function JobSec2(props) {
      // Remplace l'URL ci-dessous par celle de ton API
      const fetchData = async () => {
        try {
-         const response = await fetch("http://localhost:5259/api/JobOffer"); // Remplace par ton API
-         if (!response.ok) {
-           throw new Error("Erreur lors de la récupération des données");
-         }
-         const result = await response.json();
+        const response = await JobOfferServices.getJobOffers(); // ← ICI il faut "await"
+        
+         
+         const result = response.data;
+         console.log("resp", result)
          setData(result); 
          result.forEach(async (job) => {
            const companyLogo = await fetchCompanyLogo(job.userAccountId);

@@ -68,6 +68,8 @@ function Job07(props) {
           setCompanyLogos(logosMap);
         } catch (error) {
           console.error("Erreur lors du chargement des offres", error);
+          setJobOffers([]); // Réinitialiser les offres d'emploi
+        
         }
       };
 
@@ -129,104 +131,99 @@ function Job07(props) {
               )}
             </TabList>
           </div>
-
           <div className="content-tab">
-            {categories.map((category, index) => (
-              <TabPanel key={category.id} className="row wow fadeInUp animation-tab job-tab-item">
-                {jobOffers.length > 0 ? (
-                  jobOffers.slice(0, 9).map((offer) => (
-                    <div key={offer.id} className="col-lg-4">
-                      <div className="features-job">
-                        <div className="job-archive-header">
-                          <div className="inner-box">
-                            <div className="logo-company">
-                              {companyLogos[offer.userAccountId] ? (
-                                <img src={companyLogos[offer.userAccountId]} alt="Company Logo" />
-                              ) : (
-                                <p>No Logo</p>
-                              )}
-                            </div>
-                            <div className="box-content">
-                              <h4>
-                                <Link to="/jobsingle_v1">
-                                  {categoryMap[offer.categorieId] || "Unknown Category"}
-                                </Link>
-                              </h4>
-                              <h3>
-                                <Link to="/Jobsingle_v1">{offer.title}</Link>
-                                <span className="icon-bolt"></span>
-                              </h3>
-                              <ul>
-                                <li>
-                                  <span className="icon-map-pin"></span>&nbsp;{offer.adress}
-                                </li>
-                                <li>
-                                  <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
-                                  {calculateDaysLeft(offer.deadlineTimestamp)}
-                                </li>
-                              </ul>
-                              <span className="icon-heart"></span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="job-archive-footer">
-                          <div className="job-footer-left">
-                            <ul className="job-tag">
-                               <li>
-                                                        <Link to="#">
-                                                         {(() => {
-                                                                              switch (offer.jobTypeId) {
-                                                                                case 1:
-                                                                                  return 'Full-Time';
-                                                                                case 2:
-                                                                                  return 'Part-Time';
-                                                                                case 3:
-                                                                                  return 'Freelance';
-                                                                                case 4:
-                                                                                  return 'CDD';
-                                                                                case 5:
-                                                                                  return 'CDI';
-                                                                                default:
-                                                                                  return 'Unknown Type'; // Default case if jobTypeId doesn't match
-                                                                              }
-                                                                            })()}
-                                                                          </Link></li>
-                              
-                            </ul>
-                            <div className="star">
-                              <span className="icon-star-full"></span>
-                              <span className="icon-star-full"></span>
-                              <span className="icon-star-full"></span>
-                              <span className="icon-star-full"></span>
-                              <span className="icon-star-full"></span>
-                            </div>
-                          </div>
-                          <div className="job-footer-right">
-                            <div className="price">
-                              <span className="icon-dolar1"></span>
-                              <p>
-                                {offer.salaryRange}
-                                <span className="year">/year</span>
-                              </p>
-                            </div>
-                            <p className="days">{moment(offer.timestamp).fromNow()}</p>
-                          </div>
-                        </div>
-                        <Link to="/Jobsingle_v1" className="jobtex-link-item" tabIndex="0"></Link>
-                      </div>
+  {categories.map((category, index) => (
+    <TabPanel key={category.id} className="row wow fadeInUp animation-tab job-tab-item">
+      {jobOffers && jobOffers.length > 0 ? (
+        jobOffers
+          .filter((offer) => offer.categorieId === category.id) // filtrer par catégorie si besoin
+          .slice(0, 9)
+          .map((offer) => (
+            <div key={offer.id} className="col-lg-4">
+              <div className="features-job">
+                <div className="job-archive-header">
+                  <div className="inner-box">
+                    <div className="logo-company">
+                      {companyLogos[offer.userAccountId] ? (
+                        <img src={companyLogos[offer.userAccountId]} alt="Company Logo" />
+                      ) : (
+                        <p>No Logo</p>
+                      )}
                     </div>
-                  ))
-                ) : (
-                  <p>Chargement des offres...</p>
-                )}
-                <div className="col-md-12">
-                  <div className="wrap-button">
-                    <Button2 title="See more Jobs" link="/joblist_v1" />
+                    <div className="box-content">
+                      <h4>
+                        <Link to="/jobsingle_v1">
+                          {categoryMap[offer.categorieId] || "Unknown Category"}
+                        </Link>
+                      </h4>
+                      <h3>
+                        <Link to="/Jobsingle_v1">{offer.title}</Link>
+                        <span className="icon-bolt"></span>
+                      </h3>
+                      <ul>
+                        <li>
+                          <span className="icon-map-pin"></span>&nbsp;{offer.adress}
+                        </li>
+                        <li>
+                          <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
+                          {calculateDaysLeft(offer.deadlineTimestamp)}
+                        </li>
+                      </ul>
+                      <span className="icon-heart"></span>
+                    </div>
                   </div>
                 </div>
-              </TabPanel>
-            ))}
-          </div>
+                <div className="job-archive-footer">
+                  <div className="job-footer-left">
+                    <ul className="job-tag">
+                      <li>
+                        <Link to="#">
+                          {{
+                            1: 'Full-Time',
+                            2: 'Part-Time',
+                            3: 'Freelance',
+                            4: 'CDD',
+                            5: 'CDI',
+                          }[offer.jobTypeId] || 'Unknown Type'}
+                        </Link>
+                      </li>
+                    </ul>
+                    <div className="star">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="icon-star-full"></span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="job-footer-right">
+                    <div className="price">
+                      <span className="icon-dolar1"></span>
+                      <p>
+                        {offer.salaryRange}
+                        <span className="year">/year</span>
+                      </p>
+                    </div>
+                    <p className="days">{moment(offer.timestamp).fromNow()}</p>
+                  </div>
+                </div>
+                <Link to="/Jobsingle_v1" className="jobtex-link-item" tabIndex="0"></Link>
+              </div>
+            </div>
+          ))
+      ) : (
+        <div className="col-12">
+          <p>Aucune offre disponible pour cette catégorie.</p>
+        </div>
+      )}
+
+      <div className="col-md-12">
+        <div className="wrap-button">
+          <Button2 title="See more Jobs" link="/joblist_v1" />
+        </div>
+      </div>
+    </TabPanel>
+  ))}
+</div>
+
         </div>
       </Tabs>
     </section>

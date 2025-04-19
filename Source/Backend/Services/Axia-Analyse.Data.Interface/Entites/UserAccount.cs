@@ -14,9 +14,13 @@ namespace Axia_Analyse.Data.Interface.Entites
         public string Email { get; set; }
         public string Password { get; set; }
         public int AppRoleId { get; set; }
+        public DateTime Timestamp { get;  set; }  
 
         public int? CompanyId { get; set; }
         public Company? Company { get; set; }
+
+        public string? PhotoLogo { get; set; }
+
 
     }
 }

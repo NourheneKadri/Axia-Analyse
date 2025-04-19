@@ -26,7 +26,7 @@ namespace Axia_Analyse.Data.Interface.Entites
         public int UserAccountId { get; set; }
         public DateTime? DeleteTimestamp { get; set; }
         public string status { get; set; }
-        public UserAccount UserAccount { get; set; }
+        public UserAccount? UserAccount { get; set; }
 
 
 

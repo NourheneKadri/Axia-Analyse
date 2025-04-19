@@ -70,5 +70,6 @@
     <Build Include="DataBase.Axia-Analyse.Schema\dbo\JobOfferCategories.sql" />
     <Build Include="DataBase.Axia-Analyse.Schema\dbo\JobOfferType.sql" />
     <Build Include="DataBase.Axia-Analyse.Schema\dbo\Company.sql" />
+    <Build Include="DataBase.Axia-Analyse.Schema\dbo\Slot.sql" />
   </ItemGroup>
 </Project>

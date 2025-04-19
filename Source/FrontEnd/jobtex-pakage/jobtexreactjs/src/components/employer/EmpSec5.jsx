@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SelectLocation from "../dropdown";
 import Dropdown from "react-dropdown";
 import { useMemo } from "react";
+import Authentification from "../../Services/AuthentificationService";
 
 
 EmpSec5.propTypes = {};
@@ -23,6 +24,11 @@ function EmpSec5(props) {
   const { data } = props;
   const [keyword, setKeyword] = useState('');
   const [location, setLocation] = useState('');
+  const [companies, setCompanies] = useState([]);
+  const [jobTitles, setJobTitles] = useState([]);
+
+  const user = Authentification.getStoredUser()
+
   
     
   
@@ -52,27 +58,58 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
   const handleJobCategoryChange = (value) => setJobCategory(value);
   const handleDistanceChange = (value) => setDistance(value);
   const handleCompanySizeChange = (value) => setCompanySize(value);
-  
+  const [dropdownOptions, setDropdownOptions] = useState([]); // État pour les options du dropdown
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedJobTitle, setSelectedJobTitle] = useState(''); // État pour le Job Title sélectionné
+
     
     // Filter by keyword (in job title or candidate name)
     const filteredCandidacies = useMemo(() => {
-      if (!keyword) return candidacies; // Si aucun mot-clé, affiche tout
-    
-      return candidacies.filter((candidacy) => {
-        const jobOffer = jobOffers[candidacy.jobOfferId] || {};
-    
-        // Filtre par mot-clé (nom du candidat OU titre du job)
-        const matchesKeyword = 
-          `${candidacy.firstName} ${candidacy.lastName}`.toLowerCase().includes(keyword.toLowerCase()) ||
-          (jobOffer.title && jobOffer.title.toLowerCase().includes(keyword.toLowerCase()));
-    
-        return matchesKeyword;
-      });
-    }, [candidacies, keyword, jobOffers]);
+      let result = candidacies;
+  
+      if (keyword) {
+        result = result.filter((candidacy) => {
+          const jobOffer = jobOffers[candidacy.jobOfferId] || {};
+          const matchesKeyword = 
+            `${candidacy.firstName} ${candidacy.lastName}`.toLowerCase().includes(keyword.toLowerCase()) ||
+            (jobOffer.title && jobOffer.title.toLowerCase().includes(keyword.toLowerCase()));
+          return matchesKeyword;
+        });
+      }
+  
+      if (selectedJobTitle) {
+        result = result.filter((candidacy) => {
+          const jobOffer = jobOffers[candidacy.jobOfferId] || {};
+          return jobOffer.title === selectedJobTitle; // Filtre par Job Title sélectionné
+        });
+      }
+  
+      return result;
+    }, [candidacies, keyword, jobOffers, selectedJobTitle]);
     
     // You can add more filters as necessary
   
 
+    useEffect(() => {
+      // Récupérer les job titles de l'API
+      fetch(`http://localhost:5259/api/JobOffer/by-user/${user.userAccountId}`)
+      .then((res) => res.json())
+        .then((data) => {
+          // Extraire les titres des offres d'emploi
+          const titles = [...new Set(data.map((job) => job.title))];  // Enlève les doublons avec Set
+          const options = titles.map((title, index) => ({
+            value: index,  // Valeur associée à chaque option
+            label: title,  // Ce qui est affiché dans le dropdown
+          }));
+          setDropdownOptions(options);  // Mettre à jour l'état des options
+        })
+        .catch((error) => console.error('Erreur lors de la récupération des données:', error));
+    }, []);  // Ce useEffect s'exécute une seule fois au premier rendu
+  
+    // Fonction pour gérer le changement de sélection
+    const handleSelectChange = (selected) => {
+      setSelectedJobTitle(selected.label); // Mettez à jour le Job Title sélectionné
+    };
   const getStatusColor = (statusId) => {
     switch (statusId) {
       case 1: // PENDING
@@ -91,13 +128,16 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         return 'secondary'; // Default color
     }
   };
+  
 
   useEffect(() => {
     const fetchCandidacies = async () => {
       try {
-        const candidaciesResponse = await fetch('http://localhost:5259/api/JobOfferCandidancy');
+        const candidaciesResponse = await fetch(`http://localhost:5259/api/JobOfferCandidancy/user/${user.userAccountId}`);
         const candidaciesData = await candidaciesResponse.json();
+        
         setCandidacies(candidaciesData);
+        console.log("candidaciesData" , candidaciesData)
   
         // Fetch job offers for all candidacies at once
         const jobOfferIds = [...new Set(candidaciesData.map(c => c.jobOfferId))];
@@ -186,7 +226,8 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
     }
   };
   
-
+ 
+  
 
   return (
     <section className="inner-employer-section">
@@ -207,10 +248,14 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         
         <div className="form-group-1" style={{ width: '350px' }}>
         <Dropdown
-            options={options1}
-            className="react-dropdown select-location"
-            value={options1[0]}
-          />
+        options={dropdownOptions}
+        value={selectedJobTitle}
+
+        onChange={handleSelectChange} 
+        className="react-dropdown select-location"
+          // Met à jour la sélection
+        placeholder="Job Title"
+      />
         </div>
         <div className="form-group-1" style={{ width: '350px' }}>
         <Dropdown
@@ -308,11 +353,12 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
     </tr>
   </MDBTableHead>
   <MDBTableBody>
-    {filteredCandidacies.map((candidacy) => {
-      const jobOffer = jobOffers[candidacy.jobOfferId] || { title: 'Loading...', categoryId: 'Loading...', companyLogo: null  };
-      
-      return (
-        <tr key={candidacy.id} className="border-bottom">
+  {Array.isArray(filteredCandidacies) && filteredCandidacies.length > 0 ? (
+  filteredCandidacies.map((candidacy) => {
+    const jobOffer = jobOffers[candidacy.jobOfferId] || { title: 'Loading...', categoryId: 'Loading...', companyLogo: null };
+
+    return (
+      <tr key={candidacy.id} className="border-bottom">
         <td style={{ verticalAlign: "middle" }}>
           <div className="d-flex align-items-center" style={{ gap: "8px" }}>
             <img
@@ -387,51 +433,61 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         </td>
       
         <td style={{ verticalAlign: "middle", display: 'flex', alignItems: 'center' }}>
-  <MDBBadge 
-    color="success" 
-    style={{ marginRight: '10px', cursor: 'pointer' }} 
-    pill
-    onClick={() => acceptCandidacy(candidacy.id)}
-  >
-    Accept
-  </MDBBadge>
+          <MDBBadge 
+            color="success" 
+            style={{ marginRight: '10px', cursor: 'pointer' }} 
+            pill
+            onClick={() => acceptCandidacy(candidacy.id)}
+          >
+            Accept
+          </MDBBadge>
 
-  <MDBBadge 
-    color="danger" 
-    style={{ marginRight: '10px', cursor: 'pointer' }} 
-    pill
-    onClick={() => refuseCandidacy(candidacy.id)}
-  >
-    Refuse
-  </MDBBadge>
+          <MDBBadge 
+            color="danger" 
+            style={{ marginRight: '10px', cursor: 'pointer' }} 
+            pill
+            onClick={() => refuseCandidacy(candidacy.id)}
+          >
+            Refuse
+          </MDBBadge>
 
-  <MDBBadge 
-    color="primary" 
-    style={{ marginRight: '10px', cursor: 'pointer' }} 
-    pill
-    onClick={() => UnderReviwCandidacy(candidacy.id)}
-  >
-    Under Review
-  </MDBBadge>
+          <MDBBadge 
+            color="primary" 
+            style={{ marginRight: '10px', cursor: 'pointer' }} 
+            pill
+            onClick={() => UnderReviwCandidacy(candidacy.id)}
+          >
+            Under Review
+          </MDBBadge>
 
-  <div 
-    onClick={() => {deleteCandidacy(candidacy.id) /* Add your delete functionality here */ }} 
-    style={{
-      width: '30px', 
-      height: '30px', 
-      cursor: 'pointer', 
-      zIndex: 9999,
-      marginLeft: '10px'  // Add some space between the last badge and the icon
-    }}
-  >
-    <DeleteIcon style={{ color: '#9e9e9e' }} />
-  </div>
-</td>
-
+          <div 
+            onClick={() => {deleteCandidacy(candidacy.id) /* Add your delete functionality here */ }} 
+            style={{
+              width: '30px', 
+              height: '30px', 
+              cursor: 'pointer', 
+              zIndex: 9999,
+              marginLeft: '10px'  // Add some space between the last badge and the icon
+            }}
+          >
+            <DeleteIcon style={{ color: '#9e9e9e' }} />
+          </div>
+        </td>
       </tr>
-      
-      );
-    })}
+    );
+  })
+) : (
+  <p 
+  style={{
+    color: '#888',
+    
+  }}
+>
+  Aucune candidature disponible pour le moment.
+</p>
+
+)}
+
   </MDBTableBody>
 </MDBTable>
 

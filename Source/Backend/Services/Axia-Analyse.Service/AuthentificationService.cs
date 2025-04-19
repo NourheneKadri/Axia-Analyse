@@ -35,7 +35,7 @@ namespace Axia_Analyse.Service
                 return null; // Return null if password verification fails
             }
 
-            var token = TokenService.GetAuthData(userAccount.Email);
+            var token = TokenService.GetAuthData(userAccount.Id.ToString(),userAccount.Email);
             return new LoginResponseDto
             {
                 Email = userAccount.Email,
@@ -46,18 +46,16 @@ namespace Axia_Analyse.Service
         }
         public async Task<bool> RegisterAsync(UserAccountRegisterDto userDto)
         {
-            // Vérifier si l'utilisateur existe déjà
             var existingUser = await _userRepository.GetUserAccountByEmailAsync(userDto.Email);
             if (existingUser != null)
             {
-                return false; // L'utilisateur existe déjà
+                return false; 
             }
 
 
-            // Hacher le mot de passe de l'utilisateur
+           
             var hashedPassword = _passwordHasher.HashPassword(userDto.Password);
 
-            // Créer un nouvel utilisateur avec les informations
             var newUser = new UserAccount
             {
                 FirstName = userDto.FirstName,
@@ -65,20 +63,21 @@ namespace Axia_Analyse.Service
                 Password = hashedPassword,
                 Email = userDto.Email,
                 AppRoleId = userDto.AppRoleId,
-                CompanyId = userDto.companyId.HasValue ? userDto.companyId : null
+                CompanyId = userDto.companyId.HasValue ? userDto.companyId : null,
+                Timestamp = DateTime.UtcNow 
+
             };
 
-            // Créer l'utilisateur dans la base de données
             await _userRepository.CreateUserAccountAsync(newUser);
 
-            return true; // Retourner true pour indiquer que l'enregistrement a réussi
+            return true; 
         }
 
         public async Task<Company> GetCompanyByUserAccountIdAsync(int userAccountId)
         {
-            // Récupérer l'utilisateur avec la société associée
+           
             return await _userRepository.GetCompanyByUserAccountIdAsync(userAccountId);
-            // Retourner la société associée
+         
             
         }
         public async Task<bool> CreateUserAccountAsync(UserAccount userAccount)
@@ -103,6 +102,10 @@ namespace Axia_Analyse.Service
             return await _userRepository.GetAllUsersAsync();
         }
 
+        public async Task<UserAccount> GetUserAccountByIdAsync(int userId)
 
+        {
+            return await _userRepository.GetUserAccountByIdAsync(userId);
+        }
     }
 }

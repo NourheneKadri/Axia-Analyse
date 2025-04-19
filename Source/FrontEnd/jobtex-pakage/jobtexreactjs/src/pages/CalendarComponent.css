@@ -1,0 +1,423 @@
+.scheduler-container {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    width: 100%;
+    height: 100vh; /* <-- Prend toute la hauteur visible de l'écran */
+      margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    background-color: white;
+    color: #333;
+  
+    border: 1px solid var(--text-color-level3, rgba(26, 26, 26, 0.1));
+    border-radius: 8px;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 8%);
+  }
+  
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 20px;
+  }
+  
+  .left-column,
+  .center-column,
+  .right-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .meeting-card {
+    background-color: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  
+  /* Styles colonne gauche */
+  .left-column .meeting-card {
+    height: 100%;
+  }
+  .react-calendar__tile {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin: 5px auto;
+    transition: background 0.3s ease;
+  }
+  
+  .react-calendar__tile--active {
+    background: #2a8ef0;
+    color: white;
+  }
+  
+  .react-calendar__tile--now {
+    border: 1px solid #2a8ef0;
+  }
+  
+  .left-column h1 {
+    font-size: 29px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .meeting-details {
+    font-size: 14px;
+    color: var(--text-color-level2, rgba(26, 26, 26, 0.61));
+    font-weight: bold;
+    
+    
+  }
+  
+  .duration {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .duration input {
+    margin-right: 8px;
+  }
+  
+  /* Styles calendrier */
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .nav-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 10px;
+    position: relative;
+      z-index: 1;
+      display: inline-flex
+  ;
+      justify-content: center;
+      align-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      color: var(--primary-color, rgb(0, 105, 255));
+      background-color: var(--primary-color-level4, rgba(0, 105, 255, 0.065));
+  
+    
+  }
+  body {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* facultatif : fond doux */
+    color: #333; /* texte de base */
+  }
+  
+  
+  
+  .nav-button:hover {
+    background-color: var(--primary-color-level4, rgba(0, 106, 255, 0.129));
+  
+  
+  
+  }
+  
+  .calendar-month {
+    display: flex;
+      justify-content: center;
+      width: 125px;
+      margin: 0 5px;
+      font-weight: normal;
+      font-size: 16px;
+  }
+  
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .day-header {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 0;
+    color: #666;
+  }
+  
+  .day-cell {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  
+  /* Jours passés : fond blanc, texte noir */
+  .day-cell.past-day {
+    background-color: white;
+    color: black;
+    font-weight: normal;
+  }
+  
+  /* Jours futurs : fond bleu clair, texte bleu */
+  .day-cell.future-day {
+    background-color: var(--primary-color-level4, rgba(0, 106, 255, 0.129));
+    color: #0060e6;
+    font-weight: 650;
+  }
+  
+  /* Week-ends : gris clair, désactivés */
+  .day-cell.weekend {
+    background-color: #f7f7f7;
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  
+  /* Jour sélectionné : bleu foncé avec texte blanc */
+  .day-cell.selected {
+    background-color: #0060e6;
+    color: white;
+    font-weight: bold;
+  }
+  .time-slot-btn.reserved {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .time-slot-btn.reserved {
+    background-color: #f44336; /* Red background */
+    color: white;
+    cursor: not-allowed; /* Make the button look disabled */
+    text-decoration: line-through; /* Optional: Strikethrough the text */
+  }
+  
+  .time-slot-btn:disabled {
+    background-color: #ddd; /* Light gray background */
+    cursor: not-allowed;
+  }
+  
+  .day-cell.empty {
+    visibility: hidden;
+  }
+  
+  .timezone-section {
+    margin-top: 15px;
+  }
+  
+  .timezone-label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .timezone-selector {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+  }
+  
+  .dropdown-icon {
+    margin-left: 5px;
+    font-size: 10px;
+  }
+  
+  /* Styles créneaux horaires */
+  .time-slots-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .selected-date-display {
+    margin-bottom: 15px;
+  }
+  
+  .selected-date {
+    font-weight: 600;
+    color: #0060e6;
+  }
+  
+  .time-slots-header {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .time-slots-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px 0;
+    scrollbar-width: thin;
+    cursor: grab;
+    
+  }
+  
+  .time-slots-container.dragging {
+    cursor: grabbing;
+    scroll-snap-type: x mandatory;
+    
+  }
+  
+  .time-slots-grid {
+    display: inline-flex;
+    gap: 10px;
+    padding: 0 15px;
+    
+  }
+  
+  .time-slot-btn {
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #0060e6;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    scroll-snap-align: start;
+    font-weight: 650;
+  }
+  
+  .time-slot-btn.selected {
+    background-color: #0060e6;
+    color: white;
+  }
+  
+  .time-slots-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .time-slots-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  
+  .time-slots-container::-webkit-scrollbar-thumb {
+    background-color: #0060e6;
+    border-radius: 3px;
+  }
+  
+  /* Confirmation */
+  .confirmation-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e1e1e1;
+  }
+  
+  .confirm-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0060e6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .confirm-button:hover {
+    background-color: var(--primary-color-level4, rgba(0, 106, 255, 0.129));
+  }
+  
+  /* Message quand aucune date sélectionnée */
+  .no-date-selected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #666;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .layout-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Styles spécifiques pour le défilement vertical */
+  .right-column {
+    height: 100%;
+  }
+  
+  .time-slots-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .time-slots-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin: 10px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #0060e6 #f0f0f0;
+  }
+  
+  .time-slots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 5px;
+  }
+  
+  /* Style de la scrollbar verticale */
+  .time-slots-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .time-slots-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+  }
+  
+  .time-slots-container::-webkit-scrollbar-thumb {
+    background-color: #0060e6;
+    border-radius: 3px;
+  }
+  
+  /* Boutons de créneau */
+  .time-slot-btn {
+    padding: 12px;
+    text-align: center;
+    background: white;
+    border: 1px solid #7fb4ff;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--primary-color, rgb(0, 105, 255));
+    font-weight: 650;
+      transition: all 0.2s;
+  }
+  
+  .time-slot-btn:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .time-slot-btn.selected {
+    background-color: #0060e6;
+    color: white;
+  }
+  
+  /* Section de confirmation fixe */
+  .confirmation-section {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #e1e1e1;
+  }

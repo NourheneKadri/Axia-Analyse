@@ -51,6 +51,20 @@ namespace Axia_Analyse.Controllers
             var weeklyJobs = await _dashboardService.GetWeeklyJobsAsync();
             return Ok(weeklyJobs);
         }
+
+        [HttpGet("website-visits")]
+        public async Task<IActionResult> GetWebsiteVisits()
+        {
+            var response = await _dashboardService.GetWebsiteVisitsStatistics();
+            return Ok(response);
+        }
+        [HttpGet("monthly-users")]
+        public async Task<IActionResult> GetMonthlyUsers()
+        {
+            var monthlyUsers = await _dashboardService.GetUsersByMonth(); // Appel à la méthode que nous avons définie précédemment
+            return Ok(monthlyUsers);
+        }
+
     }
-    }
+}
 

@@ -44,37 +44,7 @@ function HeaderHome2({ clname = "", handleMobile }) {
                             <li className="menu-item">
                               <NavLink to="/">Home Page 01 </NavLink>
                             </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v2">Home Page 02 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v3">Home Page 03 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v4">Home Page 04 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v5">Home Page 05 </NavLink>
-                            </li>
-                          </ul>
-
-                          <ul className="sub-menu-bar">
-                            <li className="menu-item">
-                              <NavLink to="/home_v6">Home Page 06 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v7">Home Page 07 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v8">Home Page 08 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v9">Home Page 09 </NavLink>
-                            </li>
-                            <li className="menu-item">
-                              <NavLink to="/home_v10">Home Page 10 </NavLink>
-                            </li>
-                          </ul>
+                                                     </ul>
                         </div>
                       </li>
                       <li className="menu-item menu-item-has-children">
@@ -213,7 +183,7 @@ function HeaderHome2({ clname = "", handleMobile }) {
                           </li>
                           <li className="nav-sub">
                             <NavLink to="/employernotfound">
-                              Employers Not Found
+                               My candidancyt Found
                             </NavLink>
                           </li>
                           <li className="nav-sub">

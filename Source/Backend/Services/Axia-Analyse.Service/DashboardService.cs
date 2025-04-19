@@ -40,6 +40,28 @@ namespace Axia_Analyse.Service
         {
             return await _dashboardRepository.GetWeeklyJobsAsync();
         }
+        public async Task<object> GetWebsiteVisitsStatistics()
+        {
+            var visits = await _dashboardRepository.GetVisitsByMonth();
+            var roles = visits.SelectMany(v => v.Keys).Distinct().Where(k => k != "Month").ToList();
+
+            var series = roles.Select(role => new
+            {
+                name = role,
+                data = visits.Select(v => v.ContainsKey(role) ? v[role] : 0).ToList()
+            }).ToList();
+
+            return new
+            {
+                categories = visits.Select(v => v["Month"]).ToList(),
+                series
+            };
+
+        }
+        public async Task<List<Dictionary<string, int>>> GetUsersByMonth()
+        {
+            return await _dashboardRepository.GetUsersByMonth();
+        }
     }
 
 

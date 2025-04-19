@@ -164,6 +164,12 @@ namespace Axia_Analyse.Data.Repositories
 
             return result;
         }
+        public List<JobOffer> GetJobOffersByUserAccountId(int userAccountId)
+        {
+            return _dbContext.JobOffer
+                           .Where(j => j.UserAccountId == userAccountId)
+                           .ToList();
+        }
 
 
     }

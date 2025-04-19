@@ -79,6 +79,7 @@ import JobCandidancy from "./pages/JobOfferCandidancy";
 import { AppRoleIds}from "./constante/AppRoles";
 import { getAuthorizedRoutes } from "./routeUtils";
 import AccessDenied from "./AccesDenied";
+import CandidatCandidancy from "./pages/CandidatCandidancy";
 const App = () => {
   let routes = useRoutes(getAuthorizedRoutes([
     { path: "/", element: <Home_v7 /> },
@@ -115,7 +116,7 @@ const App = () => {
     { path: "/employersingle_v1", element: <Employersingle_v1 /> },
     { path: "/employersingle_v2", element: <Employersingle_v2 /> },
     { path: "/employerreview", element: <EmployerReview /> },
-    { path: "/employernotfound", element: <Employernotfound /> },
+    { path: "/employernotfound", element: <CandidatCandidancy /> },
     { path: "/employerdashboard", element: <Employerdashboard /> },
     { path: "/candidates_v1", element: <Candidates_v1 /> },
     { path: "/candidates_v2", element: <Candidates_v2 /> },

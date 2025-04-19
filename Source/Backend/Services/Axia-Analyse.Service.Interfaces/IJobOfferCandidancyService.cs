@@ -18,5 +18,6 @@ namespace Axia_Analyse.Service.Interfaces
         Task<List<UserAccount>> GetCandidateProfilesByJobOfferId(int jobOfferId);
         Task<IEnumerable<JobOfferCandidancy>> GetSortedCandidaturesAsync(string sortBy);
         Task<bool> UpdateCandidacyStatusAsync(int candidateId, int jobOfferId, int statusId);
+        Task<List<JobOfferCandidancy>> GetCandidaciesByUserAccountIdAsync(int userAccountId);
     }
 }

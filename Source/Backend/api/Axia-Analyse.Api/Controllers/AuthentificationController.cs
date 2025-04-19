@@ -37,7 +37,6 @@ namespace Axia_Analyse.Controllers
                 return BadRequest("Invalid login data.");
             }
 
-            // Call the LoginAsync method from the service
             var loginResponse = await _authenticationService.LoginAsync(loginDto);
 
             if (loginResponse == null)
@@ -45,7 +44,6 @@ namespace Axia_Analyse.Controllers
                 return Unauthorized("Invalid credentials.");
             }
 
-            // Return Ok with the login response if credentials are valid
             return Ok(loginResponse);
         }
 
@@ -94,13 +92,11 @@ namespace Axia_Analyse.Controllers
             }
 
             // 📌 Générer un token JWT pour la session de l'utilisateur
-            var token = TokenService.GetAuthData(user.Email);  // Token basé sur l'email
 
             return Ok(new
             {
                 Message = "Authentification réussie !",
                 Email = user.Email,
-                Token = token  // Retourner le token JWT au client
             });
         }
 

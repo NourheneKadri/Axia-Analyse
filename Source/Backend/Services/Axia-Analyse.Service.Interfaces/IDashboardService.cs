@@ -13,5 +13,7 @@ namespace Axia_Analyse.Service.Interfaces
         Task<IEnumerable<dynamic>> GetJobsByCategoryAsync();
         Task<IEnumerable<dynamic>> GetMonthlyApplicationsTrendAsync();
         Task<IEnumerable<dynamic>> GetWeeklyJobsAsync();
+        Task<object> GetWebsiteVisitsStatistics();
+        Task<List<Dictionary<string, int>>> GetUsersByMonth();
     }
 }

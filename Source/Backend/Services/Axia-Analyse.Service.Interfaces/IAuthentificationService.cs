@@ -11,6 +11,7 @@ namespace Axia_Analyse.Service.Interfaces
     public interface IAuthentificationService
     {
         Task<bool> RegisterAsync(UserAccountRegisterDto userDto);
+        Task<UserAccount> GetUserAccountByIdAsync(int userId);
         Task<LoginResponseDto> LoginAsync(UserAccountLoginDto loginDto);
         Task<Company> GetCompanyByUserAccountIdAsync(int userAccountId);
         Task<bool> CreateUserAccountAsync(UserAccount userAccount);

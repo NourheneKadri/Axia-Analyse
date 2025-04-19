@@ -256,7 +256,7 @@ function Employernotfound(props) {
                             </li>
                             <li className="menu-item current-item">
                               <Link to="/employernotfound">
-                                Employers Not Found
+                                 My candidancyt Found
                               </Link>
                             </li>
                           </ul>

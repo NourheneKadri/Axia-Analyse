@@ -450,7 +450,7 @@ function Header({ clname = "", handleMobile }) {
                           <ul className="sub-menu-bar">
                             <li className="menu-item">
                               <NavLink to="/" className="nav1">
-                                Home Page 01{" "}
+                                Home Page{" "}
                               </NavLink>
                             </li>
                             <li className="menu-item">
@@ -623,7 +623,7 @@ function Header({ clname = "", handleMobile }) {
                           </li>
                           <li className="nav-sub">
                             <NavLink to="/employernotfound">
-                              Employers Not Found
+                               My candidancyt Found
                             </NavLink>
                           </li>
                           <li className="nav-sub">

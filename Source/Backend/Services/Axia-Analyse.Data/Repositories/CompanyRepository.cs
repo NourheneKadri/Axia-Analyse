@@ -48,34 +48,68 @@ namespace Axia_Analyse.Data.Repositories
 
         public async Task<bool> DeleteCompanyAsync(int id)
         {
-            // Récupérer l'entreprise à supprimer
-            var company = await _dbContext.company
-                .FirstOrDefaultAsync(c => c.Id == id);
+            // Démarrer une transaction
+            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            if (company == null)
-                return false;
-
-            // Récupérer tous les utilisateurs associés à l'entreprise
-            var users = await _dbContext.UserAccount.Where(u => u.CompanyId == company.Id).ToListAsync();
-
-            // Mettre la colonne CompanyId à NULL pour dissocier les utilisateurs de l'entreprise
-            foreach (var user in users)
+            try
             {
-                user.CompanyId = null;
+                // 1. Vérifier l'existence de l'entreprise
+                var company = await _dbContext.company.FindAsync(id);
+                if (company == null)
+                {
+                    await transaction.RollbackAsync();
+                    return false;
+                }
+
+                // 2. Get all user IDs for the company first
+                var userIds = await _dbContext.UserAccount
+                    .Where(u => u.CompanyId == id)
+                    .Select(u => u.Id)
+                    .ToListAsync();
+
+                // 3. Get all job offer IDs for these users
+                var jobOfferIds = await _dbContext.JobOffer
+                    .Where(j => userIds.Contains(j.UserAccountId))
+                    .Select(j => j.Id)
+                    .ToListAsync();
+
+                // 4. Suppression en cascade optimisée
+                // a. Supprimer les candidatures liées aux offres
+                await _dbContext.JobOfferCandidancy
+                    .Where(a => jobOfferIds.Contains(a.JobOfferId))
+                    .ExecuteDeleteAsync();
+
+                // b. Supprimer les offres d'emploi
+                await _dbContext.JobOffer
+                    .Where(j => userIds.Contains(j.UserAccountId))
+                    .ExecuteDeleteAsync();
+
+                // c. Supprimer les utilisateurs de l'entreprise
+                await _dbContext.UserAccount
+                    .Where(u => u.CompanyId == id)
+                    .ExecuteDeleteAsync();
+
+                // 5. Supprimer l'entreprise
+                _dbContext.company.Remove(company);
+                await _dbContext.SaveChangesAsync();
+
+                // 6. Valider la transaction
+                await transaction.CommitAsync();
+                return true;
             }
-
-            // Sauvegarder les changements
-            await _dbContext.SaveChangesAsync();
-
-            // Supprimer l'entreprise
-            _dbContext.company.Remove(company);
-
-            // Sauvegarder les changements pour supprimer l'entreprise
-            await _dbContext.SaveChangesAsync();
-
-            return true;
+            catch (DbUpdateConcurrencyException ex)
+            {
+                await transaction.RollbackAsync();
+                // Log : $"Concurrency conflict deleting company {id}: {ex.Message}"
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                // Log : $"Error deleting company {id}: {ex.Message}"
+                return false;
+            }
         }
-
 
 
 
