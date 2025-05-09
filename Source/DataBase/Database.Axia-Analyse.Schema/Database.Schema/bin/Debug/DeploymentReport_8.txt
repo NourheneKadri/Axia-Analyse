@@ -1,0 +1,47 @@
+﻿** Highlights
+     Tables that will be recreated with data migrated
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[AppRole] (Table)
+       [dbo].[Company] (Table)
+       [dbo].[interview] (Table)
+       [dbo].[InterviewStatus] (Table)
+       [dbo].[JobOffer] (Table)
+       [dbo].[JobOfferCandidancy] (Table)
+       [dbo].[JobOfferCandidancyStatus] (Table)
+       [dbo].[JobOfferCategories] (Table)
+       [dbo].[JobOfferType] (Table)
+       [dbo].[Slot] (Table)
+       [dbo].[UserAccount] (Table)
+       Default Constraint: unnamed constraint on [dbo].[interview] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[interview] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[JobOffer] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[JobOfferCandidancy] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[JobOfferCandidancy] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Slot] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Slot] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Slot] (Default Constraint)
+       [dbo].[FK_Interview_CandidateProfile] (Foreign Key)
+       [dbo].[FK_Interview_RecruiterProfile] (Foreign Key)
+       [dbo].[FK_Interview_InterviewStatus] (Foreign Key)
+       [dbo].[FK_Interview_JobOffer] (Foreign Key)
+       [dbo].[Interview_SlotId] (Foreign Key)
+       [dbo].[JobOffer_UserAccount] (Foreign Key)
+       [dbo].[JobOffer_JobOfferTypes] (Foreign Key)
+       [dbo].[JobOffer_JCategorie] (Foreign Key)
+       [dbo].[JobOfferCandidancy_CandidateProfileId] (Foreign Key)
+       [dbo].[JobOfferCandidancy_JobOfferId] (Foreign Key)
+       [dbo].[JobOfferCandidancy_StatusId] (Foreign Key)
+       [dbo].[Slots_RecruiterId] (Foreign Key)
+       [dbo].[UserAccount_AppRoleId] (Foreign Key)
+       [dbo].[UserAccount_CompanyId] (Foreign Key)
+
+** Supporting actions

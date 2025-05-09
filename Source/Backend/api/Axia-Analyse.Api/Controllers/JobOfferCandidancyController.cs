@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Axia_Analyse.Service;
 using Axia_Analyse.Data.Interface.Entites;
 using CloudinaryDotNet;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Globalization;
+using System.Text.Json;
 
 namespace Axia_Analyse.Controllers
 {
@@ -86,7 +89,7 @@ namespace Axia_Analyse.Controllers
                 if (jobOffer != null)
                 {
                     // Appel à l'API Gemini
-                    var matchingScore = await _geminiService.GetMatchingScoreAsync(cvText, jobOffer.Description);
+                    var matchingScore = await _geminiService.GetMatchingScoreAsync(cvText, jobOffer.Description, jobOffer.SkillsRequired, jobOffer.Title, jobOffer.Requirements);
 
                     // Afficher le score dans la console (test)
                     Console.WriteLine($"Matching Score: {matchingScore}");
@@ -139,7 +142,9 @@ namespace Axia_Analyse.Controllers
             }
         }
 
-        // Get candidate profiles by job offer ID
+
+        
+            // Get candidate profiles by job offer ID
         [HttpGet("jobOffer/{jobOfferId}/candidates")]
         [AllowAnonymous]
         public async Task<IActionResult> GetCandidateProfilesByJobOfferId(int jobOfferId)
@@ -181,5 +186,99 @@ namespace Axia_Analyse.Controllers
 
             return Ok(candidacies);
         }
+
+
+        [HttpPost("send-invitation")]
+        public async Task<IActionResult> SendInterviewInvitation([FromBody] InterviewInvitationDto dto)
+        {
+            await _mailNotificationService.SendEmailNotification(dto);
+
+            return Ok("Invitation envoyée avec succès !");
+        }
+        [HttpPost("recommendations")]
+        public async Task<IActionResult> GetRecommendedJobsFromCv([FromForm] CvInputModel model)
+        {
+            if (model.CvFile != null)
+            {
+                var cvUrl = await _cloudinaryService.UploadCVAsync(model.CvFile);
+                model.CvFileUrl = cvUrl;
+            }
+
+            string cvText = await _pdfService.ExtractTextFromPdf(model.CvFileUrl);
+
+            var allJobs =  _jobOfferService.GetAll();
+            var recommendations = new List<(JobOffer job, double score)>();
+
+            foreach (var job in allJobs)
+            {
+                string responseJson = await _geminiService.GetMatchingScoreAsync(cvText, job.Description, job.SkillsRequired, job.Title,job.Requirements);
+
+                using (JsonDocument doc = JsonDocument.Parse(responseJson))
+                {
+                    string scoreText = doc.RootElement
+                                          .GetProperty("parts")[0]
+                                          .GetProperty("text")
+                                          .GetString()
+                                          .Trim();
+
+                    if (double.TryParse(scoreText, NumberStyles.Any, CultureInfo.InvariantCulture, out double scoreAsDouble))
+                    {
+                        if (scoreAsDouble >= 50)
+                        {
+                            recommendations.Add((job, scoreAsDouble));
+                        }
+                    }
+                }
+            }
+
+            var topJobs = recommendations
+                .OrderByDescending(x => x.score)
+                .Take(5)
+                .Select(x => x.job)
+                .ToList();
+
+            return Ok(topJobs);
+        }
+        [HttpPost("chat")]
+        public async Task<IActionResult> Post([FromBody] ChatRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Message))
+                return BadRequest("Message vide");
+
+            // Ajouter le message utilisateur dans l'historique
+            ChatMemory.History.Add(("user", request.Message));
+
+            var response = await _geminiService.GetChatResponseAsync(ChatMemory.History);
+
+            // Ajouter la réponse de Gemini dans l'historique
+            ChatMemory.History.Add(("model", response));
+
+            return Ok(new { reply = response });
+        }
+
+
+        [HttpPost("improve")]
+        public async Task<IActionResult> ImproveCv([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("Aucun fichier fourni.");
+
+            string cvUrl = await _cloudinaryService.UploadCVAsync(file);
+
+            if (string.IsNullOrWhiteSpace(cvUrl))
+                return BadRequest("Échec de l'upload du fichier.");
+
+            string cvText = await _pdfService.ExtractTextFromPdf(cvUrl);
+
+            if (string.IsNullOrWhiteSpace(cvText))
+                return BadRequest("Le fichier ne contient pas de texte exploitable.");
+
+            string improvedCv = await _geminiService.ExtractDefectsWithImprovementAsync(cvText);
+
+            return Ok(new { improvedCv });
+        }
+
+
+
     }
 }

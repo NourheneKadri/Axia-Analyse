@@ -1,5 +1,6 @@
 ﻿using Axia_Analyse.Data.Interface.Entites;
 using Axia_Analyse.Data.Interface.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace Axia_Analyse.Data.Repositories
             _context = context;
         }
 
+
+        public async Task<IEnumerable<Interview>> GetAllInterviewsAsync()
+        {
+            return await _context.Interview.ToListAsync();
+        }
         public async Task CreateInterviewAsync(Interview interview)
         {
             _context.Interview.Add(interview);

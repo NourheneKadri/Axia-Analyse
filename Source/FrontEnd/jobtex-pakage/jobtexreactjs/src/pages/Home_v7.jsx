@@ -8,6 +8,7 @@ import Job07 from "../components/jobs/Job07";
 import dataJobs from "../assets/fakeData/dataJobs";
 import Location from "../components/location";
 import dataLocation from "../assets/fakeData/dataLocation";
+import ChatWidget from "./ChatWidget";
 
 import Box07 from "../components/boxicon/Box07";
 import Couter from "../components/iconbox/Couter";
@@ -74,6 +75,7 @@ function Home_v7(props) {
       : getMobile.classList.remove("modal-menu--open");
   };
 
+  /*
   useEffect(() => {
     try {
       const userId = Authentification?.getStoredUser?.(); 
@@ -88,7 +90,7 @@ function Home_v7(props) {
       navigate("/login"); // Redirige en cas d'erreur
     }
   }, [navigate]);
-
+*/
  
   return (
     <>
@@ -125,7 +127,7 @@ function Home_v7(props) {
                             handleToggle("home");
                           }}
                         >
-                          Homee
+                          Home
                         </Link>
                         <Collapse isOpened={toggle.key === "home"}>
                           <ul
@@ -531,8 +533,10 @@ function Home_v7(props) {
       <Category07 data={dataCate} />
 
       <Job07 data={dataJobs} className="jobs-section" />
+      <ChatWidget />
 
       <Location data={dataLocation} />
+
       <Box07 />
 
       <div className="container">

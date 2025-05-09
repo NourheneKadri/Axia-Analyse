@@ -22,14 +22,12 @@ namespace Axia_Analyse.Service
         // Créer une nouvelle entreprise
         public async Task<Company> CreateCompanyAsync(CompanyDto companyDto)
         {
-            // Vérifier si une entreprise avec le même SIRET existe déjà
             bool exists = await _companyRepository.ExistsBySiretAsync(companyDto.SIRET);
             if (exists)
             {
                 throw new Exception("Une entreprise avec ce SIRET existe déjà.");
             }
 
-            // Convertir le DTO en entité
             var company = new Company
             {
                 Name = companyDto.Name,

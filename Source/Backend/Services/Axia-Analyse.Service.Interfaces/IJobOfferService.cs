@@ -12,7 +12,8 @@ namespace Axia_Analyse.Service.Interfaces
     {
         JobOffer GetById(int id);
         IEnumerable<JobOffer> GetAll();
-        bool Add(JobOfferDto jobOfferDto);
+
+        Task<bool> Add(JobOfferDto jobOfferDto);
         bool Update(JobOffer jobOffer);
         bool Remove(int jobOfferId);
         Task<IEnumerable<JobOffer>> SearchJobOffersAsync(string? title, string? address, int? categoryId); 
@@ -23,6 +24,13 @@ namespace Axia_Analyse.Service.Interfaces
         Task<IEnumerable<JobOffer>> GetJobOffersByCategoryIdAsync(int categoryId);
         Task<IEnumerable<dynamic>> GetJobOfferCountByCompanyAsync();
         List<JobOffer> GetJobOffersByUserAccountId(int userAccountId);
+        IEnumerable<JobOffer> GetActive();
+        Task<List<string>> GetTitleSuggestionsAsync(string query);
+        Task<IEnumerable<JobOffer>> GetActiveOffersByCompanyId(int companyId);
+
+
+
+
 
 
 

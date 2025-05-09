@@ -14,6 +14,7 @@ import SelectLocation from "../dropdown";
 import Dropdown from "react-dropdown";
 import { useMemo } from "react";
 import Authentification from "../../Services/AuthentificationService";
+import JobOfferServices from "../../Services/JobOfferService";
 
 
 EmpSec8.propTypes = {};
@@ -89,23 +90,33 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
     
     // You can add more filters as necessary
   
-
     useEffect(() => {
-      // Récupérer les job titles de l'API
-      fetch(`http://localhost:5259/api/JobOffer/by-user/${user.userAccountId}`)
-      .then((res) => res.json())
-        .then((data) => {
-          // Extraire les titres des offres d'emploi
-          const titles = [...new Set(data.map((job) => job.title))];  // Enlève les doublons avec Set
-          const options = titles.map((title, index) => ({
-            value: index,  // Valeur associée à chaque option
-            label: title,  // Ce qui est affiché dans le dropdown
-          }));
-          setDropdownOptions(options);  // Mettre à jour l'état des options
+      const user = Authentification.getStoredUser(); // Assure-toi que le user est bien récupéré ici
+    
+      fetch(`http://localhost:5259/api/JobOffer/by-user/${user.userAccountId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`, // Ajout du token ici
+        },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Erreur lors de la récupération des offres");
+          return res.json();
         })
-        .catch((error) => console.error('Erreur lors de la récupération des données:', error));
-    }, []);  // Ce useEffect s'exécute une seule fois au premier rendu
-  
+        .then((data) => {
+          const titles = [...new Set(data.map((job) => job.title))];
+          const options = titles.map((title, index) => ({
+            value: index,
+            label: title,
+          }));
+          setDropdownOptions(options);
+        })
+        .catch((error) =>
+          console.error("Erreur lors de la récupération des données:", error)
+        );
+    }, []);
+    
     // Fonction pour gérer le changement de sélection
     const handleSelectChange = (selected) => {
       setSelectedJobTitle(selected.label); // Mettez à jour le Job Title sélectionné
@@ -115,7 +126,7 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
       case 1: // PENDING
         return 'warning'; // Yellow
       case 2: // UNDER_REVIEW
-        return 'info'; // Blue
+        return 'secondary'; // Blue
       case 3: // INTERVIEW_SCHEDULED
         return 'primary'; // Blue
       case 4: // INTERVIEW_COMPLETED
@@ -144,8 +155,9 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         const jobOfferIds = [...new Set(candidaciesData.map(c => c.jobOfferId))];
         jobOfferIds.forEach(async (jobOfferId) => {
           if (!jobOffers[jobOfferId]) {
-            const jobOfferResponse = await fetch(`http://localhost:5259/api/JobOffer/${jobOfferId}`);
-            const jobOfferData = await jobOfferResponse.json();
+            const jobOfferResponse = await JobOfferServices.getJobOfferById(jobOfferId)
+            const jobOfferData =  jobOfferResponse.data;
+            console.log("jobOfferData", jobOfferData)
             const companyResponse = await fetch(`http://localhost:5259/api/Authentication/company/${jobOfferData.userAccountId}`);
             const companyData = await companyResponse.json();
             
@@ -162,8 +174,8 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
 
         const jobOffersData = await Promise.all(
           jobOfferIds.map(async (jobOfferId) => {
-            const jobOfferResponse = await fetch(`http://localhost:5259/api/JobOffer/${jobOfferId}`);
-            return jobOfferResponse.json();  // Retourner les données de l'offre d'emploi
+            const jobOfferResponse = await JobOfferServices.getJobOfferById(jobOfferId)
+            return jobOfferResponse.data;  // Retourner les données de l'offre d'emploi
           })
         );
         const titles = jobOffersData.map((offer) => offer.title); // Récupérer les titres des offres d'emploi
@@ -406,7 +418,7 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         <td style={{ verticalAlign: "middle" }}>
           <MDBBadge color={getStatusColor(candidacy.statusId)} pill>
             {candidacy.statusId === 1 ? 'Pending' :
-             candidacy.statusId === 2 ? 'Under Review' :
+             candidacy.statusId === 2 ? 'Invited To Interview' :
              candidacy.statusId === 3 ? 'Interview Scheduled' :
              candidacy.statusId === 4 ? 'Interview Completed' :
              candidacy.statusId === 5 ? 'Accepted' : 'Rejected'}

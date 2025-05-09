@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SelectLocation from "../dropdown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Authentification from "../../Services/AuthentificationService";
 
 
 Banner07.propTypes = {};
@@ -11,7 +12,8 @@ Banner07.propTypes = {};
 function Banner07(props) {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");  // State to hold the selected location
-
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const handleLocationChange = (selectedOption) => {
     setLocation(selectedOption.label);  // Use selectedOption.label to get the location name
   };
@@ -26,7 +28,29 @@ function Banner07(props) {
       state: { title, location },
     });
   };
-    
+  useEffect(() => {
+    const user = Authentification.getStoredUser()
+
+    if (query.length > 1) {
+
+      fetch(`http://localhost:5259/api/JobOffer/suggestions?query=${query}`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`, 
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setSuggestions(data))
+        .catch((err) => console.error("Erreur suggestions:", err));
+    } else {
+      setSuggestions([]);
+    }
+  }, [query]);
+  const handleSelect = (suggestion) => {
+    setQuery(suggestion);
+    setTitle(suggestion); // Pour garder la valeur dans title pour le submit
+    setSuggestions([]);
+  };
+  
   return (
     <section className="tf-slider sl5">
       <div className="tf-container">
@@ -62,9 +86,37 @@ function Banner07(props) {
                         type="text"
                         className="input-filter-search"
                         placeholder="Job title, key words or company"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={query}
+                        onChange={(e) => {
+                          setQuery(e.target.value);
+                          setTitle(e.target.value); // important pour la navigation après sélection
+                        }}
                       />
+                       {suggestions.length > 0 && (
+        <ul style={{
+          position: "absolute",
+          top: "100%",
+          left: 0,
+          right: 0,
+          backgroundColor: "#fff",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          margin: 0,
+          padding: 0,
+          listStyle: "none",
+          zIndex: 10,
+        }}>
+          {suggestions.map((suggestion, index) => (
+            <li
+              key={index}
+              onClick={() => handleSelect(suggestion)}
+              style={{ padding: "8px", cursor: "pointer" }}
+            >
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )}
                     </div>
                     <div className="form-group-2">
                       <span className="icon-map-pin"></span>

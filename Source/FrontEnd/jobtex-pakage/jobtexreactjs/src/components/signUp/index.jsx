@@ -58,15 +58,16 @@ function SignUp() {
 
   const fetchCompanies = async () => {
 
-      const response = await fetch("http://localhost:5259/api/Companies");
-      // 
-      const data = await response.json();
-      setCompanies(data);}
-  
+    const response = await fetch("http://localhost:5259/api/Companies");
+    // 
+    const data = await response.json();
+    setCompanies(data);
+  }
 
 
 
-// Fonction pour gérer l'upload du logo
+
+  // Fonction pour gérer l'upload du logo
 
 
 
@@ -87,28 +88,28 @@ function SignUp() {
 
     const formData = new FormData();
 
-      // Ajouter les données de l'entreprise à FormData
-      formData.append('name', name);
-      formData.append('email', emailCompany);
-      formData.append('siret', siret);
-      formData.append('phone', phone);
-      formData.append('adress', adress);
+    // Ajouter les données de l'entreprise à FormData
+    formData.append('name', name);
+    formData.append('email', emailCompany);
+    formData.append('siret', siret);
+    formData.append('phone', phone);
+    formData.append('adress', adress);
 
 
-      // Ajouter le fichier logo s'il existe
-      if (logo) {
-        formData.append('logo', logo); // 'logo' est le nom du champ attendu par le backend
-      }
+    // Ajouter le fichier logo s'il existe
+    if (logo) {
+      formData.append('logo', logo); // 'logo' est le nom du champ attendu par le backend
+    }
 
 
-      try {
-        // Envoyer les données au backend
-        const response = await axios.post('http://localhost:5259/api/Companies', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data', // Important pour les fichiers
-          },
-        });
-    
+    try {
+      // Envoyer les données au backend
+      const response = await axios.post('http://localhost:5259/api/Companies', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Important pour les fichiers
+        },
+      });
+
       fetchCompanies()
 
       setShowModal(false); // Fermer le modal après soumission
@@ -137,14 +138,14 @@ function SignUp() {
       lastName,
       email,
       password,
-      companyId: companyId || null, 
+      companyId: companyId || null,
       appRoleId: role === "candidate" ? 3 : 2,
     };
 
     try {
       await Authentification.register(userData);
       setMessage("✅ Inscription réussie ! Redirection vers la connexion...");
-      
+
       // Redirection après un délai
       setTimeout(() => {
         navigate("/login");
@@ -155,7 +156,7 @@ function SignUp() {
     } finally {
       setIsSubmitting(false); // Réactiver le bouton après la réponse
     }
-};
+  };
 
 
   return (
@@ -274,14 +275,14 @@ function SignUpForm({
   handleCreateCompany,
   handleSubmit,
   message,
-  name , 
+  name,
   setName,
   emailCompany,
   setEmailCompany,
-  siret,setSiret,
-  adress,setadress,
+  siret, setSiret,
+  adress, setadress,
   handleLogoUpload,
-  phone,setPhone,logo,setLogo,
+  phone, setPhone, logo, setLogo,
   isRecruiter = false,
   isSubmitting,
   setIsSubmitting
@@ -323,19 +324,19 @@ function SignUpForm({
         <div className="ip">
           <label>Entreprise<span>*</span></label>
           <div className="inputs-group">
-          <select 
-                value={companyId} 
-                onChange={(e) => {
-                  const selectedValue = e.target.value;
-                  if (selectedValue === "new") {
-                    setShowModal(true);
-                    setCompanyId(""); // Réinitialiser la sélection
-                  } else {
-                    setCompanyId(parseInt(selectedValue, 10)); // Convertir en entier
-                  }
-                }} 
-                required
-              >
+            <select
+              value={companyId}
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                if (selectedValue === "new") {
+                  setShowModal(true);
+                  setCompanyId(""); // Réinitialiser la sélection
+                } else {
+                  setCompanyId(parseInt(selectedValue, 10)); // Convertir en entier
+                }
+              }}
+              required
+            >
               <option value="">Sélectionner une entreprise</option>
               {companies.map((company) => (
                 <option key={company.id} value={company.id}>{company.name}</option>
@@ -346,7 +347,7 @@ function SignUpForm({
         </div>
       )}
 
-<Modal show={showModal} onHide={() => setShowModal(false)}  centered >
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered >
         <Modal.Header closeButton>
           <Modal.Title>Créer une nouvelle entreprise</Modal.Title>
         </Modal.Header>
@@ -363,7 +364,7 @@ function SignUpForm({
               placeholder="SIRET"
               value={siret}
               onChange={(e) => setSiret(e.target.value)}
-              style={{padding:"-10px"}}
+              style={{ padding: "-10px" }}
             />
             <input
               type="text"
@@ -371,7 +372,7 @@ function SignUpForm({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-             <input
+            <input
               type="text"
               placeholder="adress"
               value={adress}
@@ -383,24 +384,24 @@ function SignUpForm({
               value={emailCompany}
               onChange={(e) => setEmailCompany(e.target.value)}
             />
-           <input
-  type="file"
-  accept="image/*" // Limiter aux fichiers image
-  onChange={(e) => setLogo(e.target.files[0])} // Récupérer le fichier sélectionné
-/>
+            <input
+              type="file"
+              accept="image/*" // Limiter aux fichiers image
+              onChange={(e) => setLogo(e.target.files[0])} // Récupérer le fichier sélectionné
+            />
 
-           
+
           </form>
         </Modal.Body>
         <Modal.Footer> <Button type="submit" onClick={handleCreateCompany}>Créer l'entreprise</Button></Modal.Footer>
       </Modal>
 
       <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "En cours..." : "S'inscrire"}
-            </button>
-            {message && <div className="message">{message}</div>}
-              </form>
-            );
+        {isSubmitting ? "En cours..." : "S'inscrire"}
+      </button>
+      {message && <div className="message">{message}</div>}
+    </form>
+  );
 }
 
 export default SignUp;

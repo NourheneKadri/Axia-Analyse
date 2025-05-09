@@ -1,5 +1,7 @@
 ﻿using Axia_Analyse.Data.Interface.Entites;
+using Axia_Analyse.Service;
 using Axia_Analyse.Service.Interfaces;
+using Axia_Analyse.Service.Interfaces.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,14 +14,25 @@ namespace Axia_Analyse.Controllers
     public class InterviewController : ControllerBase
     {
         private readonly IInterviewService _interviewService;
+        private readonly MailNotificationService _mailNotificationService;
+        private readonly GoogleCalendarService _googleCalendarService;
+        private readonly GoogleAuthService _googleAuthService;
 
-        public InterviewController(IInterviewService interviewService)
+        
+
+
+
+
+        public InterviewController(IInterviewService interviewService,MailNotificationService mailNotificationService, GoogleCalendarService googleCalendarService , GoogleAuthService googleAuthService)
         {
             _interviewService = interviewService;
+            _mailNotificationService = mailNotificationService;
+            _googleCalendarService = googleCalendarService;
+            _googleAuthService = googleAuthService;
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateInterview([FromBody] Interview interview)
+        public async Task<IActionResult> CreateInterview([FromBody] InterviewDto interview)
         {
             if (interview == null)
             {
@@ -27,6 +40,16 @@ namespace Axia_Analyse.Controllers
             }
 
             await _interviewService.CreateInterviewAsync(interview);
+            await _mailNotificationService.SendInterviewConfirmation(interview);
+            string accessToken = await _googleAuthService.GetAccessTokenAsync(); // implémentation requise
+
+            var meetLink = await _googleCalendarService.CreateGoogleMeetEventAsync(accessToken, interview);
+
+            return Ok(new
+            {
+                message = "Entretien créé avec succès.",
+                meetLink = meetLink ?? "Lien non généré"
+            });
             return Ok(new { message = "Entretien créé avec succès." });
         }
 
@@ -59,6 +82,14 @@ namespace Axia_Analyse.Controllers
         {
             await _interviewService.DeleteInterviewAsync(id);
             return Ok(new { message = "Entretien supprimé avec succès." });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var interviews = await _interviewService.GetAllInterviewsAsync();
+            return Ok(interviews);
         }
     }
 }

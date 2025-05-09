@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Axia_Analyse.Controllers
 {
+    [AllowAnonymous]
+
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+   
     public class JobOfferController : ControllerBase
     {
         private readonly IJobOfferService _jobOfferServices;
@@ -35,6 +37,12 @@ namespace Axia_Analyse.Controllers
             return _jobOfferServices.GetAll();
         }
 
+        [HttpGet("active")]
+        public ActionResult<IEnumerable<JobOffer>> GetActive()
+        {
+            var offers = _jobOfferServices.GetActive();
+            return Ok(offers);
+        }
         [HttpGet]
         [Route("delete/{id}")]
 
@@ -45,7 +53,7 @@ namespace Axia_Analyse.Controllers
         [HttpPost]
         [Route("Add")]
 
-        public bool Add([FromBody] JobOfferDto JobOffer)
+        public Task<bool> Add([FromBody] JobOfferDto JobOffer)
         {
             return _jobOfferServices.Add(JobOffer);
         }
@@ -140,6 +148,22 @@ namespace Axia_Analyse.Controllers
         public IActionResult GetJobOffersByUserAccountId(int userAccountId)
         {
             var offers = _jobOfferServices.GetJobOffersByUserAccountId(userAccountId);
+            return Ok(offers);
+        }
+        [HttpGet("suggestions")]
+        public async Task<IActionResult> GetTitleSuggestions(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return Ok(new List<string>());
+
+            var suggestions = await _jobOfferServices.GetTitleSuggestionsAsync(query);
+            return Ok(suggestions);
+        }
+
+        [HttpGet("active/company/{companyId}")]
+        public async Task<IActionResult> GetActiveOffersByCompanyId(int companyId)
+        {
+            var offers = await _jobOfferServices.GetActiveOffersByCompanyId(companyId);
             return Ok(offers);
         }
 

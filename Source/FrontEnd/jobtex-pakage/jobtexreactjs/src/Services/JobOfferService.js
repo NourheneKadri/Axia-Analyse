@@ -8,18 +8,15 @@ const JOBOFFER_API_BASE_URL = "http://localhost:5259/api/JobOffer";
 
 class JobOfferServices {
 
-    getJobOffers(){
-        axios.get(JOBOFFER_API_BASE_URL, { headers: authHeader() })
-        .then(response => {
-          console.log(response.data); // Vérifie la réponse
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des offres d\'emploi:', error);
-        });
-            }
+    getJobOffers() {
+        return axios.get(JOBOFFER_API_BASE_URL, { headers: authHeader() });
+      }
 
     static async getJobOfferById(jobOfferId){
-        return axios.get(JOBOFFER_API_BASE_URL + '/' + jobOfferId);
+        return axios.get(JOBOFFER_API_BASE_URL + '/' + jobOfferId, { headers: authHeader() });
+    }
+    static async getActiveJobOffers(companyId){
+        return axios.get(JOBOFFER_API_BASE_URL + '/active/company/' + companyId , { headers: authHeader() });
     }
 
 
@@ -48,6 +45,9 @@ class JobOfferServices {
 
     static async getJobOfferById(jobOfferId){
         return axios.get(JOBOFFER_API_BASE_URL + '/' + jobOfferId, { headers: authHeader() });
+    }
+    static async getJobOfferByCategorie(categorieId){
+        return axios.get(JOBOFFER_API_BASE_URL + '/category/' + categorieId, { headers: authHeader() });
     }
 
     static async searchJobOffers({ title, adress, categoryId }) {

@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
+import Header2 from "../components/header/Header2";
 
 Joblist_v1.propTypes = {};
 
@@ -504,7 +505,7 @@ function Joblist_v1(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actJob1" handleMobile={handleMobile} />
+      <Header2 clname="actJob1" handleMobile={handleMobile} />
       <Breadcrumb title="Find Jobs" className="breadcrumb-section" />
 
    

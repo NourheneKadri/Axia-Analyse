@@ -14,6 +14,9 @@ import SelectLocation from "../dropdown";
 import Dropdown from "react-dropdown";
 import { useMemo } from "react";
 import Authentification from "../../Services/AuthentificationService";
+import JobOfferServices from "../../Services/JobOfferService";
+import toast from 'react-hot-toast';
+
 
 
 EmpSec5.propTypes = {};
@@ -29,28 +32,43 @@ function EmpSec5(props) {
 
   const user = Authentification.getStoredUser()
 
-  
-    
-  
-  
-const options1 = [
-  { value: "op1", label: "Job Title" },
-  { value: "op2", label: "Design & Creative" },
-  { value: "op3", label: "Design" },
-  { value: "op4", label: "Ux/Ui" },
-];
 
-const options2 = [
-  { value: "op1", label: "Any Distance" },
-  { value: "op2", label: "Any Distance 1" },
-  { value: "op3", label: "Any Distance 2" },
-];
-const options3 = [
-  { value: "op1", label: "Company Size" },
-  { value: "op2", label: "Company Size 1" },
-  { value: "op3", label: "Company Size 2" },
-];
-const [jobCategory, setJobCategory] = useState(options1[0].value);
+  const options = [
+    { value: "12", label: "12 Per Page" },
+    { value: "1", label: "1 Per Page" },
+    { value: "10", label: "10 Per Page" },
+  ];
+  
+  
+  const sortOptions = [
+    { value: "new", label: "New"  },
+    { value: "last", label: "Last" },
+    { value: "title", label: "Titre de l\'offre (A-Z)" },
+    { value: "candidateName", label: "Nom du candidat (A-Z)" },
+    { value: "score", label: "Score (décroissant)" } // Nouveau
+  ];
+
+
+
+
+  const options1 = [
+    { value: "op1", label: "Job Title" },
+    { value: "op2", label: "Design & Creative" },
+    { value: "op3", label: "Design" },
+    { value: "op4", label: "Ux/Ui" },
+  ];
+
+  const options2 = [
+    { value: "op1", label: "Any Distance" },
+    { value: "op2", label: "Any Distance 1" },
+    { value: "op3", label: "Any Distance 2" },
+  ];
+  const options3 = [
+    { value: "op1", label: "Company Size" },
+    { value: "op2", label: "Company Size 1" },
+    { value: "op3", label: "Company Size 2" },
+  ];
+  const [jobCategory, setJobCategory] = useState(options1[0].value);
   const [distance, setDistance] = useState(options2[0].value);
   const [companySize, setCompanySize] = useState(options3[0].value);
   const handleKeywordChange = (event) => setKeyword(event.target.value);
@@ -61,61 +79,113 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
   const [dropdownOptions, setDropdownOptions] = useState([]); // État pour les options du dropdown
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedJobTitle, setSelectedJobTitle] = useState(''); // État pour le Job Title sélectionné
+  const [sortBy, setSortBy] = useState('new');
 
-    
-    // Filter by keyword (in job title or candidate name)
-    const filteredCandidacies = useMemo(() => {
-      let result = candidacies;
+
+  const handleSortChange = (selectedOption) => {
+    setSortBy(selectedOption.value);
+  };
+  // Filter by keyword (in job title or candidate name)
+  const filteredCandidacies = useMemo(() => {
+    let result = candidacies;
+
+    if (keyword) {
+      result = result.filter((candidacy) => {
+        const jobOffer = jobOffers[candidacy.jobOfferId] || {};
+        const matchesKeyword =
+          `${candidacy.firstName} ${candidacy.lastName}`.toLowerCase().includes(keyword.toLowerCase()) ||
+          (jobOffer.title && jobOffer.title.toLowerCase().includes(keyword.toLowerCase()));
+        return matchesKeyword;
+      });
+    }
+
+    if (selectedJobTitle) {
+      result = result.filter((candidacy) => {
+        const jobOffer = jobOffers[candidacy.jobOfferId] || {};
+        return jobOffer.title === selectedJobTitle; // Filtre par Job Title sélectionné
+      });
+    }
+
+    return result;
+  }, [candidacies, keyword, jobOffers, selectedJobTitle]);
+
+  // You can add more filters as necessary
+
+
+  const sortedJobs = useMemo(() => {
+    return [...filteredCandidacies].sort((a, b) => {
+      const dateA = new Date(a.submissionDate);
+      const dateB = new Date(b.submissionDate);
   
-      if (keyword) {
-        result = result.filter((candidacy) => {
-          const jobOffer = jobOffers[candidacy.jobOfferId] || {};
-          const matchesKeyword = 
-            `${candidacy.firstName} ${candidacy.lastName}`.toLowerCase().includes(keyword.toLowerCase()) ||
-            (jobOffer.title && jobOffer.title.toLowerCase().includes(keyword.toLowerCase()));
-          return matchesKeyword;
-        });
+      switch (sortBy) {
+        case 'new':
+          return dateB - dateA;
+        case 'last':
+          return dateA - dateB;
+        case 'title': {
+          const titleA = (jobOffers[a.jobOfferId]?.title || '').toLowerCase();
+          const titleB = (jobOffers[b.jobOfferId]?.title || '').toLowerCase();
+          return titleA.localeCompare(titleB);
+        }
+        case 'candidateName': {
+          const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+          const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+          return nameA.localeCompare(nameB);
+        }
+        case 'score':
+          return (a.score ?? 0) - (b.score ?? 0);
+          default:
+          return 0;
       }
-  
-      if (selectedJobTitle) {
-        result = result.filter((candidacy) => {
-          const jobOffer = jobOffers[candidacy.jobOfferId] || {};
-          return jobOffer.title === selectedJobTitle; // Filtre par Job Title sélectionné
-        });
-      }
-  
-      return result;
-    }, [candidacies, keyword, jobOffers, selectedJobTitle]);
-    
-    // You can add more filters as necessary
+    });
+  }, [filteredCandidacies, sortBy, jobOffers]);
   
 
-    useEffect(() => {
-      // Récupérer les job titles de l'API
-      fetch(`http://localhost:5259/api/JobOffer/by-user/${user.userAccountId}`)
-      .then((res) => res.json())
-        .then((data) => {
-          // Extraire les titres des offres d'emploi
-          const titles = [...new Set(data.map((job) => job.title))];  // Enlève les doublons avec Set
-          const options = titles.map((title, index) => ({
-            value: index,  // Valeur associée à chaque option
-            label: title,  // Ce qui est affiché dans le dropdown
-          }));
-          setDropdownOptions(options);  // Mettre à jour l'état des options
-        })
-        .catch((error) => console.error('Erreur lors de la récupération des données:', error));
-    }, []);  // Ce useEffect s'exécute une seule fois au premier rendu
-  
-    // Fonction pour gérer le changement de sélection
-    const handleSelectChange = (selected) => {
-      setSelectedJobTitle(selected.label); // Mettez à jour le Job Title sélectionné
-    };
+
+
+  useEffect(() => {
+    const user = Authentification.getStoredUser()
+    const token = user.token;
+    console.log("token", token)
+    // ou sessionStorage selon ton app
+
+    fetch(`http://localhost:5259/api/JobOffer/by-user/${user.userAccountId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` // ➕ Ajout du header d’authentification
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Erreur réseau");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        const titles = [...new Set(data.map((job) => job.title))];
+        const options = titles.map((title, index) => ({
+          value: index,
+          label: title,
+        }));
+        setDropdownOptions(options);
+      })
+      .catch((error) =>
+        console.error("Erreur lors de la récupération des données:", error)
+      );
+  }, []);
+  // Ce useEffect s'exécute une seule fois au premier rendu
+
+  // Fonction pour gérer le changement de sélection
+  const handleSelectChange = (selected) => {
+    setSelectedJobTitle(selected.label); // Mettez à jour le Job Title sélectionné
+  };
   const getStatusColor = (statusId) => {
     switch (statusId) {
       case 1: // PENDING
         return 'warning'; // Yellow
       case 2: // UNDER_REVIEW
-        return 'info'; // Blue
+        return 'secondary'; // Blue
       case 3: // INTERVIEW_SCHEDULED
         return 'primary'; // Blue
       case 4: // INTERVIEW_COMPLETED
@@ -128,26 +198,28 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         return 'secondary'; // Default color
     }
   };
-  
+
 
   useEffect(() => {
     const fetchCandidacies = async () => {
       try {
         const candidaciesResponse = await fetch(`http://localhost:5259/api/JobOfferCandidancy/user/${user.userAccountId}`);
         const candidaciesData = await candidaciesResponse.json();
-        
+
         setCandidacies(candidaciesData);
-        console.log("candidaciesData" , candidaciesData)
-  
+        console.log("candidaciesData", candidaciesData)
+
         // Fetch job offers for all candidacies at once
         const jobOfferIds = [...new Set(candidaciesData.map(c => c.jobOfferId))];
         jobOfferIds.forEach(async (jobOfferId) => {
           if (!jobOffers[jobOfferId]) {
-            const jobOfferResponse = await fetch(`http://localhost:5259/api/JobOffer/${jobOfferId}`);
-            const jobOfferData = await jobOfferResponse.json();
+            const jobOfferResponse = await JobOfferServices.getJobOfferById(jobOfferId)
+
+            const jobOfferData = jobOfferResponse.data;
+            console.log("CC", jobOfferData)
             const companyResponse = await fetch(`http://localhost:5259/api/Authentication/company/${jobOfferData.userAccountId}`);
             const companyData = await companyResponse.json();
-            
+
             setJobOffers(prev => ({
               ...prev,
               [jobOfferId]: {
@@ -162,10 +234,10 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
         console.error('Error fetching candidacies or job offers:', error);
       }
     };
-  
+
     fetchCandidacies();
   }, []);
-  
+
 
   const acceptCandidacy = async (candidacyId) => {
     try {
@@ -173,29 +245,34 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
       if (candidacy) {
         const updatedCandidacy = { ...candidacy, statusId: 5 }; // Create a new object
         await axios.put('http://localhost:5259/api/JobOfferCandidancy/update', updatedCandidacy); // Pass the updated candidacy to the API
-  
+        toast.success("Status modifiée avec succés")
         // Update the local state
         setCandidacies(candidacies.map(c => (c.id === candidacyId ? updatedCandidacy : c)));
       }
     } catch (error) {
       console.error('Error accepting candidacy:', error);
+      toast.success("Il' ya un erreur du serveur ")
+
     }
   };
-  
 
- 
+
+
   const refuseCandidacy = async (candidacyId) => {
     try {
       const candidacy = candidacies.find(c => c.id === candidacyId);
       if (candidacy) {
         const updatedCandidacy = { ...candidacy, statusId: 6 }; // Create a new object
         await axios.put('http://localhost:5259/api/JobOfferCandidancy/update', updatedCandidacy); // Pass the updated candidacy to the API
-  
+        toast.success("Status modifiée avec succés")
+
         // Update the local state
         setCandidacies(candidacies.map(c => (c.id === candidacyId ? updatedCandidacy : c)));
       }
     } catch (error) {
       console.error('Error accepting candidacy:', error);
+      toast.error("Erreur lors de l'enregistrement.");
+
     }
   };
 
@@ -205,81 +282,128 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
       if (candidacy) {
         const updatedCandidacy = { ...candidacy, statusId: 2 }; // Create a new object
         await axios.put('http://localhost:5259/api/JobOfferCandidancy/update', updatedCandidacy); // Pass the updated candidacy to the API
-  
+
         // Update the local state
         setCandidacies(candidacies.map(c => (c.id === candidacyId ? updatedCandidacy : c)));
       }
     } catch (error) {
-      console.error('Error accepting candidacy:', error);
+      toast.error("Erreur lors de l'enregistrement.");
     }
   };
   const deleteCandidacy = async (candidacyId) => {
     try {
       const response = await axios.delete(`http://localhost:5259/api/JobOfferCandidancy/${candidacyId}`);
       console.log('Candidacy deleted successfully:', response.data);
-  
+      toast.success("Status supprimée avec succés")
+
       // Optionally, you can update your local state after deletion to reflect the changes
       setCandidacies(candidacies.filter(c => c.id !== candidacyId));
-  
+
     } catch (error) {
       console.error('Error deleting candidacy:', error);
     }
   };
-  
- 
-  
+  const sendInterviewInvitation = async (candidacyId) => {
+    try {
+      const candidacy = candidacies.find(c => c.id === candidacyId);
+      //console.log("candidacy", candidacy);
+
+      if (!candidacy) {
+        toast.error("Candidature introuvable.");
+        return;
+      }
+
+
+      // 1. Préparer et envoyer la mise à jour du statut
+      const updatedCandidacy = { ...candidacy, statusId: 2 }; // 2 = InvitedToInterview
+
+      await axios.put('http://localhost:5259/api/JobOfferCandidancy/update', updatedCandidacy);
+
+      // 2. Mettre à jour l'état local (React)
+      setCandidacies(candidacies.map(c => (c.id === candidacyId ? updatedCandidacy : c)));
+
+      // 3. Envoyer l’invitation à l’entretien
+      const payload = {
+        jobId: candidacy.jobOfferId,
+        candidateId: candidacy.candidateProfileId,
+      };
+
+      const response = await fetch("http://localhost:5259/api/JobOfferCandidancy/send-invitation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // si tu utilises un token JWT
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        toast.success("Invitation envoyée avec succès !")
+
+      } else {
+        toast.error("Erreur lors de l’envoi de l’invitation.");
+      }
+
+    } catch (error) {
+      console.error("Erreur dans l'envoi de l'invitation :", error);
+      toast.error("Erreur lors de l’envoi de l’invitation.");
+    }
+  };
+
+
+
 
   return (
     <section className="inner-employer-section">
       <div className="tf-container">
-  <div className="job-search-form st1 employers-form">
-    <form>
-      <div className="row-group-search inner-form">
-      <div className="form-group-1" style={{ width: '350px' }}>
-      <input
-            type="text"
-            className="input-filter-search"
-            placeholder="key words"
-            onChange={handleKeywordChange}
-            
-          />
-          <span className="icon-search search-job"></span>
-        </div>
-        
-        <div className="form-group-1" style={{ width: '350px' }}>
-        <Dropdown
-        options={dropdownOptions}
-        value={selectedJobTitle}
+        <div className="job-search-form st1 employers-form">
+          <form>
+            <div className="row-group-search inner-form">
+              <div className="form-group-1" style={{ width: '350px' }}>
+                <input
+                  type="text"
+                  className="input-filter-search"
+                  placeholder="key words"
+                  onChange={handleKeywordChange}
 
-        onChange={handleSelectChange} 
-        className="react-dropdown select-location"
-          // Met à jour la sélection
-        placeholder="Job Title"
-      />
+                />
+                <span className="icon-search search-job"></span>
+              </div>
+
+              <div className="form-group-1" style={{ width: '350px' }}>
+                <Dropdown
+                  options={dropdownOptions}
+                  value={selectedJobTitle}
+
+                  onChange={handleSelectChange}
+                  className="react-dropdown select-location"
+                  // Met à jour la sélection
+                  placeholder="Job Title"
+                />
+              </div>
+              <div className="form-group-1" style={{ width: '350px' }}>
+                <Dropdown
+                  options={options2}
+                  className="react-dropdown select-location"
+                  value={options2[0]}
+                />
+              </div>
+              <div className="form-group-1" style={{ width: '300px  ' }}>
+                <Dropdown
+                  options={options3}
+                  className="react-dropdown select-location"
+                  value={options3[0]}
+                />
+              </div>
+
+            </div>
+          </form>
         </div>
-        <div className="form-group-1" style={{ width: '350px' }}>
-        <Dropdown
-            options={options2}
-            className="react-dropdown select-location"
-            value={options2[0]}
-          />
-        </div>
-        <div className="form-group-1" style={{ width: '300px  ' }}>
-        <Dropdown
-            options={options3}
-            className="react-dropdown select-location"
-            value={options3[0]}
-          />
-        </div>
-       
+
+        {/* Adding space below the form */}
+        <br />
+        <br />
       </div>
-    </form>
-  </div>
-
-  {/* Adding space below the form */}
-  <br />
-  <br />
-</div>
 
       <div className="tf-container">
         <div className="row">
@@ -289,7 +413,7 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
                 <div className="group-select-display">
                   <TabList className="inner menu-tab">
                     <Tab className="btn-display">
-                    <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="17"
                         height="16"
@@ -334,173 +458,183 @@ const [jobCategory, setJobCategory] = useState(options1[0].value);
                     </Tab>
                   </TabList>
                   <p className="nofi-job">
-                    <span>{candidacies.length}</span> candidancy  
+                    <span>{candidacies.length}</span> Applications
                   </p>
                 </div>
-                <SortBuy />
+                <div className="group-select" style={{ zIndex: 9999, position: 'relative' }}>
+                <Dropdown
+                  options={sortOptions}
+                  className="react-dropdown sort-buy"
+                  value={sortOptions.find((option) => option.value === sortBy)}
+                  onChange={handleSortChange}
+                /> 
+                                <Dropdown options={options} className="react-dropdown sort-buy" value={options[0]} />
+
+                </div>
               </div>
             </div>
             <MDBTable align="middle" borderless>
-  <MDBTableHead>
-    <tr className="border-bottom">
-     <th scope="col">Title</th>
-     <th scope="col">Name</th>
-     <th scope="col">Status</th>
-      <th scope="col">Attachment</th>
-      <th scope="col">score</th>
-      <th scope="col">Date</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </MDBTableHead>
-  <MDBTableBody>
-  {Array.isArray(filteredCandidacies) && filteredCandidacies.length > 0 ? (
-  filteredCandidacies.map((candidacy) => {
-    const jobOffer = jobOffers[candidacy.jobOfferId] || { title: 'Loading...', categoryId: 'Loading...', companyLogo: null };
+              <MDBTableHead>
+                <tr className="border-bottom">
+                  <th scope="col">Title</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Attachment</th>
+                  <th scope="col">score</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody>
+                {Array.isArray(sortedJobs) && sortedJobs.length > 0 ? (
+                  sortedJobs.map((candidacy) => {
+                    const jobOffer = jobOffers[candidacy.jobOfferId] || { title: 'Loading...', categoryId: 'Loading...', companyLogo: null };
+                    console.log("jobOffer", jobOffer);
 
-    return (
-      <tr key={candidacy.id} className="border-bottom">
-        <td style={{ verticalAlign: "middle" }}>
-          <div className="d-flex align-items-center" style={{ gap: "8px" }}>
-            <img
-              src={jobOffer.companyLogo}
-              alt=""
-              style={{ width: '30px', height: '30px', objectFit: "contain" }}
-              className="rounded-circle me-2"
-            />
-            <div>
-              <Link to={`/jobdetails/${jobOffer.id}`} className="text-decoration-none text-dark">
-                <p className="fw-normal mb-1" style={{ whiteSpace: "nowrap" }}>
-                  {jobOffer.title || 'N/A'}
-                </p>
-              </Link>
-              <p className="text-muted mb-0" style={{ fontSize: '0.85rem', whiteSpace: "nowrap" }}>
-                {jobOffer.category === 1 && 'Information Technology'}
-                {jobOffer.category === 2 && 'Software Development'}
-                {jobOffer.category === 3 && 'Human Resources'}
-                {jobOffer.category === 4 && 'Finance'}
-                {jobOffer.category === 5 && 'Design & Multimedia'}
-                {jobOffer.category === 6 && 'Telecommunications'}
-                {jobOffer.category === 7 && 'Engineering'}
-                {jobOffer.category === 8 && 'Construction & Facilities'}
-                {![1, 2, 3, 4, 5, 6, 7, 8].includes(jobOffer.category) && 'Unknown Category'}
-              </p>
-            </div>
-          </div>
-        </td>
-      
-        <td style={{ verticalAlign: "middle" }}>
-          <Link to={`/candidatedetails2/${candidacy.id}`}>
-            <p className="fw-bold mb-0">{candidacy.firstName} {candidacy.lastName}</p>
-            <p className="text-muted mb-1">{candidacy.email}</p>
-          </Link>
-        </td>
-      
-        <td style={{ verticalAlign: "middle" }}>
-          <MDBBadge color={getStatusColor(candidacy.statusId)} pill>
-            {candidacy.statusId === 1 ? 'Pending' :
-             candidacy.statusId === 2 ? 'Under Review' :
-             candidacy.statusId === 3 ? 'Interview Scheduled' :
-             candidacy.statusId === 4 ? 'Interview Completed' :
-             candidacy.statusId === 5 ? 'Accepted' : 'Rejected'}
-          </MDBBadge>
-        </td>
-      
-        <td style={{ verticalAlign: "middle" }}>
-          <i className="uil uil-import" style={{ marginRight: '1px', color: 'grey', fontSize: '16px' }}></i> 
-          <ReactDownloadLink
-            filename="CV.pdf"
-            label="Attachment"
-            exportFile={() => fetch(candidacy.cvUrl).then(res => res.blob())}
-            style={{
-              fontFamily: 'Arial, sans-serif',
-              fontWeight: 'normal',
-              fontSize: '16px',
-              color: 'grey',
-              textAlign: 'center',
-              margin: '20px 0',
-            }}
-          >
-            <i className="uil uil-import" style={{ marginRight: '1px', color: 'black', fontSize: '16px' }}></i>
-          </ReactDownloadLink>
-        </td>
-      
-        <td style={{ verticalAlign: "middle" }}>
-          {candidacy.score && JSON.parse(candidacy.score).parts[0].text.trim() || 0}%
-        </td>
-      
-        <td style={{ verticalAlign: "middle" }}>
-          <p className="fw-normal mb-1">{moment(candidacy.submissionDate).fromNow()}</p>
-        </td>
-      
-        <td style={{ verticalAlign: "middle", display: 'flex', alignItems: 'center' }}>
-          <MDBBadge 
-            color="success" 
-            style={{ marginRight: '10px', cursor: 'pointer' }} 
-            pill
-            onClick={() => acceptCandidacy(candidacy.id)}
-          >
-            Accept
-          </MDBBadge>
+                    return (
+                      <tr key={candidacy.id} className="border-bottom">
+                        <td style={{ verticalAlign: "middle" }}>
+                          <div className="d-flex align-items-center" style={{ gap: "8px" }}>
+                            <img
+                              src={jobOffer.companyLogo}
+                              alt=""
+                              style={{ width: '30px', height: '30px', objectFit: "contain" }}
+                              className="rounded-circle me-2"
+                            />
+                            <div>
+                              <Link to={`/Jobsingle_v1/${candidacy.jobOfferId}`} className="text-decoration-none text-dark">
+                                <p className="fw-normal mb-1" style={{ whiteSpace: "nowrap" }}>
+                                  {jobOffer.title || 'N/A'}
+                                </p>
+                              </Link>
+                              <p className="text-muted mb-0" style={{ fontSize: '0.85rem', whiteSpace: "nowrap" }}>
+                                {jobOffer.category === 1 && 'Information Technology'}
+                                {jobOffer.category === 2 && 'Software Development'}
+                                {jobOffer.category === 3 && 'Human Resources'}
+                                {jobOffer.category === 4 && 'Finance'}
+                                {jobOffer.category === 5 && 'Design & Multimedia'}
+                                {jobOffer.category === 6 && 'Telecommunications'}
+                                {jobOffer.category === 7 && 'Engineering'}
+                                {jobOffer.category === 8 && 'Construction & Facilities'}
+                                {![1, 2, 3, 4, 5, 6, 7, 8].includes(jobOffer.category) && 'Unknown Category'}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
 
-          <MDBBadge 
-            color="danger" 
-            style={{ marginRight: '10px', cursor: 'pointer' }} 
-            pill
-            onClick={() => refuseCandidacy(candidacy.id)}
-          >
-            Refuse
-          </MDBBadge>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <Link to={`/candidatedetails2/${candidacy.id}`}>
+                            <p className="fw-bold mb-0">{candidacy.firstName} {candidacy.lastName}</p>
+                            <p className="text-muted mb-1">{candidacy.email}</p>
+                          </Link>
+                        </td>
 
-          <MDBBadge 
-            color="primary" 
-            style={{ marginRight: '10px', cursor: 'pointer' }} 
-            pill
-            onClick={() => UnderReviwCandidacy(candidacy.id)}
-          >
-            Under Review
-          </MDBBadge>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <MDBBadge color={getStatusColor(candidacy.statusId)} pill>
+                            {candidacy.statusId === 1 ? 'Pending' :
+                              candidacy.statusId === 2 ? 'Invited To Interview' :
+                                candidacy.statusId === 3 ? 'Interview Scheduled' :
+                                  candidacy.statusId === 4 ? 'Interview Completed' :
+                                    candidacy.statusId === 5 ? 'Accepted' : 'Rejected'}
+                          </MDBBadge>
+                        </td>
 
-          <div 
-            onClick={() => {deleteCandidacy(candidacy.id) /* Add your delete functionality here */ }} 
-            style={{
-              width: '30px', 
-              height: '30px', 
-              cursor: 'pointer', 
-              zIndex: 9999,
-              marginLeft: '10px'  // Add some space between the last badge and the icon
-            }}
-          >
-            <DeleteIcon style={{ color: '#9e9e9e' }} />
-          </div>
-        </td>
-      </tr>
-    );
-  })
-) : (
-  <p 
-  style={{
-    color: '#888',
-    
-  }}
->
-  Aucune candidature disponible pour le moment.
-</p>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <i className="uil uil-import" style={{ marginRight: '1px', color: 'grey', fontSize: '16px' }}></i>
+                          <ReactDownloadLink
+                            filename="cv.pdf"
+                            label="Download"
+                            exportFile={() => fetch(candidacy.cVurl).then(res => res.blob())}
+                            style={{
+                              fontFamily: 'Arial, sans-serif',
+                              fontWeight: 'normal',
+                              fontSize: '16px',
+                              color: 'grey',
+                              textAlign: 'center',
+                              margin: '20px 0',
+                            }}
+                          >
+                            <i className="uil uil-import" style={{ marginRight: '1px', color: 'black', fontSize: '16px' }}></i>{candidacy.cvUrl}
+                          </ReactDownloadLink>
+                        </td>
 
-)}
+                        <td style={{ verticalAlign: "middle" }}>
+                          {candidacy.score && JSON.parse(candidacy.score).parts[0].text.trim() || 0}%
+                        </td>
 
-  </MDBTableBody>
-</MDBTable>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <p className="fw-normal mb-1">{moment(candidacy.submissionDate).fromNow()}</p>
+                        </td>
 
+                        <td style={{ verticalAlign: "middle", display: 'flex', alignItems: 'center' }}>
+                          <MDBBadge
+                            color="success"
+                            style={{ marginRight: '10px', cursor: 'pointer' }}
+                            pill
+                            onClick={() => acceptCandidacy(candidacy.id)}
+                          >
+                            Accept
+                          </MDBBadge>
 
+                          <MDBBadge
+                            color="danger"
+                            style={{ marginRight: '10px', cursor: 'pointer' }}
+                            pill
+                            onClick={() => refuseCandidacy(candidacy.id)}
+                          >
+                            Refuse
+                          </MDBBadge>
+
+                          <MDBBadge
+                            color="primary"
+                            style={{ marginRight: '10px', cursor: 'pointer' }}
+                            pill
+                            onClick={() => sendInterviewInvitation(candidacy.id)}
+                          >
+                            Invited
+                          </MDBBadge>
+
+                          <div
+                            onClick={() => { deleteCandidacy(candidacy.id) /* Add your delete functionality here */ }}
+                            style={{
+                              width: '30px',
+                              height: '30px',
+                              cursor: 'pointer',
+                              zIndex: 9999,
+                              marginLeft: '10px'  // Add some space between the last badge and the icon
+                            }}
+                          >
+                            <DeleteIcon style={{ color: '#9e9e9e' }} />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <p
+                    style={{
+                      color: '#888',
+
+                    }}
+                  >
+                    Aucune candidature disponible pour le moment.
+                  </p>
+
+                )}
+
+              </MDBTableBody>
+            </MDBTable>
 
 
-    
+
+
+
           </Tabs>
         </div>
-        
+
       </div>
 
-      
+
     </section>
   );
 }

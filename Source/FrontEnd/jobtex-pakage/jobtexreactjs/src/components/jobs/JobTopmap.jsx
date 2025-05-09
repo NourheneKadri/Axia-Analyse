@@ -1,14 +1,112 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import SortBuy from "../dropdown/SortBuy";
+import Authentification from "../../Services/AuthentificationService";
+import { useLocation } from 'react-router-dom';
+import moment from "moment";
+
 
 JobTopmap.propTypes = {};
 
 function JobTopmap(props) {
-  const { data } = props;
   const { className } = props;
+  const location = useLocation();
+  const [error, setError] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+
+  const queryParams = new URLSearchParams(location.search);
+  const categoryId = queryParams.get('categoryId');
+  const [offers, setOffers] = useState([]);
+
+  const [companyLogos, setCompanyLogos] = useState({});
+
+  useEffect(() => {
+    const fetchOffersByCategory = async () => {
+      const user = Authentification.getStoredUser(); // Or other method to get the user
+
+      try {
+        const response = await axios.get(
+          `http://localhost:5259/api/JobOffer/category/${categoryId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setOffers(response.data);
+        offers.forEach(async (job) => {
+          const companyLogo = await fetchCompanyLogo(job.userAccountId);
+          setCompanyLogos((prevLogos) => ({
+            ...prevLogos,
+            [job.userAccountId]: companyLogo,
+          }));
+        });
+      } catch (error) {
+        setError(error.message); // Gérer l'erreur
+      } finally {
+        setLoading(false); // Fin du chargement
+      }
+    };
+
+    fetchOffersByCategory();
+  }, [categoryId]); 
+  const fetchCompanyLogo = async (userAccountId) => {
+   try {
+     const response = await fetch(`http://localhost:5259/api/Authentication/company/${userAccountId}`);
+     if (!response.ok) {
+       throw new Error("Erreur lors de la récupération du logo");
+     }
+     const companyData = await response.json();
+     return companyData.logoUrl; // Suppose que la réponse contient une clé `logoUrl`
+   } catch (error) {
+     console.error("Erreur lors de la récupération du logo", error);
+     return null;
+   }
+ };  
+
+
+
+
+      /*  offers.forEach(async (job) => {
+          const companyLogo = await fetchCompanyLogo(job.userAccountId);
+          setCompanyLogos((prevLogos) => ({
+            ...prevLogos,
+            [job.userAccountId]: companyLogo,
+          }));
+        });
+      } catch (error) {
+        console.error("Error fetching job offers:", error);
+      }
+    };
+
+    fetchOffersByCategory();
+  }, [categoryId]); // Re-run when categoryId changes
+
+  useEffect(() => {
+    const fetchCompanyLogos = async () => {
+      for (const job of offers) {
+        try {
+          const companyLogo = await fetch(`http://localhost:5259/api/Authentication/company/${job.userAccountId}`);
+          const companyData = await companyLogo.json();
+          return companyData.logoUrl; 
+
+          setCompanyLogos((prevLogos) => ({
+            ...prevLogos,
+            [job.userAccountId]: companyLogo,
+          }));
+        } catch (error) {
+          console.error("Error fetching company logo:", error);
+        }
+      }
+    };*/
+
+   
+
+
   return (
     <section className={`inner-jobs-section ${className}`}>
       <div className="tf-container">
@@ -64,7 +162,7 @@ function JobTopmap(props) {
                     </Tab>
                   </TabList>
                   <p className="nofi-job">
-                    <span>1249</span> jobs recommended for you
+                    <span>{offers.length}</span> jobs recommended for you
                   </p>
                 </div>
                 <SortBuy />
@@ -73,72 +171,133 @@ function JobTopmap(props) {
             <div className="content-tab">
               <TabPanel className="inner">
                 <div className="group-col-2">
-                  {data.slice(0, 8).map((idx) => (
+                  {offers.slice(0, 8).map((idx) => (
                     <div key={idx.id} className="features-job cl2">
-                      <div className="job-archive-header">
-                        <div className="inner-box">
-                          <div className="logo-company">
-                            <img src={idx.img} alt="jobtex" />
-                          </div>
-                          <div className="box-content">
-                            <h4>
-                              <Link to="/Jobsingle_v1">{idx.cate}</Link>
-                            </h4>
-                            <h3>
-                              <Link to="/Jobsingle_v1"> {idx.title} </Link>
-                              <span className="icon-bolt"></span>
-                            </h3>
-                            <ul>
-                              <li>
-                                <span className="icon-map-pin"></span>
-                                {idx.map}
-                              </li>
-                              <li>
-                                <span className="icon-calendar"></span>
-                                {idx.time}
-                              </li>
-                            </ul>
-                            <span className="icon-heart"></span>
-                          </div>
+                                        <div className="job-archive-header">
+                                          <div className="inner-box">
+                                          <div className="logo-company">
+                        {companyLogos[idx.userAccountId] ? (
+                <img src={companyLogos[idx.userAccountId]} alt="Company Logo" />
+              ) : (
+                <p></p>
+              )}
                         </div>
-                      </div>
-                      <div className="job-archive-footer">
-                        <div className="job-footer-left">
-                          <ul className="job-tag">
-                            <li>
-                              <Link to="#">{idx.jobs1}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{idx.jobs2}</Link>
-                            </li>
-                          </ul>
-                          <div className="star">
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                          </div>
-                        </div>
-                        <div className="job-footer-right">
-                          <div className="price">
-                            <span className="icon-dolar1"></span>
-                            <p>
-                              {idx.price}
-                              <span className="year">/year</span>
-                            </p>
-                          </div>
-                          <p className="days">{idx.apply}</p>
-                        </div>
-                      </div>
-                      <Link
-                        to="/Jobsingle_v1"
-                        className="jobtex-link-item"
-                        tabIndex="0"
-                      ></Link>
-                    </div>
-                  ))}
-                </div>
+                                            <div className="box-content">
+                                              <h4>
+                                              <Link   to={`/Jobsingle_v1/${idx.id}`}>
+                                                      {(() => {
+                                                        switch (idx.categorieId) {
+                                                          case 1:
+                                                            return 'Information Technology';
+                                                          case 2:
+                                                            return 'Software Development';
+                                                          case 3:
+                                                            return 'Human Resources';
+                                                          case 4:
+                                                            return 'Finance';
+                                                          case 5:
+                                                            return 'Design & Multimedia';
+                                                          case 6:
+                                                            return 'Telecommunications';
+                                                          case 7:
+                                                            return 'Engineering';
+                                                          case 8:
+                                                            return 'Construction & Facilities';
+                                                          default:
+                                                            return 'Unknown Category'; // Default case if categorieId doesn't match
+                                                        }
+                                                      })()}
+                                                    </Link>
+                                              </h4>
+                                              <h3>
+                                                <Link to={`/Jobsingle_v1/${idx.id}`}> {idx.title} </Link>
+                                                <span className="icon-bolt"></span>
+                                              </h3>
+                                              <ul>
+                                                <li>
+                                                  <span className="icon-map-pin"></span>
+                                                  {idx.adress}
+                                                </li>
+                                                <li>
+                    <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
+                    {(() => {
+                      const deadlineDate = new Date(idx.deadlineTimestamp);
+                      const currentDate = new Date();
+                      
+                      // Calculate the difference in time (in milliseconds)
+                      const timeDiff = deadlineDate - currentDate;
+                      
+                      // Convert time difference to days
+                      const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                      
+                      // Check if the deadline is in the past, today, or in the future
+                      if (daysLeft < 0) {
+                        return "Deadline passed";
+                      } else if (daysLeft === 0) {
+                        return "Deadline is today";
+                      } else {
+                        return `${daysLeft} day${daysLeft > 1 ? 's' : ''} left`;
+                      }
+                    })()}
+                  </li>
+                  
+                  
+                                              </ul>
+                                              <span className="icon-heart"></span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="job-archive-footer">
+                                          <div className="job-footer-left">
+                                            <ul className="job-tag">
+                                              <li>
+                                            <Link to="#">
+                                             {(() => {
+                                                                  switch (idx.jobTypeId) {
+                                                                    case 1:
+                                                                      return 'Full-Time';
+                                                                    case 2:
+                                                                      return 'Part-Time';
+                                                                    case 3:
+                                                                      return 'Freelance';
+                                                                    case 4:
+                                                                      return 'CDD';
+                                                                    case 5:
+                                                                      return 'CDI';
+                                                                    default:
+                                                                      return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                                                                  }
+                                                                })()}
+                                                              </Link></li>
+                                             
+                                            </ul>
+                                            <div className="star">
+                                              <span className="icon-star-full"></span>
+                                              <span className="icon-star-full"></span>
+                                              <span className="icon-star-full"></span>
+                                              <span className="icon-star-full"></span>
+                                              <span className="icon-star-full"></span>
+                                            </div>
+                                          </div>
+                                          <div className="job-footer-right">
+                                            <div className="price">
+                                              <span className="icon-dolar1"></span>
+                                              <p>
+                                                {idx.salaryRange}
+                                                <span className="year"> /year</span>
+                                              </p>
+                                            </div>
+                                            <p className="days">{moment(idx.timestamp).fromNow()}</p>
+                                          </div>
+                                        </div>
+                                        <Link
+                                           to={`/Jobsingle_v1/${idx.id}`}
+                                          className="jobtex-link-item"
+                                          tabIndex="0"
+                                        ></Link>
+                                      </div>
+                                    ))}
+                                  </div>
 
                 <ul className="pagination-job padding">
                   <li>
@@ -163,7 +322,7 @@ function JobTopmap(props) {
                 </ul>
               </TabPanel>
               <TabPanel className="inner">
-                {data.slice(0, 9).map((idx) => (
+                {offers.slice(0, 9).map((idx) => (
                   <div key={idx.id} className="features-job style-3">
                     <div className="inner-box">
                       <div className="company">

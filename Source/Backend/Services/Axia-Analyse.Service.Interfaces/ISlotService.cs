@@ -17,6 +17,10 @@ namespace Axia_Analyse.Service.Interfaces
         Task DeleteSlotAsync(int slotId);
         Task<List<Slot>> GetSlotsByRecruiterAsync(int recruiterId);
         Task<List<Slot>> GetReservedSlotsAsync(int recruiterId, DateTime date);
+        Task<List<TimeSlots>> GenerateTimeSlotsAsync(TimeSlotGenerationRequest request);
+        Task SaveGeneratedTimeSlotsAsync(List<TimeSlots> timeSlots);
+        Task<List<TimeSlots>> GetSlotsByDateAndRecruiterAsync(DateTime date, int recruiterId);
+
 
 
     }

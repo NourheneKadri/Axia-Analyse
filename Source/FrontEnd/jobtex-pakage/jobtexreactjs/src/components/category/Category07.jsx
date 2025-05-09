@@ -76,7 +76,7 @@ function Category07(props) {
                           </h1>
                           <p>{idx.jobCount }  Jobs available</p>
                         </div>
-                        <Link to="/joblist_v1" className="btn-category-job">
+                        <Link to={`/joblist_v7?categoryId=${idx.categoryId}`} className="btn-category-job">
                           Explore Jobs
                           <span className="icon-keyboard_arrow_right"></span>
                         </Link>

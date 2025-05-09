@@ -1,8 +1,8 @@
 .scheduler-container {
     font-family: 'Segoe UI', Arial, sans-serif;
     width: 100%;
-    height: 100vh; /* <-- Prend toute la hauteur visible de l'écran */
-      margin: 0 auto;
+    min-height: 100vh;
+    margin: 0 auto;
     padding: 20px;
     border: 1px solid #e1e1e1;
     border-radius: 4px;
@@ -197,19 +197,14 @@
   }
   .time-slot-btn.reserved {
     background-color: #ccc;
-    color: #666;
+    color: #0060e6;
     cursor: not-allowed;
     pointer-events: none;
   }
-  .time-slot-btn.reserved {
-    background-color: #f44336; /* Red background */
-    color: white;
-    cursor: not-allowed; /* Make the button look disabled */
-    text-decoration: line-through; /* Optional: Strikethrough the text */
-  }
+
   
   .time-slot-btn:disabled {
-    background-color: #ddd; /* Light gray background */
+    background-color: #c5dcfb; /* Light gray background */
     cursor: not-allowed;
   }
   
@@ -421,3 +416,88 @@
     padding-top: 15px;
     border-top: 1px solid #e1e1e1;
   }
+  .meeting-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.meeting-card h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 24px;
+}
+.meeting-details .detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.meeting-details .detail-item svg {
+    width: 20px;
+    height: 20px;
+    color: #4b5563;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+.meeting-details .detail-item label,
+.meeting-details .detail-item p {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 16px;
+    color: #374151;
+}
+.meeting-details .input-group {
+    padding-top: 20px;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.meeting-details .input-group label {
+    display: flex;
+    align-items: center;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 14px;
+    color: #374151;
+}
+.meeting-details .input-group input {
+    margin-left: 12px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #374151;
+}
+.meeting-details .input-group input[name="endDate"] {
+    margin-left: 48px;
+}
+.meeting-details .input-group input[name="startTime"] {
+    margin-left: 24px;
+}
+.meeting-details .input-group input[name="endTime"] {
+    margin-left: 36px;
+}
+@media (max-width: 600px) {
+    .left-column {
+        padding: 12px;
+    }
+    .meeting-card {
+        padding: 16px;
+    }
+    .meeting-card h1 {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+    .meeting-details .detail-item label,
+    .meeting-details .detail-item p {
+        font-size: 14px;
+    }
+    .meeting-details .input-group label {
+        font-size: 13px;
+    }
+    .meeting-details .input-group input {
+        font-size: 13px;
+        padding: 6px;
+    }}
+    

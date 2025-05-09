@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,11 @@ namespace Axia_Analyse.Data.Interface.IRepositories
         Task<List<JobOffer>> GetRecentJobsAsync();
         Task<IEnumerable<dynamic>> GetJobOfferCountByCompanyAsync();
         List<JobOffer> GetJobOffersByUserAccountId(int userAccountId);
+        IEnumerable<JobOffer> GetActiveJobOffers();
+        Task<List<string>> GetTitleSuggestionsAsync(string query);
+        Task<IEnumerable<JobOffer>> GetActiveJobOffersByCompanyId(int companyId);
+        JobOffer Find(Expression<Func<JobOffer, bool>> predicate);
+
 
 
 

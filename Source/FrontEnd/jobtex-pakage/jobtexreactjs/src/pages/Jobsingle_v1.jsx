@@ -18,6 +18,10 @@ import moment from "moment";
 import { Button, Modal, ModalBody, Form, Label, Input, Row, Col } from "reactstrap";
 import Authentification from "../Services/AuthentificationService";
 import axios from "axios";
+import Header2 from "../components/header/Header2";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 Jobsingle_v1.propTypes = {};
 
 
@@ -25,18 +29,20 @@ Jobsingle_v1.propTypes = {};
 function Jobsingle_v1(props) {
   const progressRef = useRef();
   const [targetHeight, setTargetHeight] = useState(0);
+  const navigate = useNavigate();
+
   const [toggle, setToggle] = useState({
     key: "",
     status: false,
   });
   const [isShowMobile, setShowMobile] = useState(false);
-   const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
   const [showModal, setShowModal] = useState(false);
   const [companyLogo, setCompanyLogo] = useState(null);
   const [company, setCompany] = useState("");
 
-  
+
   const [jobDetails, setJobDetails] = useState({
     title: "",
     description: "",
@@ -46,45 +52,54 @@ function Jobsingle_v1(props) {
     typeId: "",
     categorieId: "",
     requirements: "",
-    salaryRange:""
-});
-const id = window.location.pathname.split('/').slice(2).toString();
-const user = Authentification.getStoredUser()
+    salaryRange: ""
+  });
+  const id = window.location.pathname.split('/').slice(2).toString();
+  const user = Authentification?.getStoredUser()
 
-const [application, setApplication] = useState({
-  firstName: "",
-  lastName: "",
-  email: "",
-  CVurl: null,
-  CV: null,            // Le fichier CV (si téléchargé)
-  candidateProfileId: user.userAccountId, // ID du profil candidat
-  jobOfferId: id,       // ID de l'offre d'emploi
-  submissionDate: new Date(),
-  statusId: 1,          // Statut de la demande (ex: "En attente")
-});
-useEffect(() => {
-  const fetchJobOffer = async () => {
-    try {
-      const response = await JobOfferServices.getJobOfferById(id);
-      const job = response.data;
-      setJobDetails(job);
+  const [application, setApplication] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    CVurl: null,
+    CV: null,            // Le fichier CV (si téléchargé)
+    candidateProfileId: user?.userAccountId, // ID du profil candidat
+    jobOfferId: id,       // ID de l'offre d'emploi
+    submissionDate: new Date(),
+    statusId: 1,          // Statut de la demande (ex: "En attente")
+  });
+  useEffect(() => {
+    const fetchJobOffer = async () => {
+      try {
+        const response = await JobOfferServices.getJobOfferById(id);
+        const job = response.data;
+        setJobDetails(job);
 
-      const companyResponse = await axios.get(`http://localhost:5259/api/Authentication/company/${job.userAccountId}`);
-      setCompanyLogo(companyResponse.data.logoUrl); 
-      setCompany(companyResponse.data)
-      console.log("company" , company)
+        const companyResponse = await axios.get(`http://localhost:5259/api/Authentication/company/${job.userAccountId}`);
+        setCompanyLogo(companyResponse.data.logoUrl);
+        setCompany(companyResponse.data)
+        console.log("company", company)
 
-    } catch (error) {
-      console.error("Error fetching job offer or company logo:", error);
+      } catch (error) {
+        console.error("Error fetching job offer or company logo:", error);
+      }
+    };
+
+    fetchJobOffer();
+  }, [id]);
+
+  const handleApplyClick = (e) => {
+    e.preventDefault(); // Empêche le comportement par défaut du lien
+    if (Authentification.isLoggedIn()) {
+      toggleModal(); // Ouvre la modal si connecté
+    } else {
+      localStorage.setItem("redirectAfterLogin", window.location.pathname);
+
+      navigate("/login"); // Redirige vers la page de login si non connecté
     }
   };
 
-  fetchJobOffer();
-}, [id]);
-
-
-
-const deadline = moment(jobDetails.deadlineTimestamp);
+  const deadline = moment(jobDetails.deadlineTimestamp);
 
   // Créer un objet Moment pour la date actuelle
   const today = moment();
@@ -137,29 +152,29 @@ const deadline = moment(jobDetails.deadlineTimestamp);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Créer un objet FormData
     const formData = new FormData();
     formData.append("firstName", application.firstName);
     formData.append("lastName", application.lastName);
     formData.append("email", application.email);
     formData.append("CVurl", application.CVurl);
-    
+
     // Vérifier que le fichier est bien présent et l'ajouter
     if (application.CV) {
       formData.append("CV", application.CV);  // 'application.CV' doit être un fichier (IFormFile)
     }
-  
+
     formData.append("candidateProfileId", application.candidateProfileId);
     formData.append("jobOfferId", application.jobOfferId);
     formData.append("submissionDate", new Date(application.submissionDate).toISOString());
     formData.append("statusId", application.statusId);
-  
+
     // Afficher le contenu de FormData pour vérifier
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
-  
+
     try {
       const response = await fetch("http://localhost:5259/api/JobOfferCandidancy", {
         method: "POST",
@@ -167,20 +182,25 @@ const deadline = moment(jobDetails.deadlineTimestamp);
         // L'en-tête 'Content-Type' sera automatiquement géré par le navigateur
       });
       toggleModal();
-            if (!response.ok) {
+      if (!response.ok) {
         throw new Error("Erreur lors de la soumission de la candidature");
       }
-  
+
       // Gérer la réponse de l'API
-      const data = await response.json();
-      console.log("Réponse de l'API:", data);
-  
-      // Code supplémentaire pour afficher un message de succès ou rediriger l'utilisateur
+      const result = await response.json(); // Devrait être true ou false
+
+      if (result === true) {
+        toast.success("✅ Postulation réussie !");
+        toggleModal();
+      } else {
+        toast.error("⚠️ Vous avez déjà postulé à cette offre.");
+      }
     } catch (error) {
       console.error("Erreur lors de la soumission de la candidature", error);
+      toast.error("❌ Une erreur inattendue est survenue.");
     }
   };
-  
+
   const jobMarkers = [  // Renommage de `markers` pour éviter la redéclaration
     {
       id: jobDetails.id,
@@ -192,9 +212,9 @@ const deadline = moment(jobDetails.deadlineTimestamp);
       img: companyLogo,  // Utilisation du logo de l'entreprise
     }
   ];
-  
-  
-  
+
+
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setApplication({
@@ -243,9 +263,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "home" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "home" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -296,9 +315,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "job" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "job" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -359,9 +377,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "employers" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "employers" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item">
@@ -403,7 +420,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                 My candidancyt Found
+                                My candidancyt Found
                               </Link>
                             </li>
                           </ul>
@@ -423,9 +440,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "candidate" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "candidate" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -487,9 +503,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "blog" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "blog" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -529,9 +544,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "pages" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "pages" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -689,13 +703,13 @@ const deadline = moment(jobDetails.deadlineTimestamp);
           </div>
         </div>
       </div>
-      <Header4 clname="actJob2" handleMobile={handleMobile} />
+      <Header2 clname="actJob2" handleMobile={handleMobile} />
 
       <section className="single-job-thumb">
         <img
           src={require("../assets/images/image.png")}
           alt="images"
-          style={{width:"2000px"}}
+          style={{ width: "2000px" }}
         />
       </section>
 
@@ -712,33 +726,33 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                     />
                   </div>
                   <div className="content">
-                  <Link to="#  "  className="category">
-                                                                                   {(() => {
-                                                                                     switch (jobDetails.categorieId) {
-                                                                                       case 1:
-                                                                                         return 'Information Technology';
-                                                                                       case 2:
-                                                                                         return 'Software Development';
-                                                                                       case 3:
-                                                                                         return 'Human Resources';
-                                                                                       case 4:
-                                                                                         return 'Finance';
-                                                                                       case 5:
-                                                                                         return 'Design & Multimedia';
-                                                                                       case 6:
-                                                                                         return 'Telecommunications';
-                                                                                       case 7:
-                                                                                         return 'Engineering';
-                                                                                       case 8:
-                                                                                         return 'Construction & Facilities';
-                                                                                       default:
-                                                                                         return 'Unknown Category'; // Default case if categorieId doesn't match
-                                                                                     }
-                                                                                   })()}
-                                                                                 </Link>
+                    <Link to="#  " className="category">
+                      {(() => {
+                        switch (jobDetails.categorieId) {
+                          case 1:
+                            return 'Information Technology';
+                          case 2:
+                            return 'Software Development';
+                          case 3:
+                            return 'Human Resources';
+                          case 4:
+                            return 'Finance';
+                          case 5:
+                            return 'Design & Multimedia';
+                          case 6:
+                            return 'Telecommunications';
+                          case 7:
+                            return 'Engineering';
+                          case 8:
+                            return 'Construction & Facilities';
+                          default:
+                            return 'Unknown Category'; // Default case if categorieId doesn't match
+                        }
+                      })()}
+                    </Link>
                     <h6>
                       <Link to="#">
-                      {jobDetails.title}{" "}
+                        {jobDetails.title}{" "}
                         <span className="icon-bolt"></span>
                       </Link>
                     </h6>
@@ -754,27 +768,27 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                     </ul>
                     <ul className="tags">
                       <li>
-                         <Link to="#">
-                                                   {(() => {
-                                                                        switch (jobDetails.jobTypeId) {
-                                                                          case 1:
-                                                                            return 'Full-Time';
-                                                                          case 2:
-                                                                            return 'Part-Time';
-                                                                          case 3:
-                                                                            return 'Freelance';
-                                                                          case 4:
-                                                                            return 'CDD';
-                                                                          case 5:
-                                                                            return 'CDI';
-                                                                          default:
-                                                                            return 'Unknown Type'; // Default case if jobTypeId doesn't match
-                                                                        }
-                                                                      })()}
-                                                                    </Link>
+                        <Link to="#">
+                          {(() => {
+                            switch (jobDetails.jobTypeId) {
+                              case 1:
+                                return 'Full-Time';
+                              case 2:
+                                return 'Part-Time';
+                              case 3:
+                                return 'Freelance';
+                              case 4:
+                                return 'CDD';
+                              case 5:
+                                return 'CDI';
+                              default:
+                                return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                            }
+                          })()}
+                        </Link>
                       </li>
                       <li>
-                        
+
                       </li>
                     </ul>
                   </div>
@@ -787,8 +801,8 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                     <Link to="#" className="wishlist">
                       <i className="icon-heart" />
                     </Link>
-                    <Link  
-                     onClick={toggleModal} to="#" className="btn btn-popup">
+                    <Link
+                      onClick={handleApplyClick} to="#" className="btn btn-popup">
                       <i className="icon-send" />
                       Apply Now
                     </Link>
@@ -807,7 +821,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                     <div className="price">
                       <span className="icon-dollar" />
                       <p>
-                       {jobDetails.salaryRange} <span className="year">/year</span>
+                        {jobDetails.salaryRange} <span className="year">/year</span>
                       </p>
                     </div>
                   </div>
@@ -825,41 +839,40 @@ const deadline = moment(jobDetails.deadlineTimestamp);
               <Tabs className="job-article tf-tab single-job">
                 <TabList className="menu-tab">
                   <Tab className="ct-tab">About</Tab>
-                  <Tab className="ct-tab">Jobs (2)</Tab>
-                  <Tab className="ct-tab">reviews</Tab>
+                  
                 </TabList>
                 <div className="content-tab">
                   <TabPanel className="inner-content animation-tab">
                     <h5>Full Job Description</h5>
                     <p>
-                     {jobDetails.description}
+                      {jobDetails.description}
                     </p>
                     <p className="mg-19">
                     </p>
                     <h6>Qualifications</h6>
                     <ul className="list-dot">
-                    {jobDetails.requirements && (
-  <ul>
-    {jobDetails.requirements.split('\n').map((requirement, index) => (
-      <li key={index}>{requirement.replace('• ', '').trim()}</li>
-    ))}
-  </ul>
-)}
+                      {jobDetails.requirements && (
+                        <ul>
+                          {jobDetails.requirements.split('\n').map((requirement, index) => (
+                            <li key={index}>{requirement.replace('• ', '').trim()}</li>
+                          ))}
+                        </ul>
+                      )}
 
-                      
+
                     </ul>
                     <h6>Skills Required</h6>
                     <ul className="list-dot mg-bt-15">
-                    {jobDetails.skillsRequired && (
-  <ul>
-    {jobDetails.skillsRequired.split(',').map((skill, index) => (
-      <li key={index}>{skill.trim()}</li>
-    ))}
-  </ul>
-)}
-                      
+                      {jobDetails.skillsRequired && (
+                        <ul>
+                          {jobDetails.skillsRequired.split(',').map((skill, index) => (
+                            <li key={index}>{skill.trim()}</li>
+                          ))}
+                        </ul>
+                      )}
+
                     </ul>
-                   
+
                     <div className="post-navigation d-flex aln-center">
                       <div className="wd-social d-flex aln-center">
                         <span>Social Profiles:</span>
@@ -1219,7 +1232,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                               <ul>
                                 <li>
                                   <span className="icon-map-pin"></span>
-                                 {jobDetails.adress}
+                                  {jobDetails.adress}
                                 </li>
                                 <li>
                                   <span className="icon-calendar"></span>2 days
@@ -1416,19 +1429,19 @@ const deadline = moment(jobDetails.deadlineTimestamp);
             </div>
             <div className="col-lg-4">
               <div className="cv-form-details po-sticky job-sg single-stick">
-                <MapSingle marKers={jobMarkers}/>
+                <MapSingle marKers={jobMarkers} />
                 <ul className="list-infor">
                   <li>
                     <div className="category">Company</div>
                     <div className="detail">
                       <Link to="https://themeforest.net/user/themesflat">
-                       {company.name}
+                        {company.name}
                       </Link>
                     </div>
                   </li>
                   <li>
                     <div className="category">Email</div>
-                    <div className="detail">{company.email|| ''}</div>
+                    <div className="detail">{company.email || ''}</div>
                   </li>
                   <li>
                     <div className="category">Location</div>
@@ -1438,7 +1451,7 @@ const deadline = moment(jobDetails.deadlineTimestamp);
                     <div className="category">Phone</div>
                     <div className="detail">{company.phone}</div>
                   </li>
-                 
+
                   <li>
                     <div className="category">Founded</div>
                     <div className="detail">---</div>
@@ -1495,72 +1508,72 @@ const deadline = moment(jobDetails.deadlineTimestamp);
           </div>
         </div>
         <Modal isOpen={modal} toggle={toggleModal} centered style={{ maxWidth: "50%", width: "50%" }}>
-  <ModalBody className="modal-body p-5">
-    <div className="text-center mb-4">
-      <h5 className="modal-title">Soumettre une candidature</h5>
-    </div>
+          <ModalBody className="modal-body p-5">
+            <div className="text-center mb-4">
+              <h5 className="modal-title">Soumettre une candidature</h5>
+            </div>
 
-    <div className="position-absolute end-0 top-0 p-3">
-      <button type="button" onClick={toggleModal} className="btn-close" aria-label="Close"></button>
-    </div>
+            <div className="position-absolute end-0 top-0 p-3">
+              <button type="button" onClick={toggleModal} className="btn-close" aria-label="Close"></button>
+            </div>
 
-    <Form onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Prénom</Label>
-          <Input
-            type="text"
-            name="firstName"
-            value={application.firstName}
-            onChange={handleInputChange}
-            placeholder="Prénom"
-            required
-          />
-        </Col>
-        <Col md={6}>
-          <Label>Nom</Label>
-          <Input
-            type="text"
-            name="lastName"
-            value={application.lastName}
-            onChange={handleInputChange}
-            placeholder="Nom"
-            required
-          />
-        </Col>
-      </Row>
+            <Form onSubmit={handleSubmit}>
+              <Row className="mb-3">
+                <Col md={6}>
+                  <Label>Prénom</Label>
+                  <Input
+                    type="text"
+                    name="firstName"
+                    value={application.firstName}
+                    onChange={handleInputChange}
+                    placeholder="Prénom"
+                    required
+                  />
+                </Col>
+                <Col md={6}>
+                  <Label>Nom</Label>
+                  <Input
+                    type="text"
+                    name="lastName"
+                    value={application.lastName}
+                    onChange={handleInputChange}
+                    placeholder="Nom"
+                    required
+                  />
+                </Col>
+              </Row>
 
-      <Row className="mb-3">
-        <Col md={12}>
-          <Label>Email</Label>
-          <Input
-            type="email"
-            name="email"
-            value={application.email}
-            onChange={handleInputChange}
-            placeholder="Email"
-            required
-          />
-        </Col>
-      </Row>
+              <Row className="mb-3">
+                <Col md={12}>
+                  <Label>Email</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={application.email}
+                    onChange={handleInputChange}
+                    placeholder="Email"
+                    required
+                  />
+                </Col>
+              </Row>
 
-      <Row className="mb-3">
-        <Col md={12}>
-          <Label>CV</Label>
-          <Input
-            type="file"
-            name="CV"
-            onChange={handleFileChange}
-          />
-        </Col>
-      </Row>
+              <Row className="mb-3">
+                <Col md={12}>
+                  <Label>CV</Label>
+                  <Input
+                    type="file"
+                    name="CV"
+                    onChange={handleFileChange}
+                  />
+                </Col>
+              </Row>
 
-      <Button type="submit" className="btn btn-primary w-100">
-        Soumettre
-      </Button>
-    </Form>
-  </ModalBody>
-</Modal>
+              <Button type="submit" className="btn btn-primary w-100">
+                Soumettre
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
 
       </section>
 

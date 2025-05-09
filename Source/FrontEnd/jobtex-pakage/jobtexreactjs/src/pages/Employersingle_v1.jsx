@@ -13,6 +13,9 @@ import Gallery from "../components/popup/Gallery";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import Header4 from "../components/header/Header4";
+import { useNavigate } from 'react-router-dom';
+import Header2 from "../components/header/Header2";
+
 
 const marKers = [
   {
@@ -37,7 +40,30 @@ function Employersingle_v1(props) {
     status: false,
   });
   const [isShowMobile, setShowMobile] = useState(false);
+  const [company, setCompany] = useState(null);
+  const navigate = useNavigate();
 
+  const id = window.location.pathname.split('/').slice(2).toString();
+
+
+
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const response = await fetch(`http://localhost:5259/api/Companies/${id}`);
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération de l'entreprise");
+        }
+        const data = await response.json();
+        setCompany(data);
+      } catch (error) {
+        console.error("Erreur fetch company:", error);
+      }
+    };
+  
+    fetchCompany();
+  }, []);
+  
   const handleRating = (rate) => {
     setRating(rate);
   };
@@ -556,10 +582,10 @@ function Employersingle_v1(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actEm2" handleMobile={handleMobile} />
+      <Header2 clname="actEm2" handleMobile={handleMobile} />
       <section className="single-job-thumb">
         <img
-          src={require("../assets/images/review/singlejob.jpg")}
+          src={require("../assets/images/image.png")}
           alt="images"
         />
       </section>
@@ -571,22 +597,27 @@ function Employersingle_v1(props) {
               <div className="wd-job-author stc-em">
                 <div className="inner-job-left">
                   <img
-                    src={require("../assets/images/logo-company/cty4.png")}
+                    src={company?.logoUrl}
                     alt="Jobtex"
                     className="logo-company"
                   />
                   <div className="content">
                     <h3>
-                      <Link to="#">Avitex Agency</Link>&nbsp;
+                      <Link to="#">{company?.name}</Link>&nbsp;
                       <span className="icon-bolt"></span>
                     </h3>
                     <div className="job-info">
                       <span className="icon-map-pin"></span>
-                      <span>Las Vegas, NV 89107, USA</span>
+                      <span>   {  company?.adress}</span>
                     </div>
                     <div className="group-btn">
                       <button className="tf-btn">Follow</button>
-                      <button className="tf-btn">2 job openings</button>
+                      <button
+   className="tf-btn"
+  onClick={() => navigate(`/joblist_v9/${company.id}`)}
+>
+     job openings
+</button>
                     </div>
                   </div>
                 </div>
@@ -1182,33 +1213,26 @@ function Employersingle_v1(props) {
                 <MapSingle marKers={marKers} />
                 <ul className="list-infor">
                   <li>
-                    <div className="category">Website</div>
+                    <div className="category">Company</div>
                     <div className="detail">
                       <Link to="https://themeforest.net/user/themesflat">
-                        Themesflat.vn
+                        {company?.name}
                       </Link>
                     </div>
                   </li>
                   <li>
                     <div className="category">Email</div>
-                    <div className="detail">themesflat@gmail.com</div>
+                    <div className="detail">{company?.email}</div>
                   </li>
                   <li>
-                    <div className="category">Industry</div>
-                    <div className="detail">Internet Publishing</div>
+                    <div className="category">Phone</div>
+                    <div className="detail">{company?.phone}</div>
                   </li>
                   <li>
-                    <div className="category">Company size</div>
-                    <div className="detail">51-200 employees</div>
+                    <div className="category">Location</div>
+                    <div className="detail">{company?.adress}</div>
                   </li>
-                  <li>
-                    <div className="category">Headquarters</div>
-                    <div className="detail">3 S Valley , Las Vegas, USA</div>
-                  </li>
-                  <li>
-                    <div className="category">Founded</div>
-                    <div className="detail">2017</div>
-                  </li>
+                  
                 </ul>
 
                 <div className="wd-social d-flex aln-center">

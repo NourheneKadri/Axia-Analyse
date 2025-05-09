@@ -13,18 +13,28 @@ import Gallery from "../components/popup/Gallery";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import Header4 from "../components/header/Header4";
+import axios from "axios";
+import Authentification from "../Services/AuthentificationService";
+import { Input } from "reactstrap";
+import { toast } from "react-toastify";
+import Header2 from "../components/header/Header2";
+
 
 Candidatesingle_v1.propTypes = {};
 
 function Candidatesingle_v1(props) {
   const progressRef = useRef();
   const [targetHeight, setTargetHeight] = useState(0);
+  // const [Candidate, setCandidate] = useState("");
+
+
 
   const [toggle, setToggle] = useState({
     key: "",
     status: false,
   });
   const [isShowMobile, setShowMobile] = useState(false);
+  const [Photo, setPhoto] = useState(""); 
 
   const handleToggle = (key) => {
     if (toggle.key === key) {
@@ -38,6 +48,14 @@ function Candidatesingle_v1(props) {
       });
     }
   };
+
+  const [Candidate, setCandidate] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    aboutMe: '',
+    PhotoLogo: null,
+  });
 
   const handleMobile = () => {
     const getMobile = document.querySelector(".menu-mobile-popup");
@@ -54,6 +72,67 @@ function Candidatesingle_v1(props) {
     }
   }, [progressRef]);
 
+
+  useEffect(() => {
+    const fetchCandidate = async () => {
+      const user = Authentification.getStoredUser()
+      try {
+        const response = await axios.get(`http://localhost:5259/api/Authentication/GetUser/${user.userAccountId}`);
+        // traite les données ici
+        //console.log(response.data);
+        setCandidate(response.data)
+        setPhoto(response.data.photoLogo);
+        console.log(response.data.photoLogo) // ancienne photo
+
+      } catch (error) {
+        console.error('Erreur lors de la récupération du candidat :', error);
+      }
+    };
+
+    fetchCandidate();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === 'file') {
+      // Update the PhotoLogo state with the selected file
+      setCandidate({ ...Candidate, PhotoLogo: files[0] }); // Capture the selected file
+    } else {
+      // Update other fields
+      setCandidate({ ...Candidate, [name]: value });
+    }
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("firstName", Candidate.firstName);
+    formData.append("lastName", Candidate.lastName);
+    formData.append("email", Candidate.email);
+    formData.append("aboutMe", Candidate.aboutMe);
+    if (Candidate.PhotoLogo) {
+      formData.append("PhotoLogo", Candidate.PhotoLogo);
+    }else{
+      formData.append("PhotoLogoUrl", Photo); // ancienne URL conservée
+    }
+      const user = Authentification.getStoredUser()
+
+    try {
+      const response = await fetch(`http://localhost:5259/api/Authentication/Update/${user.userAccountId}`, {
+        method: "PUT",
+        body: formData, // FormData gère automatiquement le Content-Type
+      });
+      toast.success("Profil mis à jour avec succès !");
+    } catch (error) {
+      console.error("Erreur :", error);
+      toast.error("Erreur lors de la mise à jour du profil.");
+    }
+  };
+
+
   return (
     <>
       <div className="menu-mobile-popup">
@@ -62,7 +141,7 @@ function Candidatesingle_v1(props) {
           <div className="mobile-header">
             <div id="logo" className="logo">
               <Link to="/">
-                <img className="site-logo" src={logo} alt="Image" />
+                <img className="site-logo" src={Candidate.PhotoLogo} alt="Image" />
               </Link>
             </div>
             <Link className="title-button-group" onClick={handleMobile}>
@@ -95,9 +174,8 @@ function Candidatesingle_v1(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "home" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "home" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -148,9 +226,8 @@ function Candidatesingle_v1(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "job" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "job" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -211,9 +288,8 @@ function Candidatesingle_v1(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "employers" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "employers" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item">
@@ -255,7 +331,7 @@ function Candidatesingle_v1(props) {
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                 My candidancyt Found
+                                My candidancyt Found
                               </Link>
                             </li>
                           </ul>
@@ -275,9 +351,8 @@ function Candidatesingle_v1(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "candidate" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "candidate" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -339,9 +414,8 @@ function Candidatesingle_v1(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "blog" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "blog" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -381,9 +455,8 @@ function Candidatesingle_v1(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "pages" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "pages" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -541,14 +614,14 @@ function Candidatesingle_v1(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actCan3" handleMobile={handleMobile} />
+      <Header2   clname="actCan3" handleMobile={handleMobile} />
 
       <section className="wrapper-author-page-title style2 stc form-sticky fixed-space">
         <div className="tf-container">
           <div className="wd-author-page-title">
             <div className="author-archive-header">
               <img
-                src={require("../assets/images/user/avatar/avt-author-1.jpg")}
+                src={Candidate.photoLogo}
                 alt="jobtex"
                 className="logo-company"
               />
@@ -557,10 +630,10 @@ function Candidatesingle_v1(props) {
                   Available now
                 </Link>
                 <h4>
-                  <Link to="#">Computer Systems Analyst</Link>
+                  <Link to="#">{Candidate.email}</Link>
                 </h4>
                 <h3>
-                  <Link to="#">Maverick Nguyen</Link>
+                  <Link to="#">{Candidate.firstName}   {Candidate.lastName}</Link>
                   <span className="icon-bolt"></span>
                 </h3>
                 <ul className="author-list">
@@ -599,23 +672,9 @@ function Candidatesingle_v1(props) {
                   <TabPanel className="inner-content animation-tab">
                     <h5>About me</h5>
                     <p>
-                      Are you a User Experience Designer with a track record of
-                      delivering intuitive digital experiences that drive
-                      results? Are you a strategic storyteller and systems
-                      thinker who can concept and craft smart, world-class
-                      campaigns across a variety of mediums?
+                      {Candidate.aboutMe}
                     </p>
-                    <p className="mg-39">
-                      Deloitte's Green Dot Agency is looking to add a Lead User
-                      Experience Designer to our experience design team. We want
-                      a passionate creative who's inspired by new trends and
-                      emerging technologies, and is able to integrate them into
-                      memorable user experiences. A problem solver who is
-                      entrepreneurial, collaborative, hungry, and humble; can
-                      deliver beautifully designed, leading-edge experiences
-                      under tight deadlines; and who has demonstrated proven
-                      expertise.
-                    </p>
+                    
                     <h5>Education</h5>
                     <div className="group-infor">
                       <div className="inner">
@@ -752,36 +811,7 @@ function Candidatesingle_v1(props) {
                     </div>
 
                     <div className="form-candidate">
-                      <h5>Contact Candidate</h5>
-                      <form>
-                        <div className="group-input">
-                          <div className="ip">
-                            <label>Subject</label>
-                            <input type="text" placeholder="Subject" />
-                          </div>
-                          <div className="ip">
-                            <label>Name</label>
-                            <input
-                              type="text"
-                              placeholder="Name"
-                              value="Tony Nguyen |"
-                            />
-                          </div>
-                        </div>
-                        <div className="ip out">
-                          <label>Email</label>
-                          <input
-                            type="email"
-                            placeholder="Email"
-                            value="jobtex@mail.com"
-                          />
-                        </div>
-                        <div className="ip out">
-                          <label>Message</label>
-                          <textarea placeholder="Message..."></textarea>
-                        </div>
-                        <button>Send Private Message</button>
-                      </form>
+                      
                     </div>
                   </TabPanel>
                   <TabPanel className="inner-content animation-tab">
@@ -795,13 +825,54 @@ function Candidatesingle_v1(props) {
                     </p>
                   </TabPanel>
                   <TabPanel className="inner-content animation-tab">
-                    <h5>About Company</h5>
-                    <p>
-                      Are you a User Experience Designer with a track record of
-                      delivering intuitive digital experiences that drive
-                      results? Are you a strategic storyteller and systems
-                      thinker who can concept and craft smart.
-                    </p>
+                    <div className="form-candidate">
+                    <form onSubmit={handleSubmit}>
+                        <div className="group-input">
+                          <div className="ip">
+                            <input
+                              type="text"
+                              name="firstName"
+                              placeholder="Your Name"
+                              value={Candidate.firstName}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          <div className="ip">
+                            <input
+                              type="text"
+                              name="lastName"
+                              placeholder="Last Name"
+                              value={Candidate.lastName}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="ip out s1">
+                          <input
+                            type="email"
+                            name="email"
+                            placeholder="Your Email"
+                            value={Candidate.email}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <Input
+          type="file"
+          name="file"
+          onChange={(e) => setCandidate({ ...Candidate, PhotoLogo: e.target.files[0] })}
+          // Handle file selection
+        />
+                        <div className="ip out">
+                          <textarea
+                            name="aboutMe"
+                            placeholder="About you..."
+                            value={Candidate.aboutMe || ''}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <button type="submit">Send Message</button>
+                      </form>
+                    </div>
                   </TabPanel>
                 </div>
               </Tabs>

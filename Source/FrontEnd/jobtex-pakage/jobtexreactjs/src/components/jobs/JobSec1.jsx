@@ -7,9 +7,12 @@ import SortBuy from "../dropdown/SortBuy";
 import moment from "moment";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Button, Modal, ModalBody, Form, Label, Input, Row, Col } from "reactstrap";
+import { Button, Modal, ModalBody, Form, Label, Input, Row, Col, Toast } from "reactstrap";
 import SelectLocation from "../dropdown";
 import Authentification from "../../Services/AuthentificationService";
+import JobOfferServices from "../../Services/JobOfferService";
+import toast from 'react-hot-toast';
+
 
 
 
@@ -26,6 +29,11 @@ function JobSec1(props) {
   const [selectedJob, setSelectedJob] = useState(null);
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const toggleAddModal = () => setIsAddModalOpen(!isAddModalOpen);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
+
   const [companyLogos, setCompanyLogos] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 3; 
@@ -37,6 +45,22 @@ function JobSec1(props) {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedJobType, setSelectedJobType] = useState("");
   const user = Authentification.getStoredUser() 
+   const [jobOffer, setJobOffer] = useState({
+      title: "",
+      categorieId: "",
+      jobTypeId: "",
+      adress: "",
+      experienceLevel: "",
+      responsibilities: "",
+      postNumber: "",
+      requirements: "",
+      salaryRange: "",
+      skillsRequired: "",
+      deadlineTimestamp: "",
+      userAccountId: user ? user.userAccountId : "", // S'assurer que l'ID est récupéré de l'utilisateur stocké
+      description: "",
+      status: "open"
+    });
   const options = [
     { value: "12", label: "12 Per Page" },
     { value: "1", label: "1 Per Page" },
@@ -67,6 +91,56 @@ function JobSec1(props) {
     { id: 5, name: "CDI" },
   ];
   
+   // Gérer le changement des champs du formulaire
+   const handleInputChangeAdd = (e) => {
+    setJobOffer({ ...jobOffer, [e.target.name]: e.target.value });
+  };
+
+  // Gérer la date de soumission
+  const handleDateChangeAdd = (e) => {
+    setJobOffer({ ...jobOffer, deadlineTimestamp: e.target.value });
+  };
+
+  // Soumettre le formulaire à l'API
+  const handleSubmitAdd = async (e) => {
+    e.preventDefault();
+    
+    try {
+
+      // Envoi de la requête POST avec les données du formulaire
+      const response = await JobOfferServices.createJobOffer(jobOffer)
+      if(response){
+      toast.success("Offre ajoutée avec succès");
+      fetchData();
+      setJobOffer({
+        title: "",
+        categorieId: "",
+        jobTypeId: "",
+        adress: "",
+        experienceLevel: "",
+        responsibilities: "",
+        postNumber: "",
+        requirements: "",
+        salaryRange: "",
+        skillsRequired: "",
+        deadlineTimestamp: "",
+        userAccountId: user ? user.userAccountId : "",
+        description: "",
+        status: "open"
+      });
+
+      // Si la requête est réussie, afficher un message de succès
+      toggleAddModal();}
+      else{
+        toast.error("Il y a une erreur. Veuillez vérifier vos informations.");
+
+      }
+    } catch (error) {
+      console.error("Erreur lors de la soumission de l'offre d'emploi:", error);
+      toast.error("Il y a une erreur. Veuillez vérifier vos informations.");
+
+    }
+  };
   
   
   const handleClick = () => {
@@ -144,19 +218,25 @@ function JobSec1(props) {
   const handleDateChange = (e) => {
     setSelectedJob({ ...selectedJob, deadlineTimestamp: e.target.value });
   };
-  //JobOffers
-  useEffect(() => {
+  //JobOffersc
+ 
     // Remplace l'URL ci-dessous par celle de ton API
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5259/api/JobOffer"); // Remplace par ton API
-        if (!response.ok) {
+        const response = await JobOfferServices.getJobOffers();
+        //console.log("data", response.data);
+    
+        // Axios ne fournit pas 'ok', donc on vérifie via le status
+        if (response.status !== 200) {
           throw new Error("Erreur lors de la récupération des données");
         }
-        const result = await response.json();
+    
+        const result = response.data; // Ton tableau d'offres
+        //console.log("cc", result);
+    
 
         const filteredJobOffers = result.filter(job => job.userAccountId === user.userAccountId);
-        console.log("filteredJobOffers",user)
+        //console.log("filteredJobOffers",filteredJobOffers)
 
         setData(filteredJobOffers); 
         filteredJobOffers.forEach(async (job) => {
@@ -172,11 +252,11 @@ function JobSec1(props) {
         setLoading(false); // Fin du chargement
       }
     };
-
+    useEffect(() => {
     fetchData();
   }, []); // Le tableau vide signifie que cet effet s'exécute une seule fois, lors du montage du composant.
 
-
+  
   // Fermer le modal
   const handleClose = () => {
     setOpen(false);
@@ -189,15 +269,51 @@ function JobSec1(props) {
   };
   // Delete JobOffer
   const handleDelete = async (id) => {
-    console.log("nn")
+    console.log("Tentative de suppression de l'offre avec ID:", id);
+   
     try {
-      await fetch(`http://localhost:5259/api/JobOffer/delete/${id}`, { method: "GET" });
-      setData(data.filter((job) => job.id !== id));
+      // Récupérer le token depuis le stockage local (ou un autre mécanisme d'authentification)
+      const token = user.token;// Si le token est stocké dans le localStorage
+  
+      // Vérifier si le token existe
+      if (!token) {
+        console.error('Aucun token trouvé');
+        return;
+      }
+  
+      // Effectuer la requête DELETE avec le token dans l'en-tête
+      const response = await fetch(`http://localhost:5259/api/JobOffer/delete/${id}`, {
+        method: 'GET', // Utiliser la méthode DELETE pour supprimer
+        headers: {
+          'Authorization': `Bearer ${token}`, // Ajouter le token d'authentification
+          'Content-Type': 'application/json', // Assurez-vous que le content-type est correct
+        },
+      });
+  
+      // Vérifier si la suppression a réussi
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression');
+        toast.error("Erreur lors de la suppression")
+      }
+  
+      // Rafraîchir les données après la suppression
+  
+      // Mettre à jour l'état pour enlever l'offre supprimée
+      toast.success("Offre supprimée avec succès")
+      setData((prevData) => prevData.filter((job) => job.id !== id));
+      fetchData()
+  
+      //console.log('Offre supprimée avec succès');
     } catch (error) {
-      console.error("Erreur lors de la suppression :", error);
-    }
-  };
+      console.error('Erreur lors de la suppression:', error);
+      toast.error("Erreur lors de la suppression")
 
+    }
+
+   
+  };
+  
+  
 
   const fetchCompanyLogo = async (userAccountId) => {
     try {
@@ -216,27 +332,33 @@ function JobSec1(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+   const token = user?.token;
     try {
+
       const response = await fetch(`http://localhost:5259/api/JobOffer/Update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(selectedJob),
       });
 
       if (!response.ok) {
         throw new Error("Échec de la mise à jour");
+        toast.error("Échec de la mise à jour")
       }
 
       // Mettre à jour la liste des offres sans recharger la page
       setData((prevData) =>
         prevData.map((job) => (job.id === selectedJob.id ? selectedJob : job))
       );
+      toast.success("Offre Modifée avec succés")
 
       toggleModal();
         } catch (error) {
       console.error("Erreur:", error);
+        toast.error("Échec de la mise à jour")
     }
   };
   const handleEdit = (job) => {
@@ -538,7 +660,21 @@ function JobSec1(props) {
                 </div>
               </div>
               <div className="form-group-4">
-                <button className="btn btn-find">Find Jobs</button>
+                <Button 
+                 style={{
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  lineHeight: "26px",
+                  padding: "12px 32px",
+                  backgroundColor: "#0e7abf",
+                  color: "#ffffff",
+                  borderRadius: "4px",
+                  textTransform: "none",
+                  width: "100%",
+                  border: "none",
+                  cursor: "pointer"
+                }}
+                onClick={toggleAddModal} >Add Jobs</Button>
               </div>
             </div>
           </form>
@@ -608,7 +744,6 @@ function JobSec1(props) {
                   value={sortOptions.find((option) => option.value === sortBy)}
                   onChange={handleSortChange}
                 /> </div>
-                <SortBuy data={data} addJobOffer={addJobOffer} />
               </div>
             </div>
             <div className="content-tab">
@@ -780,9 +915,9 @@ function JobSec1(props) {
 
 
       <Modal isOpen={modal} toggle={toggleModal} centered style={{ maxWidth: "50%", width: "50%" }}>
-       <ModalBody className="modal-body p-5">
+  <ModalBody className="modal-body p-5">
     <div className="text-center mb-4">
-      <h5 className="modal-title">Modifier l'offre d'emploi</h5>
+      <h5 className="modal-title">Edit Job Offer</h5>
     </div>
 
     <div className="position-absolute end-0 top-0 p-3">
@@ -792,13 +927,13 @@ function JobSec1(props) {
     <Form onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Col md={6}>
-          <Label>Titre de poste</Label>
+          <Label>Job Title</Label>
           <Input 
             type="text" 
             name="title" 
             value={selectedJob?.title || ''} 
             onChange={handleInputChange} 
-            placeholder="Titre du poste" 
+            placeholder="Job title" 
             required 
           />
           <Input
@@ -808,20 +943,20 @@ function JobSec1(props) {
           />
         </Col>
         <Col md={6}>
-          <Label>Numéro de poste</Label>
+          <Label>Number of Positions</Label>
           <Input 
             type="number" 
             name="postNumber" 
             value={selectedJob?.postNumber || ''} 
             onChange={handleInputChange} 
-            placeholder="Numéro de poste" 
+            placeholder="Number of positions" 
           />
         </Col>
       </Row>
 
       <Row className="mb-3">
         <Col md={6}>
-          <Label>Catégorie</Label>
+          <Label>Category</Label>
           <Input 
             type="select" 
             name="categorieId" 
@@ -829,14 +964,14 @@ function JobSec1(props) {
             onChange={handleInputChange} 
             required
           >
-            <option value="">Sélectionner une catégorie</option>
+            <option value="">Select a category</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>{category.name}</option>
             ))}
           </Input>
         </Col>
         <Col md={6}>
-          <Label>Type d'offre</Label>
+          <Label>Job Type</Label>
           <Input 
             type="select" 
             name="jobTypeId" 
@@ -844,7 +979,7 @@ function JobSec1(props) {
             onChange={handleInputChange} 
             required
           >
-            <option value="">Sélectionner un type</option>
+            <option value="">Select a job type</option>
             {jobTypes.map((type) => (
               <option key={type.id} value={type.id}>{type.name}</option>
             ))}
@@ -854,18 +989,18 @@ function JobSec1(props) {
 
       <Row className="mb-3">
         <Col md={6}>
-          <Label>Adresse</Label>
+          <Label>Address</Label>
           <Input 
             type="text" 
             name="adress" 
             value={selectedJob?.adress || ''} 
             onChange={handleInputChange} 
-            placeholder="Adresse" 
+            placeholder="Job location" 
             required 
           />
         </Col>
         <Col md={6}>
-          <Label>Expérience</Label>
+          <Label>Experience Level</Label>
           <Input 
             type="select" 
             name="experienceLevel" 
@@ -873,30 +1008,30 @@ function JobSec1(props) {
             onChange={handleInputChange} 
             required
           >
-            <option value="">Sélectionner le niveau d'expérience</option>
+            <option value="">Select experience level</option>
             <option value="Junior">Junior</option>
             <option value="Senior">Senior</option>
             <option value="Manager">Manager</option>
-            <option value="Director">Directeur</option>
-            <option value="VP">Vice-Président</option>
-            <option value="C-Level">Cadre supérieur</option>
+            <option value="Director">Director</option>
+            <option value="VP">Vice President</option>
+            <option value="C-Level">C-Level</option>
           </Input>
         </Col>
       </Row>
 
       <Row className="mb-3">
         <Col md={6}>
-          <Label>Plage salariale</Label>
+          <Label>Salary Range</Label>
           <Input 
             type="text" 
             name="salaryRange" 
             value={selectedJob?.salaryRange || ''} 
             onChange={handleInputChange} 
-            placeholder="Salaire" 
+            placeholder="Salary range" 
           />
         </Col>
         <Col md={6}>
-          <Label>Date Limite</Label>
+          <Label>Application Deadline</Label>
           <Input 
             type="date" 
             name="deadlineTimestamp" 
@@ -909,23 +1044,23 @@ function JobSec1(props) {
 
       <Row className="mb-3">
         <Col md={12}>
-          <Label>Exigences</Label>
+          <Label>Requirements</Label>
           <Input 
             type="text" 
             name="requirements" 
             value={selectedJob?.requirements || ''} 
             onChange={handleInputChange} 
-            placeholder="Exigences spécifiques" 
+            placeholder="Specific requirements" 
           />
         </Col>
         <Col md={12}>
-          <Label>Compétences requises</Label>
+          <Label>Required Skills</Label>
           <textarea 
             className="form-control" 
             name="skillsRequired" 
             value={selectedJob?.skillsRequired || ''} 
             onChange={handleInputChange} 
-            placeholder="Ex: React, Node.js, SQL, Agile" 
+            placeholder="e.g., React, Node.js, SQL, Agile" 
             rows="3" 
             required
           ></textarea>
@@ -933,24 +1068,135 @@ function JobSec1(props) {
       </Row>
 
       <div className="mb-3">
-        <Label>Description</Label>
+        <Label>Job Description</Label>
         <textarea 
           className="form-control" 
           name="description" 
           value={selectedJob?.description || ''} 
           onChange={handleInputChange} 
-          placeholder="Description du poste" 
+          placeholder="Job description" 
           rows="4" 
           required
         ></textarea>
       </div>
 
       <Button type="submit" className="btn btn-primary w-100">
-        Mettre à jour
+        Update
       </Button>
     </Form>
-       </ModalBody>
-      </Modal>
+  </ModalBody>
+</Modal>
+
+
+      <Modal isOpen={isAddModalOpen} toggle={toggleAddModal} centered style={{ maxWidth: "50%", width: "50%" }}>
+  <ModalBody className="modal-body p-5">
+    <div className="text-center mb-4">
+      <h5 className="modal-title">Create a New Job Offer</h5>
+    </div>
+
+    <div className="position-absolute end-0 top-0 p-3">
+      <button type="button" onClick={toggleAddModal} className="btn-close" aria-label="Close"></button>
+    </div>
+
+    <Form onSubmit={handleSubmitAdd}>
+      <Row className="mb-3">
+        <Col md={6}>
+          <Label>Job Title</Label>
+          <Input type="text" name="title" value={jobOffer.title} onChange={handleInputChangeAdd} placeholder="Job Title" required />
+        </Col>
+        <Col md={6}>
+          <Label>Number of Positions</Label>
+          <Input type="number" name="postNumber" value={jobOffer.postNumber} onChange={handleInputChangeAdd} placeholder="Job Number" />
+        </Col>
+      </Row>
+
+      <Row className="mb-3">
+        <Col md={6}>
+          <Label>Category</Label>
+          <Input type="select" name="categorieId" value={jobOffer.categorieId} onChange={handleInputChangeAdd} required>
+            <option value="">Select a category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
+          </Input>
+        </Col>
+        <Col md={6}>
+          <Label>Job Type</Label>
+          <Input type="select" name="jobTypeId" value={jobOffer.jobTypeId} onChange={handleInputChangeAdd} required>
+            <option value="">Select a type</option>
+            {jobTypes.map((type) => (
+              <option key={type.id} value={type.id}>{type.name}</option>
+            ))}
+          </Input>
+        </Col>
+      </Row>
+
+      <Row className="mb-3">
+        <Col md={6}>
+          <Label>Address</Label>
+          <Input type="text" name="adress" value={jobOffer.adress} onChange={handleInputChangeAdd} placeholder="Address" required />
+        </Col>
+        <Col md={6}>
+          <Label>Experience Level</Label>
+          <Input type="select" name="experienceLevel" value={jobOffer.experienceLevel} onChange={handleInputChangeAdd} required>
+            <option value="">Select experience level</option>
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+            <option value="Manager">Manager</option>
+            <option value="Director">Director</option>
+            <option value="VP">Vice President</option>
+            <option value="C-Level">C-Level Executive</option>
+          </Input>
+        </Col>
+      </Row>
+
+      <Row className="mb-3">
+        <Col md={6}>
+          <Label>Salary Range</Label>
+          <Input type="text" name="salaryRange" value={jobOffer.salaryRange} onChange={handleInputChangeAdd} placeholder="Salary" />
+        </Col>
+        <Col md={6}>
+          <Label>Deadline</Label>
+          <Input type="date" name="deadlineTimestamp" value={jobOffer.deadlineTimestamp ? moment(jobOffer.deadlineTimestamp).format("YYYY-MM-DD") : ""} onChange={handleDateChangeAdd} required />
+        </Col>
+      </Row>
+
+      <Row className="mb-3">
+        <Col md={12}>
+          <Label>Requirements</Label>
+          <Input 
+            type="text" 
+            name="requirements" 
+            value={jobOffer.requirements} 
+            onChange={handleInputChangeAdd} 
+            placeholder="Specific requirements" 
+          />
+        </Col>
+        <Col md={12}>
+          <Label>Required Skills</Label>
+          <textarea 
+            className="form-control" 
+            name="skillsRequired" 
+            value={jobOffer.skillsRequired} 
+            onChange={handleInputChangeAdd} 
+            placeholder="E.g., React, Node.js, SQL, Agile" 
+            rows="3" 
+            required
+          ></textarea>
+        </Col>
+      </Row>
+
+      <div className="mb-3">
+        <Label>Job Description</Label>
+        <textarea className="form-control" name="description" value={jobOffer.description} onChange={handleInputChangeAdd} placeholder="Job Description" rows="4" required></textarea>
+      </div>
+
+      <Button type="submit" className="btn btn-primary w-100">
+        Add Job Offer
+      </Button>
+    </Form>
+  </ModalBody>
+</Modal>
 
     </section>
   );

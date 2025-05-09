@@ -9,6 +9,9 @@ import avt from "../../assets/images/user/avatar/image-01.jpg";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 
 Header2.propTypes = {};
@@ -18,15 +21,80 @@ function Header2({ clname = "", handleMobile }) {
   const handleDropdown = (index) => {
     setActiveIndex(index);
   };
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const [scroll, setScroll] = useState(0);
   const navigate = useNavigate();
   const user = Authentification?.getStoredUser?.()
-  const [Role, setRole] = useState("");
+  const [Photo, setPhoto] = useState("");
 
 
 
- 
+  useEffect(() => {
+    const fetchCandidate = async () => {
+      const user = Authentification?.getStoredUser?.();
+      try {
+        const response = await axios.get(`http://localhost:5259/api/Authentication/GetUser/${user?.userAccountId}`);
+        const data = response.data;
+
+        // 👉 Récupération du champ photo
+        if (data.photoLogo) {
+          setPhoto(data.photoLogo);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération du candidat :', error);
+      }
+    };
+
+    fetchCandidate();
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      toast("⏳ Veuillez patienter, l’analyse de votre CV est en cours...", {
+        icon: '👏',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      });
+    }
+  }, [isLoading]);
+
+  const handleCvUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("CvFile", file);
+
+    setIsLoading(true); // début du chargement
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5259/api/JobOfferCandidancy/recommendations",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      navigate("/joblist_v5", {
+        state: { recommendedJobs: response.data },
+      });
+    } catch (err) {
+      console.error("Erreur lors de l'envoi :", err);
+      alert("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setIsLoading(false); // fin du chargement
+    }
+  };
+
+
   useEffect(() => {
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY > 100;
@@ -37,12 +105,12 @@ function Header2({ clname = "", handleMobile }) {
   }, []);
   const handleLogout = () => {
     Authentification.logout(); // Assurez-vous que cette fonction gère bien la déconnexion
-    
+
     window.location.href = "http://localhost:3000/login"; // Redirection correcte
-  
+
     console.log("User logged out");
   };
-  
+
 
   return (
     <header
@@ -55,7 +123,7 @@ function Header2({ clname = "", handleMobile }) {
             <div className="sticky-area-wrap">
               <div className="header-ct-left">
                 <div id="logo" className="logo">
-                  <Link to="/">
+                  <Link to="\candidatesingle_v1">
                     <img
                       className="site-logo"
                       id="trans-logo"
@@ -454,75 +522,231 @@ function Header2({ clname = "", handleMobile }) {
                   <nav id="main-nav" className="main-nav">
                     <ul id="menu-primary-menu" className={`menu ${clname}`}>
                       <li className="menu-item menu-item-has-children sub1">
-                        <Link to="#">Home </Link>
-                        <div className="menu-bar">
-                          <ul className="sub-menu-bar">
-                            <li className="menu-item">
-                              <NavLink to="/">Home Page </NavLink>
-                            </li>
-                           
-                          </ul>
-                        </div>
+                        <Link to="/">Home </Link>
+
                       </li>
                       <li className="menu-item menu-item-has-children sub2">
                         <Link to="#">Find jobs </Link>
                         <ul className="sub-menu st1">
                           <li className="nav-sub subnav1">
-                          {user.appRoleId === 3 && (
-      <>
-                              <li className="nav-menu-item subitem1">
-                                <NavLink to="/joblist_v1">Job List </NavLink>
-                              </li>
+                            {user?.appRoleId === 3 && (
+                              <>
 
-                              
-                          <li className="nav-sub subnav5">
-                            <NavLink to="/employernotfound">
-                              My candidancy
-                            </NavLink>
-                          </li>
+
+
+                                <li className="nav-menu-item subitem2">
+                                  <NavLink to="/job-grid">Job List </NavLink>
+                                </li>
+                                <li className="nav-sub subnav5">
+                                  <NavLink to="/employernotfound">
+                                    Application
+                                  </NavLink>
+                                </li>
+                                <li className="nav-sub subnav2">
+                                  <NavLink to="/joblist_v10">
+                                    Interviews
+                                  </NavLink>
+                                </li>
                               </>
-    )}
-    
-                              <li className="nav-menu-item subitem2">
-                                <NavLink to="/job-grid">Grid Layout</NavLink>
-                              </li>
-                          
+                            )}
+                            {user?.appRoleId === 2 && (
+                              <>
+
+                                <li className="nav-menu-item subitem1">
+                                  <NavLink to="/joblist_v1">Job List </NavLink>
+                                </li>
+                                <li className="nav-sub subnav2">
+                                  <NavLink to="/jobCandidancy">
+                                    Applications
+                                  </NavLink>
+                                </li>
+                              </>
+                            )}
+                            {!user && (
+                              <>
+                               <li className="nav-menu-item subitem2">
+                                  <NavLink to="/job-grid">Job List </NavLink>
+                                </li>
+                               
+                              </>
+                            )}
                           </li>
 
-                          <li className="nav-sub subnav2">
-                            <NavLink to="/jobCandidancy">
-                             Job Candidancy
-                            </NavLink>
-                          </li>
-                        
+
+
                         </ul>
                       </li>
 
                       <li className="menu-item menu-item-has-children sub3">
-                        <Link to="#">Employers</Link>
+                        <Link to="#">Companies</Link>
                         <ul className="sub-menu st1">
                           <li className="nav-sub subnav1">
-                            <Link to="#">
-                              Employers Listing
-                              <span className="icon-keyboard_arrow_right"></span>
-                            </Link>
-                            <ul className="nav-sub-menu">
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v1">
-                                  List Layout
-                                </NavLink>
-                              </li>
-                              <li className="nav-menu-item">
-                                <NavLink to="/employers_v2">
-                                  Grid Layout
-                                </NavLink>
-                              </li>
-                            </ul>
+                          {user?.appRoleId === 2 && (
+                              <>
+                            <li className="nav-menu-item">
+                              <NavLink to="/employers_v1">
+                                Companies List
+                              </NavLink>
+                            </li>
+                            <li className="nav-sub">
+                              <NavLink to="/employerreview">
+                                Interview Scheduled
+                              </NavLink>
+                            </li>
+                            </>
+                          )
+                        }
+                         {user?.appRoleId === 3 && (
+                          <>
+                            <li className="nav-menu-item">
+                              <NavLink to="/employers_v2">
+                                Companies Grid
+                              </NavLink>
+                            </li>
+                             </>
+                            )
+                          }
+                            
                           </li>
-                          
+                          {!user && (
+                              <>
+                               <li className="nav-menu-item subitem2">
+                               <NavLink to="/employers_v2">
+                                Companies Grid
+                              </NavLink>
+                                </li>
+                               
+                              </>
+                            )}
                         </ul>
                       </li>
-                      <li className="menu-item menu-item-has-children sub4">
+                     
+                      <li className="menu-item menu-item-has-children sub6">
+                        <Link to="#">Pages</Link>
+                        <ul className="sub-menu st1">
+
+                          <li className="nav-sub subnav2">
+                            <Link to="/aboutus">About Us</Link>
+                          </li>
+                          <li className="nav-sub subnav8">
+                            <Link to="/contactus">Contact Us</Link>
+                          </li>
+                          <li className="nav-menu-item">
+                                  <NavLink to="/login">Connexion</NavLink>
+                                </li>
+                                <li className="nav-menu-item">
+                                  <NavLink to="/register">Créer un compte</NavLink>
+                                </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div className="header-ct-right">
+
+                <div className="header-customize-item help">
+                  <Link to="/termsofuse">
+                    <span className="icon-help-circle"></span>
+                  </Link>
+                </div>
+                <div className="header-customize-item bell">
+                  <span className="icon-bell"></span>
+
+
+
+                </div>
+
+                <div className="header-customize-item account">
+                  <Link to={`/candidatesingle_v1`}>
+                    <img
+                      src={Photo}
+                      alt="photo"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        border: "1px solid #ccc",
+                        cursor: "pointer"
+                      }}
+                    />
+                  </Link>
+                  {user?.appRoleId === 3 && (
+                              <>
+                  <div className="header-customize-item button">
+      <label
+        htmlFor="cv-upload"
+        style={{
+          background: "#f0f0f0",
+          color: "#333",
+          padding: "8px 16px",
+          borderRadius: "4px",
+          fontWeight: "500",
+          textDecoration: "none",
+          cursor: "pointer",
+          display: "inline-block",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.background = "#0e7abf";
+          e.target.style.color = "#fff";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.background = "#f0f0f0";
+          e.target.style.color = "#333";
+        }}
+      >
+        Upload Resume
+      </label>
+      <input
+        type="file"
+        id="cv-upload"
+        accept=".pdf"
+        style={{ display: "none" }}
+        onChange={handleCvUpload}
+      />
+    </div> </>
+              )}
+
+
+                </div>
+             
+                <div className="header-customize-item button">
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      border: 'none',
+                      backgroundColor: 'transparent',
+                      cursor: 'pointer',
+                      padding: '8px 16px',
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
+                    <span style={{ marginLeft: '8px', fontSize: '12px' }}>Logout</span>
+                  </button>
+
+                </div>
+
+
+              </div>
+              <div className="nav-filter" onClick={handleMobile}>
+                <div className="nav-mobile">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default Header2;
+
+/* <li className="menu-item menu-item-has-children sub4">
                         <Link to="#">Candidates</Link>
                         <ul className="sub-menu st1">
                           <li className="nav-sub subnav1">
@@ -598,154 +822,4 @@ function Header2({ clname = "", handleMobile }) {
                           </li>
                         </ul>
                       </li>
-                      <li className="menu-item menu-item-has-children sub5">
-                        <Link to="#">Blog</Link>
-                        <ul className="sub-menu st1">
-                          <li className="nav-sub subnav1">
-                            <Link to="#">
-                              Blog Listing
-                              <span className="icon-keyboard_arrow_right"></span>
-                            </Link>
-                            <ul className="nav-sub-menu">
-                              <li className="nav-menu-item subitem1">
-                                <Link to="/blog_v1">Blog List </Link>
-                              </li>
-                              <li className="nav-menu-item subitem2">
-                                <Link to="/blog_v2">Blog Grid</Link>
-                              </li>
-                              <li className="nav-menu-item subitem3">
-                                <Link to="/blog_v3">Blog Masonry</Link>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="nav-sub subnav2">
-                            <Link to="#">
-                              Blog Details
-                              <span className="icon-keyboard_arrow_right"></span>
-                            </Link>
-                            <ul className="nav-sub-menu">
-                              <li className="nav-menu-item subitem1">
-                                <Link to="/blogsingle_v1">
-                                  Blog Details - V1
-                                </Link>
-                              </li>
-                              <li className="nav-menu-item subitem2">
-                                <Link to="/blogsingle_v2">
-                                  Blog Details - V2
-                                </Link>
-                              </li>
-                              <li className="nav-menu-item subitem3">
-                                <Link to="/blogsingle_v3">
-                                  Blog Details Sidebar
-                                </Link>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className="menu-item menu-item-has-children sub6">
-                        <Link to="#">Pages</Link>
-                        <ul className="sub-menu st1">
-                          <li className="nav-sub subnav1">
-                            <Link to="#">
-                              Shop
-                              <span className="icon-keyboard_arrow_right"></span>{" "}
-                            </Link>
-                            <ul className="nav-sub-menu">
-                              <li className="nav-menu-item subitem1">
-                                <Link to="/shop">Shop List</Link>
-                              </li>
-                              <li className="nav-menu-item subitem2">
-                                <Link to="/shopsingle">Shop Single</Link>
-                              </li>
-                              <li className="nav-menu-item subitem3">
-                                <Link to="/shoppingcart">Shopping Cart</Link>
-                              </li>
-                              <li className="nav-menu-item subitem4">
-                                <Link to="/checkout">Checkout</Link>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="nav-sub subnav2">
-                            <Link to="/aboutus">About Us</Link>
-                          </li>
-                          <li className="nav-sub subnav3">
-                            <Link to="/faqs">FAQS</Link>
-                          </li>
-                          <li className="nav-sub subnav4">
-                            <Link to="/termsofuse">Terms Of Use</Link>
-                          </li>
-                          <li className="nav-sub subnav5">
-                            <Link to="/pricing">Pricing</Link>
-                          </li>
-                          <li className="nav-sub subnav6">
-                            <Link to="/login">Login</Link>
-                          </li>
-                          <li className="nav-sub subnav7">
-                            <Link to="/createaccount">Create Account</Link>
-                          </li>
-                          <li className="nav-sub subnav8">
-                            <Link to="/contactus">Contact Us</Link>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-              <div className="header-ct-right">
-                <div className="header-customize-item help">
-                  <Link to="/termsofuse">
-                    <span className="icon-help-circle"></span>
-                  </Link>
-                </div>
-                <div className="header-customize-item bell">
-                  <span className="icon-bell"></span>
-                  <div className="sub-notification">
-                    <div className="sub-notification-heading">
-                    </div>
-                    <li className="nav-sub subnav2">
-                    <button onClick={Authentification.logout} className="logout-btn">Logout</button>
-
-                    </li>
-                  </div>
-                </div>
-                <div className="header-customize-item account">
-                  <img src={avt} alt="jobtex" />
-                  <div className="name">Candidates</div>
-                </div>
-                
-                <div className="header-customize-item button">
-  <button 
-    onClick={handleLogout} 
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      border: 'none',
-      backgroundColor: 'transparent',
-      cursor: 'pointer',
-      padding: '8px 16px',
-    }}
-  >
-    <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
-    <span style={{ marginLeft: '8px', fontSize: '12px' }}>Logout</span>
-  </button>
-  
-</div>
-
-
-              </div>
-              <div className="nav-filter" onClick={handleMobile}>
-                <div className="nav-mobile">
-                  <span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-export default Header2;
+*/

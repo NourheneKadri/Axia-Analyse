@@ -1,6 +1,7 @@
 ﻿using Axia_Analyse.Data.Interface.Entites;
 using Axia_Analyse.Data.Interface.IRepositories;
 using Axia_Analyse.Service.Interfaces;
+using Axia_Analyse.Service.Interfaces.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,45 @@ namespace Axia_Analyse.Service
     public class InterviewService : IInterviewService
     {
         private readonly IInterviewRepository _interviewRepository;
+        private readonly ISlotRepository _slotRepository;
 
-        public InterviewService(IInterviewRepository interviewRepository)
+
+        public InterviewService(IInterviewRepository interviewRepository, ISlotRepository slotRepository)
         {
             _interviewRepository = interviewRepository;
+            _slotRepository = slotRepository;
         }
 
-        public async Task CreateInterviewAsync(Interview interview)
+        public async Task CreateInterviewAsync(InterviewDto interviewDto)
         {
-            // Logique métier avant la création de l'entretien
-            // Par exemple, vérifier la disponibilité du créneau horaire
-            await _interviewRepository.CreateInterviewAsync(interview);
+            var slot = await _slotRepository.GetSlotByIdAsync(interviewDto.SlotId);
+            if (slot == null || slot.IsAvailable==false || slot.RecruiterId != interviewDto.recruiterId)
+            {
+                throw new InvalidOperationException("Le créneau sélectionné n'est plus disponible.");
+            }
+
+            var interviw = new Interview
+            {
+
+              
+                CandidateId = interviewDto.CandidateId,
+                SlotId = interviewDto.SlotId,
+                RecruiterId = interviewDto.recruiterId,
+                JobId = interviewDto.JobId,
+                InterviewDate = interviewDto.InterviewDate,
+                InterviewTime = interviewDto.InterviewTime,
+                Location = interviewDto.Location,
+                StatusId = 1,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+
+
+            };
+
+
+            await _interviewRepository.CreateInterviewAsync(interviw);
+            slot.IsAvailable = false;
+            await _slotRepository.UpdateSlotAsync(slot);
         }
 
         public async Task<Interview> GetInterviewByIdAsync(int interviewId)
@@ -39,6 +68,10 @@ namespace Axia_Analyse.Service
         public async Task DeleteInterviewAsync(int interviewId)
         {
             await _interviewRepository.DeleteInterviewAsync(interviewId);
+        }
+        public async Task<IEnumerable<Interview>> GetAllInterviewsAsync()
+        {
+            return await _interviewRepository.GetAllInterviewsAsync();
         }
     }
 }

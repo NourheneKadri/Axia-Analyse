@@ -56,15 +56,24 @@ class Authentification {
   };
 
   static isLoggedIn() {
-    const token = Cookies.get(COOKIE_NAME);
-    return !!token && !isTokenExpired(token); // Vérifie si le token est présent et valide
+    const storedTokenString = Cookies.get(COOKIE_NAME);
+  
+    if (!storedTokenString) return false;
+  
+    try {
+      const parsed = JSON.parse(storedTokenString); // ← parse le JSON
+      const token = parsed.token; // ← récupère le token JWT réel
+      return !!token && !isTokenExpired(token);
+    } catch (error) {
+      console.error("Erreur parsing token:", error);
+      return false;
+    }
   }
+  
 
   static logout() {
     Cookies.remove(COOKIE_NAME); // Supprime le token du cookie
     localStorage.removeItem(COOKIE_NAME); // Supprime aussi du localStorage (si utilisé)
-
-    // Redirige vers la page de login après la déconnexion
     window.location.replace("/login"); // Utiliser replace pour éviter de revenir en arrière
   }
 

@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
+import Header2 from "../components/header/Header2";
+import Footer from "../components/footer";
 
 Joblist_v10.propTypes = {};
 
@@ -526,8 +528,9 @@ function Joblist_v10(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actJob1" handleMobile={handleMobile} />
+      <Header2 clname="actJob1" handleMobile={handleMobile} />
       <JobSec10 data={dataJobs} />
+      <Footer></Footer>
       <Gotop />
     </>
   );

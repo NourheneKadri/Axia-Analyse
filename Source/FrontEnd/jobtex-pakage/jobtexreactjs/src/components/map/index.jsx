@@ -1,94 +1,114 @@
-import React, { useState } from "react";
+// MapSection.jsx
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import maplibregl from "maplibre-gl";
 import MapBox, { Marker, Popup, NavigationControl } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { Link } from "react-router-dom";
+import "maplibre-gl/dist/maplibre-gl.css";
+import useDynamicMarkers from "../../assets/fakeData/dataMap";
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 MapSection.propTypes = {};
 
-function MapSection({ markers, className }) {
+function MapSection({ className }) {
   const [popupOpen, setPopupOpen] = useState({});
+  const mapContainerRef = useRef(null);
+  const { markers, loading } = useDynamicMarkers(); // Utilisation du hook pour récupérer les marqueurs
 
-  const [viewPort, setViewPort] = useState({
-    longitude: -74.000303,
-    latitude: 40.706243,
-    zoom: 15,
-  });
+  useEffect(() => {
+    if (loading || !Array.isArray(markers) || markers.length === 0) return;
 
+    // Initialiser la carte
+    const map = new maplibregl.Map({
+      container: mapContainerRef.current,
+      style: "https://demotiles.maplibre.org/style.json",
+      center: [10.1658, 36.81897], // Tunisie (Tunis)
+      zoom: 6,
+    });
+
+    // Ajouter les marqueurs à la carte
+    markers.slice(0, 6).forEach((item) => {
+      const popup = new maplibregl.Popup({ offset: 30 }).setHTML(`
+        <div style="
+          font-family: 'Segoe UI', sans-serif;
+          max-width: 250px;
+          padding: 12px;
+          border-radius: 12px;
+          background-color: #fff;
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+          text-align: center;
+        ">
+          <img 
+            src="${item.img}" 
+            alt="img" 
+            style="width: 100%; height: auto; max-height: 140px; border-radius: 8px; object-fit: cover;" 
+          />
+          <div style="margin-top: 10px;">
+            <h4 style="font-size: 16px; color: #2a8ef0; margin: 0 0 6px;">${item.title}</h4>
+            <h3 style="margin: 0 0 6px; font-size: 14px;">
+              <a 
+                href="/Jobsingle_v1" 
+                style="text-decoration: none; color: #333; font-weight: 600;"
+              >
+                ${item.name} <span class="icon-bolt"></span>
+              </a>
+            </h3>
+            <p style="font-size: 12px; color: #666; margin: 0;">
+              <i class="icon-map-pin" style="margin-right: 4px; color: #2a8ef0;"></i>${item.address}
+            </p>
+          </div>
+        </div>
+      `);
+      
+
+      new maplibregl.Marker({ color: "#" })
+        .setLngLat([item.longitude, item.latitude])
+        .setPopup(popup)
+        .addTo(map);
+    });
+
+    return () => map.remove(); // Nettoyage de la carte au démontage du composant
+  }, [markers, loading]); // Mise à jour des marqueurs à chaque changement
+
+  const handlePopupToggle = (id) => {
+    // Toggle le popup
+    setPopupOpen((prevId) => (prevId === id ? null : id));
+  };
   return (
     <section className={`wd-feature-map ${className ? className : ""}`}>
       <div className="tf-slider slider-map style-1">
-        <MapBox
-          mapLib={import("mapbox-gl")}
-          initialViewState={{
-            ...viewPort,
-          }}
-          mapboxAccessToken="pk.eyJ1IjoidGhlbWVzZmxhdCIsImEiOiJjbGt3NGxtYncwa2F2M21saHM3M21uM3h2In0.9NbzjykXil1nELxQ1V8rkA"
-          style={{ width: "100%", height: 600 }}
-          mapStyle="mapbox://styles/themesflat/cll6d64hy00m901pd1tbe65ra"
-          scrollZoom={false}
-        >
-          {markers.slice(0, 6).map((item) => {
-            return (
-              <div key={item.id}>
-                <Marker
-                  longitude={item.longitude}
-                  latitude={item.latitude}
-                  anchor="center"
-                  closeOnClick={false}
-                  onClick={(e) => {
-                    setPopupOpen((prevItem) => ({
-                      ...prevItem,
-                      [item.id]: !prevItem[item.id],
-                    }));
-                  }}
-                >
-                  <div className="marker marker-logo-cty">
-                    <img
-                      src={item.img}
-                      alt="img"
-                      style={{ width: "28px", height: "28px" }}
-                    />
-                  </div>
-                </Marker>
-                {popupOpen[item.id] && (
-                  <Popup
-                    key={item.id}
-                    longitude={item.longitude}
-                    latitude={item.latitude}
-                    anchor="center"
-                    onClose={() => setPopupOpen(false)}
-                    closeOnClick={false}
-                    closeButton={true}
-                    offsetLeft={10}
-                  >
-                    <div className="marker-popup">
-                      <img src={item.img} alt="img" />
-                      <div className="content">
-                        <h4>{item.title}</h4>
-                        <h3>
-                          <Link to="/Jobsingle_v1">
-                            {item.name}&nbsp;<span className="icon-bolt"></span>
-                          </Link>
-                        </h3>
-                        <p>
-                          <i className="icon-map-pin"></i>&nbsp;
-                          {item.address}
-                        </p>
-                      </div>
-                    </div>
-                  </Popup>
-                )}
-              </div>
-            );
-          })}
-
-          <NavigationControl position="top-left" />
-        </MapBox>
+        <div ref={mapContainerRef} style={{ width: "100%", height: "600px", borderRadius: "10px" }} />
       </div>
+      
+      {popupOpen !== null && markers.length > 0 && (
+        <div className="popup-container">
+          {/* Popup personnalisé pour afficher les informations détaillées */}
+          {markers.map((item) =>
+            item.id === popupOpen ? (
+              <div className="popup-content" key={item.id}>
+                <div className="marker-popup">
+                  <img src={item.img} alt="img" />
+                  <div className="content">
+                    <h4>{item.title}</h4>
+                    <h3>
+                      <Link to="/Jobsingle_v1">
+                        {item.name} <span className="icon-bolt"></span>
+                      </Link>
+                    </h3>
+                    <p>
+                      <i className="icon-map-pin"></i> {item.address}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : null
+          )}
+        </div>
+      )}
+
     </section>
   );
 }
 
 export default MapSection;
+

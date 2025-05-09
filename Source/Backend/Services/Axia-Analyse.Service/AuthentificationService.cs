@@ -4,6 +4,7 @@ using Axia_Analyse.Data.Interface.IRepositories;
 using Axia_Analyse.Data.Interface.Entites;
 using System.ComponentModel.Design;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 
 namespace Axia_Analyse.Service
@@ -13,10 +14,14 @@ namespace Axia_Analyse.Service
         private readonly IUserAccountRepository _userRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly BCryptPasswordHasher _passwordHasher;
-        public AuthenticationService(IUserAccountRepository userRepository)
+        private readonly IConfiguration _config;
+
+        public AuthenticationService(IUserAccountRepository userRepository, IConfiguration config)
         {
             _userRepository = userRepository;
             _passwordHasher = new BCryptPasswordHasher();
+            _config = config;
+
         }
 
         public async Task<LoginResponseDto> LoginAsync(UserAccountLoginDto loginDto)
@@ -35,7 +40,7 @@ namespace Axia_Analyse.Service
                 return null; // Return null if password verification fails
             }
 
-            var token = TokenService.GetAuthData(userAccount.Id.ToString(),userAccount.Email);
+            var token = TokenService.GetAuthData(userAccount.FirstName);
             return new LoginResponseDto
             {
                 Email = userAccount.Email,

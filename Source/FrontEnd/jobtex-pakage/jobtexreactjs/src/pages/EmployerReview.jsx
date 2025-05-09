@@ -1,4 +1,4 @@
-import React, { useState , useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import Footer from "../components/footer";
 import Gotop from "../components/gotop";
@@ -11,6 +11,11 @@ import Header2 from "../components/header/Header2";
 import './CalendarComponent.css';
 import Authentification from "../Services/AuthentificationService";
 import axios from "axios";
+//import Button from "react-bootstrap/esm/Button";
+import { Alert, AlertTitle } from "@mui/material";
+import toast from 'react-hot-toast';
+
+
 
 
 EmployerReview.propTypes = {};
@@ -20,25 +25,82 @@ function EmployerReview(props) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [timezone] = useState('UK, Ireland, Lisbon Time (IB:12)');
+  const [EndTime, setEndime] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [date, setDate] = useState(new Date());
   const user = Authentification.getStoredUser()
   const [reservedSlots, setReservedSlots] = useState([]);
   const [Loading, setLoading] = useState("");
   const [error, setError] = useState("");
-
+  const [showSuccess, setShowSuccess] = useState(false);
   const [SDate, setSDate] = useState(null);
+  const [duration, setDuration] = useState("");
+  const [formData, setFormData] = useState({
+    duration: 30,
+    startDate: "",
+    endDate: "",
+    startTime: "",
+    endTime: "",
+    recruiterId: user.userAccountId
+  });
+
+  const [timeSlots, setTimeSlots] = useState([]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const request = {
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      startTime: formData.startTime,
+      endTime: formData.endTime,
+      interviewDurationMinutes: parseInt(formData.duration),
+      recruiterId: user.userAccountId, // Modify if you have a dynamic recruiter ID
+    };
 
 
-
+    try {
+      // Appel à l'API pour générer les créneaux horaires
+      const response = await fetch("http://localhost:5259/api/Slot/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(request),
+      });
   
+      // Vérification si la réponse est correcte
+      if (!response.ok) {
+        // Si la réponse est une erreur, on tente d'extraire le message du corps de la réponse
+        const errorData = await response.json();
+        toast.error(errorData.message || "Une erreur est survenue lors de la génération des créneaux.");
+        return;
+      }
+  
+      // Si la réponse est OK, on récupère les données de la réponse
+      const data = await response.json();
+      toast.success("Les créneaux ont été générés avec succès !");
+  
+      // Mettre à jour l'état avec les créneaux générés
+      setTimeSlots(data); // Stocker les créneaux générés dans l'état
+    } catch (error) {
+      // En cas d'erreur lors de l'appel API ou autre
+      console.error("Erreur:", error);
+      toast.error("Une erreur s'est produite. Veuillez réessayer.");
+    }
+  };
+
+
+
   const timeSlotsRef = useRef(null);
 
-  const timeSlots = [
+
+  /*const timeSlots = [
     { start: '09:00:00', end: '09:30:00' },
     { start: '10:00', end: '10:30' },
     { start: '11:00', end: '11:30' },
@@ -47,7 +109,7 @@ function EmployerReview(props) {
     { start: '16:00', end: '16:30' },
     { start: '17:00', end: '17:30' },
     { start: '18:00', end: '18:30' }
-  ];
+  ];*/
 
   // Génération du calendrier
   const generateCalendar = () => {
@@ -60,58 +122,63 @@ function EmployerReview(props) {
 
     const weeks = [];
     let week = [];
-    
+
     for (let i = 0; i < startDay; i++) {
       week.push(null);
     }
-    
+
     for (let day = 1; day <= daysInMonth; day++) {
       week.push(day);
-      
+
       if (week.length === 7 || day === daysInMonth) {
         weeks.push(week);
         week = [];
       }
     }
-    
+
     return weeks;
   };
 
-  useEffect(() => {
-    const fetchReservedSlots = async () => {
-      
-  
-      try {
-  
-        const response = await axios.get('http://localhost:5259/api/Slot/reserved', {
-          params: {
-            recruiterId: user.userAccountId,
-            date: SDate 
-          }
-        });
-        setReservedSlots(response.data);  // Mise à jour des créneaux réservés
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);  // Gestion des erreurs
-        setLoading(false);
-      }
-    };
-  
-    fetchReservedSlots();
-  }, [user.userAccountId, selectedDate]);  // Remarquez qu'ici on observe selectedDate au lieu de 'date'
-  
+  /* useEffect(() => {
+     const fetchReservedSlots = async () => {
+       try {
+        
+           // Mise à jour des créneaux réservés
+         setLoading(false);
+       } catch (err) {
+         setError(err.message);  // Gestion des erreurs
+         setLoading(false);
+       }
+     };
+ 
+     fetchReservedSlots();
+   }, [user.userAccountId, selectedDate]); */ // Remarquez qu'ici on observe selectedDate au lieu de 'date'
+
   const isSlotReserved = (slot) => {
-    const selectedDateTime = new Date(`${selectedDate.toISOString().split('T')[0]}T${slot.start}`);
-    
     return reservedSlots.some(res => {
-      const reservedDateTime = new Date(`${new Date(res.slotDate).toISOString().split('T')[0]}T${res.startTime}`);
-      return reservedDateTime.getTime() === selectedDateTime.getTime();
+
+      const reservedStart = res.startTime
+      const reservedEnd = res.endTime
+      const reservedDate = new Date(res.slotDate).toLocaleDateString('fr-TN');
+
+
+
+      const slotStart = new Date(slot.startDate).toTimeString().split(' ')[0];
+      const slotEnd = new Date(slot.endDate).toTimeString().split(' ')[0];
+      const slotDate = new Date(slot.startDate).toLocaleDateString('fr-TN');
+
+      return (
+        reservedStart === slotStart &&
+        reservedEnd === slotEnd &&
+        reservedDate === slotDate
+      );
     });
   };
-  
-  
-  
-  
+
+
+
+
+
   // Navigation entre les mois
   const changeMonth = (increment) => {
     setCurrentDate(new Date(
@@ -124,41 +191,41 @@ function EmployerReview(props) {
     setShowConfirmation(false);
   };
 
-  const handleDateClick = (day) => {
-    if (day) {
-      // Crée une nouvelle date à partir du jour sélectionné
-      const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-      
-      // Ajuster l'heure à 00:00:00 pour éviter tout effet de fuseau horaire
-      clickedDate.setHours(0, 0, 0, 0);
-  
-      // Empêche la sélection si samedi (6) ou dimanche (0)
-      const dayOfWeek = clickedDate.getDay();
-      if (dayOfWeek === 0 || dayOfWeek === 6) return;
-  
-      // Afficher la date sélectionnée en format ISO sans l'heure
-      const formattedDate = clickedDate.toLocaleDateString('fr-CA');  // format yyyy-mm-dd (local)
-  
-      console.log("📅 Date sélectionnée :", formattedDate);
-  
-      // Mettre à jour l'état de la date sélectionnée
-      setSelectedDate(clickedDate);
-      setSDate(formattedDate)
-      setSelectedTime(null);
-      setShowConfirmation(false);
-    }
+  const handleDateClick = async (day) => {
+    if (day === null) return;
+
+
+    const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    //console.log("ffffff",clickedDate)
+    setSelectedDate(clickedDate);
+    //console.log("aaaaa",selectedDate)
+    //setTimeSlots([]);
+
+
+    const formattedDate = clickedDate.toLocaleDateString('fr-CA'); // Donne '2025-04-29' par exemple
+    console.log("eeeeeeee", formattedDate)
+    const recruiterId = user.userAccountId;
+    const response = await fetch(`http://localhost:5259/api/Slot/GetByDateAndRecruiter?date=${formattedDate}&recruiterId=${recruiterId}`);
+    const data = await response.json();
+    setTimeSlots(data); // adapte selon ton besoin
+    const reponse = await axios.get(`http://localhost:5259/api/Slot/reserved?recruiterId=${user.userAccountId}&date=${formattedDate}`)
+    setReservedSlots(reponse.data);
+
+
+
   };
-  
-  
-  
+
+
+
   // Sélection de créneau
-  const handleTimeClick = (time) => {
-    setSelectedTime(time);
+  const handleTimeClick = (Start, end) => {
+    setSelectedTime(Start);
+    setEndime(end);
     setShowConfirmation(true);
   };
 
-  // Confirmation
-  
+
+
 
   // Formatage des dates
   const formatSelectedDate = () => {
@@ -205,12 +272,12 @@ function EmployerReview(props) {
 
   const today = new Date();
 
-const isFutureOrToday = (day) => {
-  const d = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-  d.setHours(0, 0, 0, 0);
-  today.setHours(0, 0, 0, 0);
-  return d >= today;
-};
+  const isFutureOrToday = (day) => {
+    const d = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    d.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    return d >= today;
+  };
   const calendarWeeks = generateCalendar();
   const daysOfWeek = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 
@@ -241,7 +308,7 @@ const isFutureOrToday = (day) => {
     try {
       const slotDate = selectedDate.toLocaleDateString('fr-CA'); // format yyyy-mm-dd
       const startTime = slot;
-      
+
       const response = await axios.delete('http://localhost:5259/api/Slot/delete', {
         data: {
           slotDate,
@@ -249,10 +316,10 @@ const isFutureOrToday = (day) => {
           recruiterId: user.userAccountId, // Replace with actual user ID dynamically
         },
       });
-  
+
       if (response.status === 200) {
         // Remove the unreserved slot from reservedSlots
-        setReservedSlots(prevReservedSlots => 
+        setReservedSlots(prevReservedSlots =>
           prevReservedSlots.filter(res => res.startTime !== startTime)
         );
         alert("Créneau désinscrit avec succès.");
@@ -264,7 +331,7 @@ const isFutureOrToday = (day) => {
       alert("Impossible de contacter le serveur.");
     }
   };
-  
+
 
   const handleMobile = () => {
     const getMobile = document.querySelector(".menu-mobile-popup");
@@ -279,17 +346,17 @@ const isFutureOrToday = (day) => {
       alert("Veuillez sélectionner une date et une heure.");
       return;
     }
-  const slotDate = selectedDate.toLocaleDateString('fr-CA'); // format yyyy-mm-dd en heure locale
-  const startTime = selectedTime;
-    const endTime = calculateEndTime(startTime); // Ex: "10:30"
-  
+
+    const slotDate = selectedDate.toLocaleDateString('fr-CA');
+    const startTime = selectedTime;
+    const endTime = EndTime;
     const slot = {
       slotDate,
       startTime,
       endTime,
       recruiterId: user.userAccountId // à remplacer dynamiquement selon ton utilisateur
     };
-  
+
     try {
       const response = await fetch("http://localhost:5259/api/Slot/create", {
         method: "POST",
@@ -298,226 +365,410 @@ const isFutureOrToday = (day) => {
         },
         body: JSON.stringify(slot)
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        console.log("Slot enregistré avec succès :", data);
-        alert("Rendez-vous enregistré !");
+        toast.success("Le Créneaux a été confirmé avec succès !");
       } else {
         console.error("Erreur lors de l'enregistrement");
-        alert("Une erreur est survenue.");
+        toast.error("Une erreur est survenue.")
       }
     } catch (err) {
       console.error("Erreur réseau :", err);
-      alert("Impossible de contacter le serveur.");
+      toast.error("Impossible de contacter le serveur.")
     }
   };
-  const calculateEndTime = (startTime) => {
-    const [hours, minutes] = startTime.split(":").map(Number);
-    const date = new Date();
-    date.setHours(hours);
-    date.setMinutes(minutes + 30); // Durée fixe de 30 min
-    return date.toTimeString().slice(0, 5); // "HH:MM"
+  const calculateEndTimeISO = (startTimeISO, durationMinutes = 30) => {
+    const startDate = new Date(startTimeISO);
+    startDate.setMinutes(startDate.getMinutes() + durationMinutes);
+    return startDate.toISOString().slice(0, 19); // Retourne "YYYY-MM-DDTHH:mm:ss"
   };
-  
-  
+
+
+
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+    return date.toLocaleTimeString('fr-FR', options); // '14:00'
+  };
+  const labelStyle = {
+    display: "block",
+    marginBottom: "0.5rem",
+    fontWeight: "500",
+    color: "#2d3748"
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "0.75rem",
+    border: "1px solid #e2e8f0",
+    borderRadius: "6px",
+    backgroundColor: "#f8fafc",
+    transition: "all 0.2s",
+    outline: "none"
+  };
+  const navButtonStyle = {
+    padding: '8px',
+    borderRadius: '8px',
+    border: 'none',
+    background: 'transparent',
+    color: '#4a5568',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    ':hover': {
+      backgroundColor: '#edf2f7'
+    }
+  };
+
+  const dayHeaderStyle = {
+    padding: '12px',
+    textAlign: 'center',
+    fontSize: '0.85rem',
+    fontWeight: '600',
+    color: '#718096',
+    textTransform: 'uppercase'
+  };
+
+  const dayCellStyle = {
+    position: 'relative',
+    padding: '12px',
+    border: 'none',
+    borderRadius: '8px',
+    background: '#f8fafc',
+    color: '#2d3748',
+    fontSize: '0.95rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    ':hover': {
+      backgroundColor: '#e2e8f0'
+    }
+  };
+
+  const selectedDayStyle = {
+    background: '#0060e6',
+    color: 'white',
+    fontWeight: '600',
+    transform: 'scale(1.05)'
+  };
+
+  const weekendStyle = {
+    color: '#e53e3e'
+  };
+
+  const todayIndicatorStyle = {
+    position: 'absolute',
+    top: '4px',
+    right: '4px',
+    width: '6px',
+    height: '6px',
+    borderRadius: '50%',
+    backgroundColor: '#48bb78'
+  };
 
   return (
     <>
       <div className="menu-mobile-popup">
         <div className="modal-menu__backdrop" onClick={handleMobile}></div>
-      
+
       </div>
       <Header2 clname="actEm4" handleMobile={handleMobile} />
 
       <section>
-      <div className="scheduler-container">
-      <div className="layout-grid">
-        {/* Colonne gauche - Détails meeting */}
-        <div className="left-column">
-          <div className="meeting-card">
-          <h1 style={{ paddingRight: "25px", paddingLeft: "25px" , fontsize: "50px",fontWeight: "bold"  }}>Entretien RH</h1>
-          <div className="meeting-details">
-  <div className="duration" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-    <svg 
-      style={{ width: '20px', height: '20px', paddingRight: '10px' }} 
-      data-id="details-item-icon" 
-      viewBox="0 0 10 10" 
-      xmlns="http://www.w3.org/2000/svg" 
-      role="img">
-      <path d="M.5 5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0-9 0Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path>
-      <path d="M5 3.269V5l1.759 2.052" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path>
-    </svg>
-    <label style={{ unicodeBidi: 'isolate' }} htmlFor="duration">30 min</label>
-  </div>
-
-  <div className="duration" style={{ display: 'flex', alignItems: 'center' }}>
-    <svg 
-      style={{ width: '20px', height: '20px', paddingRight: '10px'  ,paddingBottom:"20px"}} 
-      data-testid="web-conference-icon" 
-      data-id="details-item-icon" 
-      viewBox="0 0 10 10" 
-      xmlns="http://www.w3.org/2000/svg" 
-      role="img">
-      <path d="M7.192 3.731V2.5a1 1 0 0 0-1-1H1.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4.692a1 1 0 0 0 1-1V6.269l1.573.839a.5.5 0 0 0 .735-.441V3.333a.5.5 0 0 0-.735-.441Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path>
-    </svg>
-    <p>Les détails de la visioconférence seront envoyés par email.</p>
-  </div>
-</div>
-          </div>
-        </div>
-
-        {/* Colonne centrale - Calendrier */}
-        <div className="center-column">
-          <div className="meeting-card">
-            <div className="date-selection">
-            <h2 style={{
-  marginTop: 0,
-  marginBottom: '10px',
-  fontWeight: 'bold',
-  fontSize: '20px',
-  textAlign: 'center'
-}}>
-  Select a Day
-</h2>
-
-
-
-              
-<div className="calendar-header" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", paddingBottom: "20px" }}>
-  <button onClick={() => changeMonth(-1)} className="nav-button">
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      width="24"
-      height="24"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M13.4806 15.9941C13.8398 15.6529 13.8398 15.0998 13.4806 14.7586L8.47062 10L13.4806 5.24142C13.8398 4.90024 13.8398 4.34707 13.4806 4.00589C13.1214 3.66471 12.539 3.66471 12.1798 4.00589L6.51941 9.38223C6.1602 9.72342 6.1602 10.2766 6.51941 10.6178L12.1798 15.9941C12.539 16.3353 13.1214 16.3353 13.4806 15.9941Z"
-        fill="currentColor"
-      />
-    </svg>
-  </button>
-
-  <div className="calendar-month">
-    {formatMonthYear()}
-  </div>
-
-  <button onClick={() => changeMonth(1)} className="nav-button">
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      width="24"
-      height="24"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M6.51941 4.00589C6.1602 4.34707 6.1602 4.90024 6.51941 5.24142L11.5294 10L6.51941 14.7586C6.1602 15.0998 6.1602 15.6529 6.51941 15.9941C6.87863 16.3353 7.46104 16.3353 7.82026 15.9941L13.4806 10.6178C13.8398 10.2766 13.8398 9.72342 13.4806 9.38223L7.82026 4.00589C7.46104 3.66471 6.87863 3.66471 6.51941 4.00589Z"
-        fill="currentColor"
-      />
-    </svg>
-  </button>
-</div>
-
-              <div className="calendar-grid">
-                {daysOfWeek.map(day => (
-                  <div key={day} className="day-header">{day}</div>
-                ))}
-                
-                {calendarWeeks.map((week, weekIndex) => (
-                  <React.Fragment key={weekIndex}>
-                    {week.map((day, dayIndex) => (
-                      <div 
-                      key={dayIndex} 
-                      className={`day-cell ${day ? '' : 'empty'} 
-                        ${selectedDate?.getDate() === day &&
-                        selectedDate?.getMonth() === currentDate.getMonth() &&
-                        selectedDate?.getFullYear() === currentDate.getFullYear() ? 'selected' : ''}
-                        ${day !== null && [0, 6].includes(new Date(currentDate.getFullYear(), currentDate.getMonth(), day).getDay()) ? 'weekend' : ''}
-                        ${day !== null && isFutureOrToday(day) ? 'future-day' : 'past-day'}
-                      `}
-                      onClick={() => handleDateClick(day)}
-                    >
-                      {day}
+        <div className="scheduler-container">
+          <div className="layout-grid">
+            {/* Colonne gauche - Détails meeting */}
+            <div className="left-column">
+              <div className="meeting-card" style={{
+                width: "700px",
+                margin: '1rem auto',
+                padding: '1.5rem',
+                borderRadius: '16px',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
+                backgroundColor: '#ffffff'
+              }}>
+                <h1 style={{ paddingRight: "25px", paddingLeft: "25px", fontsize: "50px", fontWeight: "bold", marginBottom: "-10px" }}>Entretien</h1>
+                <div className="meeting-details" style={{ padding: "2rem" }}>
+                  <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1.5rem", marginTop: "1px" }}>
+                    {/* Durée */}
+                    <div className="form-group">
+                      <label style={{
+                        display: "block",
+                        marginBottom: "0.5rem",
+                        fontWeight: "500",
+                        color: "#2d3748"
+                      }}>
+                        Durée
+                      </label>
+                      <select
+                        name="duration"
+                        onChange={handleChange}
+                        value={formData.duration}
+                        style={{
+                          width: "100%",
+                          padding: "0.75rem",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "6px",
+                          backgroundColor: "#f8fafc",
+                          transition: "all 0.2s",
+                          outline: "none"
+                        }}
+                      >
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 heure</option>
+                      </select>
                     </div>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </div>
 
-             
-            </div>
-          </div>
-        </div>
+                    {/* Dates et heures */}
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.5rem" }}>
+                      <div className="form-group">
+                        <label style={labelStyle}>Date de début</label>
+                        <input
+                          type="date"
+                          name="startDate"
+                          onChange={handleChange}
+                          value={formData.startDate}
+                          style={inputStyle}
+                        />
+                      </div>
 
-        <div className="right-column">
-          <div className="meeting-card">
-            {selectedDate ? (
-              <div className="time-slots-section">
-                <div className="selected-date-display">
-                  <div className="calendar-month">{formatSelectedDate()}</div>
-                </div>
-                
-                <div className="time-slots-container">
-                  <div className="time-slots-grid">
-                  {timeSlots.map((slot, index) => {
-  const reserved = isSlotReserved(slot);
-  console.log(`Slot ${slot.start} - reserved: ${reserved}`);
-  return (
-    <React.Fragment key={index}>
-      <button
-        className={`time-slot-btn ${selectedTime === slot.start ? 'selected' : ''} ${reserved ? 'reserved' : ''}`}
-        disabled={reserved}
-        onClick={() => !reserved && handleTimeClick(slot.start)}
-      >
-        {slot.start}
-      </button>
-      <button
-        className={`time-slot-btn ${selectedTime === slot.end ? 'selected' : ''} ${reserved ? 'reserved' : ''}`}
-        disabled={reserved}
-        onClick={() => !reserved && handleTimeClick(slot.end)}
-      >
-        {slot.end}
-      </button>
-    </React.Fragment>
-  );
-})}
+                      <div className="form-group">
+                        <label style={labelStyle}>Date de fin</label>
+                        <input
+                          type="date"
+                          name="endDate"
+                          onChange={handleChange}
+                          value={formData.endDate}
+                          style={inputStyle}
+                        />
+                      </div>
 
+                      <div className="form-group">
+                        <label style={labelStyle}>Heure de début</label>
+                        <input
+                          type="time"
+                          name="startTime"
+                          onChange={handleChange}
+                          value={formData.startTime}
+                          style={inputStyle}
+                        />
+                      </div>
 
-                  </div>
-                </div>
+                      <div className="form-group">
+                        <label style={labelStyle}>Heure de fin</label>
+                        <input
+                          type="time"
+                          name="endTime"
+                          onChange={handleChange}
+                          value={formData.endTime}
+                          style={inputStyle}
+                        />
+                      </div>
+                    </div>
 
-                {showConfirmation && (
-                  <div className="confirmation-section">
-                    <button 
-                      className="confirm-button"
-                      onClick={handleConfirm}
+                    <button
+                      type="submit"
+                      style={{
+                        width: "100%",
+                        padding: "0.875rem",
+                        backgroundColor: "#0060e6",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "6px",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                        marginTop: "1rem",
+                        ":hover": {
+                          backgroundColor: "#004cba",
+                          transform: "translateY(-1px)"
+                        }
+                      }}
                     >
-                      Confirmer le rendez-vous
+                      Générer les créneaux
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne centrale - Calendrier */}
+            <div className="center-column">
+              <div className="meeting-card" style={{
+                width: "500px",
+                height: "520px",
+                margin: '1rem auto',
+                padding: '1.5rem',
+                borderRadius: '16px',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
+                backgroundColor: '#ffffff'
+              }}>
+                <div className="date-selection">
+                  <h2 style={{
+                    margin: '0 0 1.5rem 0',
+                    fontWeight: '600',
+                    fontSize: '1.25rem',
+                    color: '#2d3748',
+                    textAlign: 'center',
+                    letterSpacing: '-0.5px'
+                  }}>
+                    Select a Day
+                  </h2>
+
+                  <div className="calendar-header" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '1rem',
+                    padding: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    borderRadius: '8px'
+                  }}>
+                    <button
+                      onClick={() => changeMonth(-1)}
+                      style={navButtonStyle}
+                      aria-label="Previous month"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+
+                    <div style={{
+                      fontWeight: '600',
+                      color: '#1a365d',
+                      fontSize: '1.1rem'
+                    }}>
+                      {formatMonthYear()}
+                    </div>
+
+                    <button
+                      onClick={() => changeMonth(1)}
+                      style={navButtonStyle}
+                      aria-label="Next month"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </button>
                   </div>
-                )}
+
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(7, 1fr)',
+                    gap: '4px',
+                    marginBottom: '4px'
+                  }}>
+                    {daysOfWeek.map(day => (
+                      <div key={day} style={dayHeaderStyle}>
+                        {day.substring(0, 3)}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(7, 1fr)',
+                    gap: '4px'
+                  }}>
+                    {calendarWeeks.map((week, weekIndex) => (
+                      <React.Fragment key={weekIndex}>
+                        {week.map((day, dayIndex) => (
+                          <button
+                            key={dayIndex}
+                            disabled={!day || !isFutureOrToday(day)}
+                            onClick={() => handleDateClick(day)}
+                            style={{
+                              ...dayCellStyle,
+                              ...(day && isFutureOrToday(day) ? {} : { opacity: 0.4 }),
+                              ...(selectedDate?.getDate() === day &&
+                                selectedDate?.getMonth() === currentDate.getMonth() &&
+                                selectedDate?.getFullYear() === currentDate.getFullYear() ? selectedDayStyle : {}),
+                              ...(day !== null && [0, 6].includes(
+                                new Date(currentDate.getFullYear(), currentDate.getMonth(), day).getDay()
+                              ) ? weekendStyle : {})
+                            }}
+                            aria-label={`Select ${day} ${formatMonthYear()}`}
+                          >
+                            {day}
+                            {day === new Date().getDate() &&
+                              currentDate.getMonth() === new Date().getMonth() &&
+                              currentDate.getFullYear() === new Date().getFullYear() && (
+                                <div style={todayIndicatorStyle} />
+                              )}
+                          </button>
+                        ))}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
               </div>
-            ) : (
-              <div className="no-date-selected">
+            </div>
+            {selectedDate && (
+              <div className="right-column">
+                <div className="meeting-card" style={{
+                  width: "250px",
+                  margin: '1rem auto',
+                  padding: '1.5rem',
+                  borderRadius: '16px',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
+                  backgroundColor: '#ffffff'
+                }}>
+                  {selectedDate ? (
+                    <div className="time-slots-section">
+                      <div className="selected-date-display">
+                        <div className="calendar-month">{formatSelectedDate()}</div>
+                      </div>
+
+                      <div className="time-slots-container">
+                        <div className="time-slots-grid">
+                          {timeSlots.map((slot, index) => {
+                            const reserved = isSlotReserved(slot);
+                            console.log(`Slot ${slot.startDate} - reserved: ${reserved}`);
+                            return (
+                              <React.Fragment key={index}>
+                                <button
+                                  className={`time-slot-btn ${selectedTime === slot.startDate ? 'selected' : ''} ${reserved ? 'reserved' : ''}`}
+                                  disabled={reserved}
+                                  onClick={() => !reserved && handleTimeClick(slot.startDate, slot.endDate)}  // Passer startDate et endDate
+                                >
+                                  {formatTime(slot.startDate)} {/* Afficher seulement l'heure de début */}
+                                </button>
+
+
+                              </React.Fragment>
+                            );
+                          })}
+
+
+                        </div>
+                      </div>
+
+                      {showConfirmation && (
+                        <div className="confirmation-section">
+                          <button
+                            className="confirm-button"
+                            onClick={handleConfirm}
+                          >
+                            Confirmer le rendez-vous
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="no-date-selected">
+                    </div>
+                  )}
+                  
+
+                </div>
               </div>
             )}
           </div>
         </div>
-
-      </div>
-    </div>
       </section>
-
       <Footer />
-      <Gotop />
     </>
   );
 }

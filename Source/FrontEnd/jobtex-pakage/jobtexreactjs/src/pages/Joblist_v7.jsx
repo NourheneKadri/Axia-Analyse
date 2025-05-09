@@ -13,6 +13,10 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import Header4 from "../components/header/Header4";
+import Header2 from "../components/header/Header2";
+import Authentification from "../Services/AuthentificationService";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 Joblist_v7.propTypes = {};
 
@@ -22,6 +26,10 @@ function Joblist_v7(props) {
     status: false,
   });
   const [isShowMobile, setShowMobile] = useState(false);
+  const [Authenticated, setIsAuthenticated] = useState(false);
+
+
+  const navigate = useNavigate()
 
   const handleToggle = (key) => {
     if (toggle.key === key) {
@@ -43,6 +51,20 @@ function Joblist_v7(props) {
       ? getMobile.classList.add("modal-menu--open")
       : getMobile.classList.remove("modal-menu--open");
   };
+
+  useEffect(() => {
+    try {
+      const userId = Authentification?.getStoredUser?.(); 
+      if (!userId) {
+        navigate("/login"); 
+      } else {
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération de UserAccountId :", error);
+      navigate("/login"); // Redirige en cas d'erreur
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -531,7 +553,7 @@ function Joblist_v7(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actJob1" handleMobile={handleMobile} />
+      <Header2 clname="actJob1" handleMobile={handleMobile} />
       <MapSection markers={dataMap} />
       <FormJobs />
       <JobTopmap data={dataJobs} className="inner-jobs-section-two" />

@@ -17,6 +17,11 @@ namespace Axia_Analyse.Data.Interface.IRepositories
         Task<List<Slot>> GetSlotsByRecruiterAsync(int recruiterId);
        
         Task<List<Slot>> GetReservedSlotsByRecruiterAsync(int recruiterId, DateTime date);
+        Task AddTimeSlotsAsync(List<TimeSlots> timeSlots);
+        Task<List<TimeSlots>> GetSlotsByDateAndRecruiterAsync(DateTime date, int recruiterId);
+
+
+
 
 
     }

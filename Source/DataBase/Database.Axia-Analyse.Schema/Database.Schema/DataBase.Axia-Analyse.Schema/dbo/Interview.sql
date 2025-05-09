@@ -6,11 +6,11 @@
     [JobId] INT NOT NULL,
     [SlotId] INT NOT NULL,
     [InterviewDate] DATETIME NOT NULL,
-    [InterviewTime] TIME NOT NULL,
+    [InterviewTime] TIME NULL,
     [Location] VARCHAR(255),
     [StatusId] INT NOT NULL,
-    [CreatedAt] DATETIME2 DEFAULT GETDATE(),
-	[UpdatedAt] DATETIME2 DEFAULT GETDATE(),
+    [CreatedAt] DATETIME DEFAULT GETDATE(),
+	[UpdatedAt] DATETIME DEFAULT GETDATE(),
     CONSTRAINT [FK_Interview_CandidateProfile] FOREIGN KEY ([CandidateId]) 
         REFERENCES [dbo].[UserAccount]([Id]),
     CONSTRAINT [FK_Interview_RecruiterProfile] FOREIGN KEY ([RecruiterId]) 

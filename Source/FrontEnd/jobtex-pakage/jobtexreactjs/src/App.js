@@ -40,6 +40,7 @@ import Employer_v7 from "./pages/Employer_v7";
 import Employersingle_v1 from "./pages/Employersingle_v1";
 import Employersingle_v2 from "./pages/Employersingle_v2";
 import EmployerReview from "./pages/EmployerReview";
+import InterviewCandidate from "./pages/InterviewCandidate";
 import Employernotfound from "./pages/Employernotfound";
 import Employerdashboard from "./pages/Employerdashboard";
 import Candidates_v1 from "./pages/Candidates_v1";
@@ -76,31 +77,34 @@ import ScrollToTop from "./ScrollToTop";
 import { useState } from "react";
 import Preloader from "./components/preloader";
 import JobCandidancy from "./pages/JobOfferCandidancy";
-import { AppRoleIds}from "./constante/AppRoles";
+import { AppRoleIds } from "./constante/AppRoles";
 import { getAuthorizedRoutes } from "./routeUtils";
 import AccessDenied from "./AccesDenied";
 import CandidatCandidancy from "./pages/CandidatCandidancy";
+import { Toaster } from 'react-hot-toast';
+
+
 const App = () => {
   let routes = useRoutes(getAuthorizedRoutes([
-    { path: "/", element: <Home_v7 /> },
-    { path: "/home_v2", element: <Home_v2 /> , authorize: [AppRoleIds.recruter]},
-    { path: "/home_v3", element: <Home_v3 />,authorize:null},
-    { path: "/home_v4", element: <Home_v4 /> ,authorize: [AppRoleIds.recruter],},
-    { path: "/home_v5", element: <Home_v5 /> ,authorize: null},
+    { path: "/", element: <Home_v7 /> , authorize: null  },
+    { path: "/home_v2", element: <Home_v2 />, authorize: [AppRoleIds.recruter] },
+    { path: "/home_v3", element: <Home_v3 />, authorize: null },
+    { path: "/home_v4", element: <Home_v4 />, authorize: [AppRoleIds.recruter], },
+    { path: "/home_v5", element: <Home_v5 />, authorize: null },
     { path: "/home_v6", element: <Home_v6 /> },
     { path: "/home_v7", element: <Home_v1 /> },
     { path: "/home_v8", element: <Home_v8 /> },
     { path: "/home_v9", element: <Home_v9 /> },
     { path: "/home_v10", element: <Home_v10 /> },
-    { path: "/joblist_v1", element: <Joblist_v1 /> },
-    { path: "/job-grid", element: <Joblist_v2 /> },
+    { path: "/joblist_v1", element: <Joblist_v1 />, authorize: [AppRoleIds.recruter]  },
+    { path: "/job-grid", element: <Joblist_v2 />, authorize: [AppRoleIds.candidat] },
     { path: "/job-list-sidebar", element: <Joblist_v3 /> },
     { path: "/job-grid-sidebar", element: <Joblist_v4 /> },
     { path: "/joblist_v5", element: <Joblist_v5 /> },
     { path: "/joblist_v6", element: <Joblist_v6 /> },
     { path: "/joblist_v7", element: <Joblist_v7 /> },
     { path: "/joblist_v8", element: <Joblist_v8 /> },
-    { path: "/joblist_v9", element: <Joblist_v9 /> },
+    { path: "/joblist_v9/:companyId", element: <Joblist_v9 /> },
     { path: "/joblist_v10", element: <Joblist_v10 /> },
     { path: "/jobsingle_v1/:id", element: <Jobsingle_v1 /> },
     { path: "/jobsingle_v2", element: <Jobsingle_v2 /> },
@@ -113,7 +117,7 @@ const App = () => {
 
     { path: "/employers_v6", element: <Employer_v6 /> },
     { path: "/employers_v7", element: <Employer_v7 /> },
-    { path: "/employersingle_v1", element: <Employersingle_v1 /> },
+    { path: "/employersingle_v1/:id", element: <Employersingle_v1 /> },
     { path: "/employersingle_v2", element: <Employersingle_v2 /> },
     { path: "/employerreview", element: <EmployerReview /> },
     { path: "/employernotfound", element: <CandidatCandidancy /> },
@@ -129,7 +133,7 @@ const App = () => {
     { path: "/samplecvdetails", element: <SampleCVdetails /> },
     { path: "/samplecvslidebar", element: <SampleCVslidebar /> },
     { path: "/candidatesingle_v1", element: <Candidatesingle_v1 /> },
-    { path: "/candidatesingle_v2", element: <Candidatesingle_v2 /> },
+    { path: "/candidatesingle_v2", element: <InterviewCandidate /> },
     { path: "/blog_v1", element: <Blog_v1 /> },
     { path: "/blog_v2", element: <Blog_v2 /> },
     { path: "/blog_v3", element: <Blog_v3 /> },
@@ -145,7 +149,7 @@ const App = () => {
     { path: "/termsofuse", element: <Termsofuse /> },
     { path: "/pricing", element: <Pricing /> },
     { path: "/login", element: <Login /> },
-    { path: "/ForgetPassword", element: <ForgetPassword/> },
+    { path: "/ForgetPassword", element: <ForgetPassword /> },
     { path: "/createaccount", element: <CreateAccount /> },
     { path: "/contactus", element: <ContactUs /> },
     { path: "/error-page", element: <AccessDenied /> },
@@ -172,7 +176,10 @@ const AppWrapper = () => {
       ) : (
         <Preloader />
       )}
-    </>
+<Toaster
+  position="top-center"
+  reverseOrder={false}
+/>      </>
   );
 };
 

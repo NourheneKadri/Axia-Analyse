@@ -101,17 +101,41 @@ namespace Axia_Analyse.Controllers
         }
         [HttpGet("reserved")]
         [AllowAnonymous]
-
         public async Task<IActionResult> GetReservedSlots(int recruiterId, DateTime date)
         {
             var slots = await _slotService.GetReservedSlotsAsync(recruiterId, date);
+
+            // Retourner tous les attributs du slot
             var result = slots.Select(s => new {
-                slotDate = s.SlotDate,
-                startTime = s.StartTime.ToString("HH:mm:ss"),
-                endTime = s.EndTime.ToString("HH:mm:ss")
+                s.Id,                  
+                s.SlotDate,              
+                s.StartTime,            
+                s.EndTime,               
+                s.IsAvailable,           // Par exemple, ajouter la disponibilité du créneau
+                s.RecruiterId       // Ajouter d'autres colonnes si nécessaire
             });
 
             return Ok(result);
         }
+
+        [HttpPost("generate")]
+        public async Task<IActionResult> GenerateTimeSlots([FromBody] TimeSlotGenerationRequest request)
+        {
+            if (request.StartDate >= request.EndDate || (request.StartDate == request.EndDate && request.StartTime >= request.EndTime))
+            {
+                return BadRequest(new { message = "La date de fin doit être après la date de début" });
+            }
+
+            var slots = await _slotService.GenerateTimeSlotsAsync(request);
+            return Ok(slots);
+        }
+
+        [HttpGet("GetByDateAndRecruiter")]
+        public async Task<IActionResult> GetByDateAndRecruiter(DateTime date, int recruiterId)
+        {
+            var slots = await _slotService.GetSlotsByDateAndRecruiterAsync(date, recruiterId);
+            return Ok(slots);
+        }
+
     }
 }

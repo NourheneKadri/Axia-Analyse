@@ -25,31 +25,35 @@ function Login() {
     }
 
     try {
-      // Tenter la connexion et obtenir l'utilisateur
       const user = await Authentification.login(email, password);
-      
-      // Vérification si l'utilisateur existe et s'il contient appRoleId
+
       if (user && user.appRoleId !== undefined) {
         console.log("user", user);
-  
-        // Vérifie le rôle de l'utilisateur et redirige en conséquence
+
+        const redirectPath = localStorage.getItem("redirectAfterLogin");
+
+        if (redirectPath) {
+          localStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath); // ✅ Redirection interne
+          return;
+        }
+
+        // Redirection par rôle
         if (user.appRoleId === 1) {
-          // Rediriger vers le tableau de bord de l'administrateur
-          window.location.href = 'http://localhost:3039/';
-        } else if (user.appRoleId !== 1) {
-          // Rediriger vers le template utilisateur
-          window.location.href = 'http://localhost:3000';
+          navigate("http://localhost:3039/");
+                } else {
+          navigate("/"); // Exemple : page candidat
         }
       } else {
-        // Si l'utilisateur ou appRoleId est manquant, afficher une erreur
         setMessage("❌ Impossible de récupérer les informations du rôle. Vérifie les données de connexion.");
       }
     } catch (error) {
-      // Si une erreur se produit, afficher un message d'erreur
       setMessage("❌ Email ou mot de passe incorrect !");
       console.error("Erreur de connexion:", error);
     }
   };
+
+  
 
   return (
     <section className="account-section">

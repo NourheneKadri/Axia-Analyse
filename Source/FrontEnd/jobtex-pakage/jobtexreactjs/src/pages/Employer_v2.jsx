@@ -11,10 +11,14 @@ import { useState } from "react";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import Header4 from "../components/header/Header4";
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import Header2 from "../components/header/Header2";
+import { useNavigate } from 'react-router-dom';
+import Authentification from "../Services/AuthentificationService";
+
 
 
 
@@ -26,6 +30,8 @@ function Employer_v2(props) {
     status: false,
   });
   const [isShowMobile, setShowMobile] = useState(false);
+  const navigate = useNavigate();
+  const [Authenticated, setIsAuthenticated] = useState(false);
 
 
   const handleToggle = (key) => {
@@ -41,41 +47,41 @@ function Employer_v2(props) {
     }
   };
 
-    const [data, setData] = useState([]); 
-    const [error, setError] = useState(null);
-    const [jobOffers, setJobOffers] = useState({});
-  
-    const { className } = props;
-  
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const result = await axios.get("http://localhost:5259/api/Companies");
-          setData(result.data);
-        } catch (err) {
-          setError(err.message);
-          console.error("Erreur lors de la récupération des données :", err);
-        }
-      };
-  
-      const fetchJobOffers = async () => {
-        try {
-          const res = await axios.get("http://localhost:5259/api/JobOffer/countByCompany");
-          const jobOfferMap = res.data.reduce((acc, item) => {
-            acc[item.companyName] = item.jobOfferCount;
-            return acc;
-          }, {});
-          setJobOffers(jobOfferMap);
-        } catch (err) {
-          setError(err.message);
-          console.error("Erreur lors de la récupération des offres :", err);
-        }
-      };
-      fetchJobOffers();
-  
-      fetchData();
-    }, []);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [jobOffers, setJobOffers] = useState({});
+
+  const { className } = props;
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("http://localhost:5259/api/Companies");
+        setData(result.data);
+      } catch (err) {
+        setError(err.message);
+        console.error("Erreur lors de la récupération des données :", err);
+      }
+    };
+
+    const fetchJobOffers = async () => {
+      try {
+        const res = await axios.get("http://localhost:5259/api/JobOffer/countByCompany");
+        const jobOfferMap = res.data.reduce((acc, item) => {
+          acc[item.companyName] = item.jobOfferCount;
+          return acc;
+        }, {});
+        setJobOffers(jobOfferMap);
+      } catch (err) {
+        setError(err.message);
+        console.error("Erreur lors de la récupération des offres :", err);
+      }
+    };
+    fetchJobOffers();
+
+    fetchData();
+  }, []);
 
   const handleMobile = () => {
     const getMobile = document.querySelector(".menu-mobile-popup");
@@ -84,7 +90,20 @@ function Employer_v2(props) {
       ? getMobile.classList.add("modal-menu--open")
       : getMobile.classList.remove("modal-menu--open");
   };
-  
+  useEffect(() => {
+    try {
+      const userId = Authentification?.getStoredUser?.(); 
+      if (!userId) {
+        navigate("/login"); 
+      } else {
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération de UserAccountId :", error);
+      navigate("/login"); // Redirige en cas d'erreur
+    }
+  }, [navigate]);
+
   return (
     <>
       <div className="menu-mobile-popup">
@@ -126,41 +145,14 @@ function Employer_v2(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "home" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "home" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
                               <Link to="/">Home Page 01 </Link>
                             </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v2">Home Page 02 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v3">Home Page 03 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v4">Home Page 04 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v5">Home Page 05 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v6">Home Page 06 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v7">Home Page 07 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v8">Home Page 08 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v9">Home Page 09 </Link>
-                            </li>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/home_v10">Home Page 10 </Link>
-                            </li>
+
                           </ul>
                         </Collapse>
                       </li>
@@ -179,9 +171,8 @@ function Employer_v2(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "job" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "job" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -242,9 +233,8 @@ function Employer_v2(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "employers" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "employers" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item">
@@ -286,7 +276,7 @@ function Employer_v2(props) {
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                 My candidancyt Found
+                                My candidancyt Found
                               </Link>
                             </li>
                           </ul>
@@ -306,9 +296,8 @@ function Employer_v2(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "candidate" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "candidate" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -370,9 +359,8 @@ function Employer_v2(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "blog" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "blog" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -412,9 +400,8 @@ function Employer_v2(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "pages" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "pages" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -572,7 +559,7 @@ function Employer_v2(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actEm1" handleMobile={handleMobile} />
+      <Header2 clname="actEm1" handleMobile={handleMobile} />
       <Breadcrumb title="Employers" className="breadcrumb-section" />
       <Form2 />
 
@@ -630,7 +617,7 @@ function Employer_v2(props) {
                       </Tab>
                     </TabList>
                     <p className="nofi-job">
-                      <span>1249</span> employers recommended for you
+                      <span>{data.length}</span> companies recommended for you
                     </p>
                   </div>
                   <SortBuy />
@@ -654,14 +641,14 @@ function Employer_v2(props) {
                               <span className="icon-star-full"></span>
                             </div>
                             <h3>
-                              <Link to="employers-single.html">
+                              <Link to={`/employersingle_v1/${idx.id}`}>
                                 {idx.name}
                               </Link>
                               &nbsp;
                               <span className="icon-bolt"></span>
                             </h3>
                             <p className="info">
-                            <a href="mailto:{idx.email}"> <FontAwesomeIcon icon={faEnvelope} /> &nbsp;{idx.email} </a>
+                              <a href="mailto:{idx.email}"> <FontAwesomeIcon icon={faEnvelope} /> &nbsp;{idx.email} </a>
                             </p>
 
 
@@ -669,7 +656,13 @@ function Employer_v2(props) {
 
                           <div className="group-btn">
                             <span className="icon-heart"></span>
-                            <button className="btn-employer">{jobOffers[idx.name] || 0} job openings</button>
+
+                            <button
+                              className="btn-employer"
+                              onClick={() => navigate(`/joblist_v9/${idx.id}`)}
+                            >
+                              {jobOffers[idx.name] || 0}   job openings
+                            </button>
                           </div>
                         </div>
                       </div>

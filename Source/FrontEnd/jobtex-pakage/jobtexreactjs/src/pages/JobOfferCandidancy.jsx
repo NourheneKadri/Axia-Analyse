@@ -531,7 +531,7 @@ function JobCandidancy(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actEm1" handleMobile={handleMobile} />
+      <Header2 clname="actEm1" handleMobile={handleMobile} />
       <Breadcrumb title="Employers" className="breadcrumb-section" />
     
       <EmpSec5 data={dataEm} />

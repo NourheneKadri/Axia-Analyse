@@ -13,5 +13,7 @@ namespace Axia_Analyse.Data.Interface.IRepositories
         Task<Interview> GetInterviewByIdAsync(int interviewId);
         Task UpdateInterviewAsync(Interview interview);
         Task DeleteInterviewAsync(int interviewId);
+        Task<IEnumerable<Interview>> GetAllInterviewsAsync();
+
     }
 }

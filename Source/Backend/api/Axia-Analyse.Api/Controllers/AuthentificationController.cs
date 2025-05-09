@@ -18,13 +18,17 @@ namespace Axia_Analyse.Controllers
         private readonly IAuthentificationService _authenticationService;
         private readonly IUserAccountRepository _userAccountRepository;
         private readonly IPasswordResetService _passwordResetService;
+        private readonly CloudinaryService _cloudinaryService;
 
 
 
-        public AuthenticationController(IAuthentificationService authenticationService, IPasswordResetService passwordResetService)
+
+        public AuthenticationController(IAuthentificationService authenticationService, IPasswordResetService passwordResetService, CloudinaryService cloudinaryService)
         {
             _authenticationService = authenticationService;
             _passwordResetService = passwordResetService ?? throw new ArgumentNullException(nameof(passwordResetService));
+            _cloudinaryService = cloudinaryService;
+
         }
 
         [HttpPost("login")]
@@ -145,14 +149,36 @@ namespace Axia_Analyse.Controllers
         // ✅ 2. Mettre à jour un utilisateur
         [HttpPut("update/{id}")]
         [AllowAnonymous]
-
-        public async Task<IActionResult> UpdateUserAccount(int id, [FromBody] UserAccount user)
+        public async Task<IActionResult> UpdateUserAccount(int id, [FromForm] UserAccountDto user)
         {
-            if (user == null || id != user.Id) return BadRequest("Mauvaise requête.");
+            if (user == null)
+                return BadRequest("Mauvaise requête.");
 
-            await _authenticationService.UpdateUserAccountAsync(user);
+            // Vérifie si l'utilisateur existe déjà
+            var existingUser = await _authenticationService.GetUserAccountByIdAsync(id);
+            if (existingUser == null)
+                return NotFound("Utilisateur non trouvé.");
+
+            // Si une nouvelle photo est envoyée, la téléverser sur Cloudinary
+            if (user.PhotoLogo != null)
+            {
+                var photoUrl = await _cloudinaryService.UploadFileAsync(user.PhotoLogo);
+                user.PhotoLogoUrl = photoUrl;
+            }
+
+            // Met à jour les champs de l'utilisateur existant
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.Email = user.Email;
+            existingUser.AboutMe = user.AboutMe;
+            existingUser.PhotoLogo = user.PhotoLogoUrl;
+
+            // Enregistre les modifications
+            await _authenticationService.UpdateUserAccountAsync(existingUser);
+
             return Ok(new { message = "Utilisateur mis à jour avec succès !" });
         }
+
 
         // ✅ 3. Supprimer un utilisateur
         [HttpDelete("delete/{id}")]
@@ -173,6 +199,14 @@ namespace Axia_Analyse.Controllers
         public async Task<ActionResult<IEnumerable<UserAccount>>> GetAllUsers()
         {
             var users = await _authenticationService.GetAllUsersAsync();
+            return Ok(users);
+        }
+        [HttpGet("GetUser/{id}")]
+        [AllowAnonymous]
+
+        public async Task<ActionResult<IEnumerable<UserAccount>>> GetUserById(int id)
+        {
+            var users = await _authenticationService.GetUserAccountByIdAsync(id);
             return Ok(users);
         }
 

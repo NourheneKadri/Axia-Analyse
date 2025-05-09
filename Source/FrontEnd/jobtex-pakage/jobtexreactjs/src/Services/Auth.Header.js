@@ -11,6 +11,9 @@ export default function authHeader() {
 
       console.log('Token:', token);
       console.log('User Account ID:', userAccountId);
+      console.log(`Bearer ${token}`);
+      console.log('Authorization header :', 'Bearer ' + token);
+
 
       return { Authorization: 'Bearer ' + token };  // Retourne l'en-tête avec le token
     } catch (error) {

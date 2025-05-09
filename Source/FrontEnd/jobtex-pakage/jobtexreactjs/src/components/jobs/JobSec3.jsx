@@ -6,13 +6,15 @@ import Sidebar from "./Sidebar";
 import SortBuy from "../dropdown/SortBuy";
 import moment from "moment";
 import { useLocation} from "react-router-dom";
+import Authentification from "../../Services/AuthentificationService";
 
 JobSec3.propTypes = {};
 
-function JobSec3(props) {
+function JobSec3( onSelect ) {
   const location = useLocation(); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+ 
 
   const [companyLogos, setCompanyLogos] = useState({});
 
@@ -25,9 +27,17 @@ function JobSec3(props) {
   useEffect(() => {
     if (location.state) {
       const { title, location: searchLocation } = location.state;
+      const user = Authentification.getStoredUser()
 
       // Récupérer les offres d'emploi en fonction du titre et de l'adresse
-      fetch(`http://localhost:5259/api/JobOffer/search?title=${title}&address=${searchLocation}`)
+      fetch(`http://localhost:5259/api/JobOffer/search?title=${title}&address=${searchLocation}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${user?.token}`
+        }
+     } )
         .then((response) => response.json())
         .then((data) => {
           setJobs(data);
@@ -54,6 +64,8 @@ function JobSec3(props) {
         });
     }
   }, [location]); // Re-lancer l'effet lorsque `location` change
+
+  
 
   // Fonction pour récupérer le logo de l'entreprise
   const fetchCompanyLogo = async (userAccountId) => {
@@ -133,7 +145,7 @@ function JobSec3(props) {
                         </Tab>
                       </TabList>
                       <p className="nofi-job">
-                        <span>1249</span> jobs recommended for you
+                        <span>{displayJobs.length}</span> jobs recommended for you
                       </p>
                     </div>
                     <SortBuy />
@@ -176,7 +188,7 @@ function JobSec3(props) {
                                                                  </Link>
                               </h4>
                               <h3>
-                                <Link to="/jobsingle_v1">{idx.title} </Link>
+                                <Link to={`/Jobsingle_v1/${idx.id}`}>{idx.title} </Link>
                                 <span className="icon-bolt"></span>
                               </h3>
                               <ul>

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,10 +28,28 @@ namespace Axia_Analyse.Data.Repositories
 
         public IEnumerable<JobOffer> GetAll()
         {
-            return _dbContext.JobOffer
+            var now = DateTime.UtcNow;
+
+            // 1. On récupère toutes les offres non supprimées
+            var offers = _dbContext.JobOffer
                 .Where(e => e.DeleteTimestamp == null)
                 .ToList();
+
+            // 2. On met à jour les offres expirées
+            foreach (var offer in offers)
+            {
+                if (offer.DeadlineTimestamp <= now && offer.status != "Expired")
+                {
+                    offer.status = "Expired";
+                }
+            }
+
+            // 3. On sauvegarde les changements (important !)
+            _dbContext.SaveChanges();
+
+            return offers;
         }
+
 
         public bool Add(JobOffer jobOffer)
         {
@@ -158,7 +177,7 @@ namespace Axia_Analyse.Data.Repositories
                     JobOfferCount = _dbContext.JobOffer
                         .Count(j => _dbContext.UserAccount
                             .Any(u => u.Id == j.UserAccountId && u.CompanyId == c.Id)
-                            && j.DeleteTimestamp == null) // Exclure les offres supprimées
+                            && j.DeleteTimestamp == null && j.status =="active")  // Exclure les offres supprimées
                 })
                 .ToListAsync();
 
@@ -169,6 +188,37 @@ namespace Axia_Analyse.Data.Repositories
             return _dbContext.JobOffer
                            .Where(j => j.UserAccountId == userAccountId)
                            .ToList();
+        }
+
+        public IEnumerable<JobOffer> GetActiveJobOffers()
+        {
+            return _dbContext.JobOffer
+                .Where(e => e.status == "active" && e.DeleteTimestamp == null)
+                .ToList();
+        }
+        public async Task<List<string>> GetTitleSuggestionsAsync(string query)
+        {
+            return await _dbContext.JobOffer
+                .Where(j => j.DeleteTimestamp == null &&
+                            j.status == "active" &&
+                            (j.Title.ToLower().Contains(query.ToLower()) ||
+                             j.Description.ToLower().Contains(query.ToLower())))
+                .Select(j => j.Title)
+                .Distinct()
+                .Take(10)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<JobOffer>> GetActiveJobOffersByCompanyId(int companyId)
+        {
+            return await _dbContext.JobOffer
+                .Include(j => j.UserAccount)
+                .Where(j => j.status=="active" && j.UserAccount.CompanyId == companyId)
+                .ToListAsync();
+        }
+
+        public JobOffer Find(Expression<Func<JobOffer, bool>> predicate)
+        {
+            return _dbContext.JobOffer.FirstOrDefault(predicate);
         }
 
 

@@ -1,6 +1,5 @@
 using Axia_Analyse.Service.Interfaces;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Negotiate;
 using Axia_Analyse.Data.Interface.IRepositories;
 using Axia_Analyse.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +10,11 @@ using CloudinaryDotNet;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-var issuer = configuration["Issuer"];
-var audience = configuration["Audience"];
 
 // Add services to the container.
 
@@ -29,17 +27,33 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = issuer,
-            ValidAudience = audience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["JWTSecretKey"])
             
-            ),
-            ClockSkew = TimeSpan.Zero  // Pour éviter les petits écarts de temps
-
+            IssuerSigningKey = new SymmetricSecurityKey(
+    Encoding.UTF8.GetBytes("bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m") // doit être IDENTIQUE
+),
+            ClockSkew = TimeSpan.Zero
         };
-        options.IncludeErrorDetails = true;
+
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                // Log l'erreur
+                Console.WriteLine("Authentication failed: " + context.Exception.Message);
+                return Task.CompletedTask;
+            },
+            OnChallenge = context =>
+            {
+                // Log la réponse de challenge
+                Console.WriteLine("Challenge failed: " + context.Error);
+                return Task.CompletedTask;
+            }
+        };
     });
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
+
+
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
@@ -49,7 +63,7 @@ builder.Services.AddSingleton<CloudinaryService>();
 
 
 builder.Services.AddScoped<IAuthentificationService, Axia_Analyse.Service.AuthenticationService>();
-builder.Services.AddScoped<MailNotificationService>();// Register the interface with its implementation
+builder.Services.AddScoped<MailNotificationService>();
 builder.Services.AddScoped<IUserAccountRepository, UserAccountRepository>();
 builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -58,12 +72,24 @@ builder.Services.AddScoped<IJobOfferRepository, JobOfferRepository>();
 builder.Services.AddScoped<IJobOfferService, JobOfferServices>();
 builder.Services.AddScoped<IJobOfferCandidancyService, JobOfferCandidancyService>();
 builder.Services.AddScoped<IJobOfferCandidancyRepository, JobOfferCandidancyRepository>();
+
+builder.Services.AddScoped<ITelegramService, TelegramService>();
+
 builder.Services.AddSingleton<CloudinaryService>();
+builder.Services.AddScoped<GoogleCalendarService>();
+builder.Services.AddScoped<GoogleAuthService>();
+builder.Services.AddHttpClient();
+
+
+
 
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IInterviewRepository, InterviewRepository>();
 builder.Services.AddScoped<ISlotRepository, SlotRepository>();
+builder.Services.AddScoped<ItokenService, TokenServices>();
+builder.Services.AddScoped<IMeetingService, MettingService>();
+
 
 // Services
 builder.Services.AddScoped<IInterviewService, InterviewService>();
@@ -94,8 +120,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<BCryptPasswordHasher>();
 
-builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-   .AddNegotiate();
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -122,12 +147,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.Use(async (context, next) =>
+{
+    var authHeader = context.Request.Headers["Authorization"].ToString();
+    Console.WriteLine($"[DEBUG] Authorization header: {authHeader}");
+    await next();
+});
+
 app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers().RequireAuthorization(); // Assure que l'auth est appliquée sauf pour AllowAnonymous
+app.MapControllers().RequireAuthorization();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+
+);
+
 
 app.Run();

@@ -205,6 +205,14 @@
               "target": "Package",
               "version": "[4.0.0, )"
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.69.0, )"
+            },
+            "Google.Apis.Calendar.v3": {
+              "target": "Package",
+              "version": "[1.69.0.3746, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.2, )"
@@ -220,6 +228,10 @@
             "PdfPig": {
               "target": "Package",
               "version": "[0.1.10, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[112.1.0, )"
             },
             "System.Configuration.ConfigurationManager": {
               "target": "Package",

@@ -5,6 +5,7 @@ import Button2 from "../button/Button2";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import axios from "axios";
 import moment from "moment";
+import JobOfferServices from "../../Services/JobOfferService";
 
 Job07.propTypes = {};
 
@@ -54,12 +55,13 @@ function Job07(props) {
       // Fetch job offers for the selected category
       const fetchJobOffers = async () => {
         try {
-          const response = await axios.get(`http://localhost:5259/api/JobOffer/category/${selectedCategory}`);
-          setJobOffers(response.data);
+          const response = await JobOfferServices.getJobOfferByCategorie(selectedCategory) ;
+          console.log(response.data);
+            setJobOffers(response.data);
 
           // Fetch logos for the jobs
           const logos = await Promise.all(
-            response.data.map((job) => fetchCompanyLogo(job.userAccountId))
+            jobOffers.map((job) => fetchCompanyLogo(job.userAccountId))
           );
           const logosMap = logos.reduce((acc, logo, index) => {
             acc[response.data[index].userAccountId] = logo;
@@ -147,17 +149,17 @@ function Job07(props) {
                       {companyLogos[offer.userAccountId] ? (
                         <img src={companyLogos[offer.userAccountId]} alt="Company Logo" />
                       ) : (
-                        <p>No Logo</p>
+                        <p></p>
                       )}
                     </div>
                     <div className="box-content">
                       <h4>
-                        <Link to="/jobsingle_v1">
+                        <Link to={`/Jobsingle_v1/${offer.id}`}>
                           {categoryMap[offer.categorieId] || "Unknown Category"}
                         </Link>
                       </h4>
                       <h3>
-                        <Link to="/Jobsingle_v1">{offer.title}</Link>
+                        <Link to={`/Jobsingle_v1/${offer.id}`}>{offer.title}</Link>
                         <span className="icon-bolt"></span>
                       </h3>
                       <ul>
@@ -205,7 +207,7 @@ function Job07(props) {
                     <p className="days">{moment(offer.timestamp).fromNow()}</p>
                   </div>
                 </div>
-                <Link to="/Jobsingle_v1" className="jobtex-link-item" tabIndex="0"></Link>
+                <Link to={`/Jobsingle_v1/${offer.id}`} className="jobtex-link-item" tabIndex="0"></Link>
               </div>
             </div>
           ))

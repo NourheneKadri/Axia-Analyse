@@ -4,11 +4,35 @@ import Sidebar from "./Sidebar";
 import SortBuy from "../dropdown/SortBuy";
 import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { useLocation } from "react-router-dom";
+import moment from "moment";
+
 
 JobSec5.propTypes = {};
 
 function JobSec5(props) {
-  const { data } = props;
+  const location = useLocation();
+  const data = location.state?.recommendedJobs || [];
+
+  const categories = [
+    { id: 1, name: "Information Technology" },
+    { id: 2, name: "Software Development" },
+    { id: 3, name: "Human Resources" },
+    { id: 4, name: "Finance" },
+    { id: 5, name: "Design & Multimedia" },
+    { id: 6, name: "Telecommunications" },
+    { id: 7, name: "Engineering" },
+    { id: 8, name: "Construction & Facilities" },
+  ];
+
+  const jobTypes = [
+    { id: 1, name: "Full Time" },
+    { id: 2, name: "Part Time" },
+    { id: 3, name: "Freelance" },
+    { id: 4, name: "CDD" },
+    { id: 5, name: "CDI" },
+  ];
+
   return (
     <section>
       <div className="tf-container ctn-full wrap-sidebar-full pl1">
@@ -71,7 +95,7 @@ function JobSec5(props) {
                     </Tab>
                   </TabList>
                   <p className="nofi-job">
-                    <span>1249</span> jobs recommended for you
+                    <span>{data.length}</span> jobs recommended for you
                   </p>
                 </div>
                   <SortBuy />
@@ -80,71 +104,128 @@ function JobSec5(props) {
             <div className="content-tab style-scroll">
               <TabPanel className="inner">
                 <div className="group-col-2">
-                  {data.map((idx) => (
-                    <div className="features-job cl2">
-                      <div className="job-archive-header">
-                        <div className="inner-box">
-                          <div className="logo-company">
-                            <img src={idx.img} alt="jobtex" />
-                          </div>
-                          <div className="box-content">
-                            <h4>
-                              <Link to="/Jobsingle_v1">{idx.cate}</Link>
-                            </h4>
-                            <h3>
-                              <Link to="/Jobsingle_v1"> {idx.title} </Link>
-                              <span className="icon-bolt"></span>
-                            </h3>
-                            <ul>
-                              <li>
-                                <span className="icon-map-pin"></span>
-                                {idx.map}
-                              </li>
-                              <li>
-                                <span className="icon-calendar"></span>
-                                {idx.time}
-                              </li>
-                            </ul>
-                            <span className="icon-heart"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="job-archive-footer">
-                        <div className="job-footer-left">
-                          <ul className="job-tag">
-                            <li>
-                              <Link to="#">{idx.jobs1}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{idx.jobs2}</Link>
-                            </li>
-                          </ul>
-                          <div className="star">
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                            <span className="icon-star-full"></span>
-                          </div>
-                        </div>
-                        <div className="job-footer-right">
-                          <div className="price">
-                            <span className="icon-dolar1"></span>
-                            <p>
-                              {idx.price}
-                              <span className="year">/year</span>
-                            </p>
-                          </div>
-                          <p className="days">{idx.apply}</p>
-                        </div>
-                      </div>
-                      <Link
-                        to="/Jobsingle_v1"
-                        className="jobtex-link-item"
-                        tabIndex="0"
-                      ></Link>
-                    </div>
-                  ))}
+                 {data.slice(0, 8).map((idx) => (
+                                    <div key={idx.id} className="features-job cl2">
+                                      <div className="job-archive-header">
+                                        <div className="inner-box">
+                                        <div className="logo-company">
+                                        
+                                        </div>
+                                          <div className="box-content">
+                                            <h4>
+                                            <Link   to={`/Jobsingle_v1/${idx.id}`}>
+                                                    {(() => {
+                                                      switch (idx.categorieId) {
+                                                        case 1:
+                                                          return 'Information Technology';
+                                                        case 2:
+                                                          return 'Software Development';
+                                                        case 3:
+                                                          return 'Human Resources';
+                                                        case 4:
+                                                          return 'Finance';
+                                                        case 5:
+                                                          return 'Design & Multimedia';
+                                                        case 6:
+                                                          return 'Telecommunications';
+                                                        case 7:
+                                                          return 'Engineering';
+                                                        case 8:
+                                                          return 'Construction & Facilities';
+                                                        default:
+                                                          return 'Unknown Category'; // Default case if categorieId doesn't match
+                                                      }
+                                                    })()}
+                                                  </Link>
+                                            </h4>
+                                            <h3>
+                                              <Link to={`/Jobsingle_v1/${idx.id}`}> {idx.title} </Link>
+                                              <span className="icon-bolt"></span>
+                                            </h3>
+                                            <ul>
+                                              <li>
+                                                <span className="icon-map-pin"></span>
+                                                {idx.adress}
+                                              </li>
+                                              <li>
+                  <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
+                  {(() => {
+                    const deadlineDate = new Date(idx.deadlineTimestamp);
+                    const currentDate = new Date();
+                    
+                    // Calculate the difference in time (in milliseconds)
+                    const timeDiff = deadlineDate - currentDate;
+                    
+                    // Convert time difference to days
+                    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    
+                    // Check if the deadline is in the past, today, or in the future
+                    if (daysLeft < 0) {
+                      return "Deadline passed";
+                    } else if (daysLeft === 0) {
+                      return "Deadline is today";
+                    } else {
+                      return `${daysLeft} day${daysLeft > 1 ? 's' : ''} left`;
+                    }
+                  })()}
+                </li>
+                
+                
+                                            </ul>
+                                            <span className="icon-heart"></span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="job-archive-footer">
+                                        <div className="job-footer-left">
+                                          <ul className="job-tag">
+                                            <li>
+                                          <Link to="#">
+                                           {(() => {
+                                                                switch (idx.jobTypeId) {
+                                                                  case 1:
+                                                                    return 'Full-Time';
+                                                                  case 2:
+                                                                    return 'Part-Time';
+                                                                  case 3:
+                                                                    return 'Freelance';
+                                                                  case 4:
+                                                                    return 'CDD';
+                                                                  case 5:
+                                                                    return 'CDI';
+                                                                  default:
+                                                                    return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                                                                }
+                                                              })()}
+                                                            </Link></li>
+                                           
+                                          </ul>
+                                          <div className="star">
+                                            <span className="icon-star-full"></span>
+                                            <span className="icon-star-full"></span>
+                                            <span className="icon-star-full"></span>
+                                            <span className="icon-star-full"></span>
+                                            <span className="icon-star-full"></span>
+                                          </div>
+                                        </div>
+                                        <div className="job-footer-right">
+                                          <div className="price">
+                                            <span className="icon-dolar1"></span>
+                                            <p>
+                                              {idx.salaryRange}
+                                              <span className="year"> /year</span>
+                                            </p>
+                                          </div>
+                                          <p className="days">{moment(idx.timestamp).fromNow()}</p>
+                                        </div>
+                                      </div>
+                                      <Link
+                                         to={`/Jobsingle_v1/${idx.id}`}
+                                        className="jobtex-link-item"
+                                        tabIndex="0"
+                                      ></Link>
+                                    </div>
+                                  ))}
                 </div>
               </TabPanel>
               <TabPanel className="inner">
@@ -217,27 +298,7 @@ function JobSec5(props) {
                 </div>
               </TabPanel>
             </div>
-            <ul className="pagination-job absolute">
-              <li>
-                <Link to="#">
-                  <i className="icon-keyboard_arrow_left"></i>
-                </Link>
-              </li>
-              <li>
-                <Link to="#">1</Link>
-              </li>
-              <li className="current">
-                <Link to="#">2</Link>
-              </li>
-              <li>
-                <Link to="#">3</Link>
-              </li>
-              <li>
-                <Link to="#">
-                  <i className="icon-keyboard_arrow_right"></i>
-                </Link>
-              </li>
-            </ul>
+        
           </Tabs>
         </div>
       </div>
