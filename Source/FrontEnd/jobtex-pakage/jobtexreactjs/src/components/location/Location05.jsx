@@ -19,7 +19,7 @@ function Location05({ className }) {
           <div className="col-md-12">
             <div className="tf-title">
               <div className="group-title">
-                <h1>Jobs by Location</h1>
+                <h1>Jobs by Locations</h1>
                 <p>Find your favourite jobs and get the benefits of yourself</p>
               </div>
               <button className="tf-button">

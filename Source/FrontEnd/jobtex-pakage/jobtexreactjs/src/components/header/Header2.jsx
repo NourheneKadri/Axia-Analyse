@@ -560,6 +560,11 @@ function Header2({ clname = "", handleMobile }) {
                                     Applications
                                   </NavLink>
                                 </li>
+                                <li className="nav-sub subnav2">
+                                  <NavLink to="/joblist_v6">
+                                    Interviews
+                                  </NavLink>
+                                </li>
                               </>
                             )}
                             {!user && (

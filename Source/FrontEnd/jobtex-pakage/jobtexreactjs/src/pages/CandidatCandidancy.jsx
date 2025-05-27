@@ -507,7 +507,7 @@ function CandidatCandidancy(props) {
         </div>
       </div>
       <Header2 clname="actEm1" handleMobile={handleMobile} />
-      <Breadcrumb title="Employers" className="breadcrumb-section" />
+      <Breadcrumb title="Applications" className="breadcrumb-section" />
     
       <EmpSec8 data={dataEm} />
       <Footer />

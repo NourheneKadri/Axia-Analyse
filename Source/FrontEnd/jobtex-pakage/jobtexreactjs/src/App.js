@@ -82,7 +82,8 @@ import { getAuthorizedRoutes } from "./routeUtils";
 import AccessDenied from "./AccesDenied";
 import CandidatCandidancy from "./pages/CandidatCandidancy";
 import { Toaster } from 'react-hot-toast';
-
+import { useNavigate } from "react-router-dom";
+import AutoLogout from "./Services/AutoLogOut";
 
 const App = () => {
   let routes = useRoutes(getAuthorizedRoutes([
@@ -165,12 +166,12 @@ const AppWrapper = () => {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-
   return (
     <>
       {!loading ? (
         <Router>
           <ScrollToTop />
+          <AutoLogout/>
           <App />
         </Router>
       ) : (

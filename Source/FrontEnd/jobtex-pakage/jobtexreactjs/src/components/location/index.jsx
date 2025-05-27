@@ -1,14 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import JobOfferServices from "../../Services/JobOfferService";
+import ph1 from "../../assets/images/c1.jpg"
 
 Location.propTypes = {};
 
-function Location(props) {
-  const { data } = props;
+function Location() {
+ const [locations, setLocations] = useState([]);
+
+ useEffect(() => {
+  const fetchLocations = async () => {
+        const rawData = await JobOfferServices.getJobOfferCountsBySupportedCountries();
+
+    const flags = {
+      France:ph1,
+      Germany: "../../assets/images/c3.jpg",
+      Canada: "/images/c2.jpg",
+      "United States": "/images/c3.jpg",
+      "United Kingdom": "/images/c2.jpg",
+    };
+
+    const formattedData = Object.entries(rawData).map(([country, count], index) => ({
+      id: index + 1,
+      title: country,
+      unit: `${count} Job${count !== 1 ? "s" : ""}`,
+      img: flags[country] || "/images/default.png",
+    }));
+console.log("formattedData",formattedData)
+    setLocations(formattedData);
+  };
+
+  fetchLocations();
+}, []);
+
   return (
     <section className="location-section over-flow-hidden background1">
       <div className="tf-container">
@@ -42,7 +71,7 @@ function Location(props) {
                 },
               }}
             >
-              {data.map((idx) => (
+              {locations.map((idx) => (
                 <SwiperSlide key={idx.id}>
                   <div className="wd-job-location">
                     <div className="features">

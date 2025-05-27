@@ -15,6 +15,8 @@ namespace Axia_Analyse.Service.Interfaces
         Task UpdateInterviewAsync(Interview interview);
         Task DeleteInterviewAsync(int interviewId);
         Task<IEnumerable<Interview>> GetAllInterviewsAsync();
+        Task<string?> CreateInterviewWithMeetLink(InterviewDto interview);
+
 
     }
 }

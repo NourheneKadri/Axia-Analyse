@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ReactSlider from "react-slider";
 import "./style.scss";
-function RangeTwo({title}) {
-  const [value, setValue] = useState([17000, 24000]);
+function RangeTwo({ title, value = [17000, 24000], onChange = () => {} }) {
   return (
     <div className="group-form">
       <div className="group-range-title">
@@ -17,14 +16,15 @@ function RangeTwo({title}) {
         className="horizontal-slider st2"
         min={0}
         max={50000}
-        defaultValue={[17000, 24000]}
+        value={value}
         thumbClassName="example-thumb"
         trackClassName="example-track"
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-        onChange={(value) => setValue(value)}
+        onChange={onChange}
       />
     </div>
   );
 }
+
 
 export default RangeTwo;

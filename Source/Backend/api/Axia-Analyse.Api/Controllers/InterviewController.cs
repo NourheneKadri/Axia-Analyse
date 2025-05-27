@@ -17,18 +17,22 @@ namespace Axia_Analyse.Controllers
         private readonly MailNotificationService _mailNotificationService;
         private readonly GoogleCalendarService _googleCalendarService;
         private readonly GoogleAuthService _googleAuthService;
-
-        
-
+        private readonly IMeetingService _meetingService;
 
 
 
-        public InterviewController(IInterviewService interviewService,MailNotificationService mailNotificationService, GoogleCalendarService googleCalendarService , GoogleAuthService googleAuthService)
+
+
+
+
+        public InterviewController(IInterviewService interviewService,MailNotificationService mailNotificationService, GoogleCalendarService googleCalendarService ,
+            GoogleAuthService googleAuthService, IMeetingService meetingService)
         {
             _interviewService = interviewService;
             _mailNotificationService = mailNotificationService;
             _googleCalendarService = googleCalendarService;
             _googleAuthService = googleAuthService;
+            _meetingService = meetingService;
         }
 
         [HttpPost("create")]
@@ -40,15 +44,15 @@ namespace Axia_Analyse.Controllers
             }
 
             await _interviewService.CreateInterviewAsync(interview);
+            await _interviewService.CreateInterviewWithMeetLink(interview);
             await _mailNotificationService.SendInterviewConfirmation(interview);
-            string accessToken = await _googleAuthService.GetAccessTokenAsync(); // implémentation requise
 
-            var meetLink = await _googleCalendarService.CreateGoogleMeetEventAsync(accessToken, interview);
+            
+
 
             return Ok(new
             {
                 message = "Entretien créé avec succès.",
-                meetLink = meetLink ?? "Lien non généré"
             });
             return Ok(new { message = "Entretien créé avec succès." });
         }

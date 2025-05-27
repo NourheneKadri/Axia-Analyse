@@ -146,7 +146,6 @@ namespace Axia_Analyse.Controllers
             return Ok(new { message = "Utilisateur créé avec succès !" });
         }
 
-        // ✅ 2. Mettre à jour un utilisateur
         [HttpPut("update/{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> UpdateUserAccount(int id, [FromForm] UserAccountDto user)

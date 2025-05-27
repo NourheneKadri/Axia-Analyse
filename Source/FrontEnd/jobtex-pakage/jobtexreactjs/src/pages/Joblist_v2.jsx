@@ -13,6 +13,8 @@ import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import Header4 from "../components/header/Header4";
 import Header2 from "../components/header/Header2";
+import Authentification from "../Services/AuthentificationService";
+import Header03 from "../components/header/Header03";
 
 Joblist_v2.propTypes = {};
 
@@ -23,6 +25,7 @@ function Joblist_v2(props) {
   });
   const [isShowMobile, setShowMobile] = useState(false);
   const [isShow, setShow] = useState(false);
+  const user = Authentification.getStoredUser();
   
   const handlePopup = () => {
     const getPopUp = document.querySelector(".sidebar-popup");
@@ -541,8 +544,11 @@ function Joblist_v2(props) {
         </div>
       </div>
       <PopupJob isShow={isShow} handlePopup={handlePopup} />
-      <Header2 clname="actJob1" handleMobile={handleMobile} />
-      <Breadcrumb title="Find Jobs" className="breadcrumb-section" />
+  {user ? (
+        <Header2 clname="act1" handleMobile={handleMobile} />
+      ) : (
+        <Header03 />
+      )}      <Breadcrumb title="Find Jobs" className="breadcrumb-section" />
 
 
       <JobSec2 data={dataJobs} isShow={isShow} handlePopup={handlePopup} />

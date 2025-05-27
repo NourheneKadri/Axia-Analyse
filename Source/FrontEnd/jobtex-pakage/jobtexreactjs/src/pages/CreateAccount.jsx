@@ -9,6 +9,7 @@ import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Header03 from "../components/header/Header03";
 
 function CreateAccount(props) {
   const [toggle, setToggle] = useState({
@@ -525,6 +526,7 @@ function CreateAccount(props) {
           </div>
         </div>
       </div>
+      <Header03></Header03>
       <Breadcrumb title="Login" />
       <SignUp />
       <Footer />

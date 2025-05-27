@@ -5,24 +5,90 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Sidebar from "./Sidebar";
 import SortBuy from "../dropdown/SortBuy";
 import moment from "moment";
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Authentification from "../../Services/AuthentificationService";
+import RangeOne from "../range-slider";
+import RangeTwo from "../range-slider/RangleTwo";
+import SelectLocation from "../dropdown";
+import Dropdown from "react-dropdown";
+import { Button } from "reactstrap";
+
 
 JobSec3.propTypes = {};
 
-function JobSec3( onSelect ) {
-  const location = useLocation(); 
+function JobSec3(onSelect) {
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
- 
+  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState({ label: "All Location", value: "All Location" });
+  const [selectedJobType, setSelectedJobType] = useState("All Types");
+
+
+  const postedOptions = [
+    { value: "any", label: "Posted Anytime" },
+    { value: "today", label: "Today" },
+    { value: "week", label: "This Week" },
+    { value: "month", label: "This Month" }
+  ];
+
+  const [selectedPostedOption, setSelectedPostedOption] = useState(postedOptions[0]);
+
+
 
   const [companyLogos, setCompanyLogos] = useState({});
-
   const [searchParams, setSearchParams] = useState({
     title: "",
     searchLocation: "",
   });
   const [jobs, setJobs] = useState([]);
+
+
+  const select1 = [
+    { value: "s1", label: "Design & Creative " },
+    { value: "s2", label: "Design" },
+    { value: "s3  ", label: "Ux/Ui" },
+  ];
+  const select2 = [
+    { value: "s1", label: "On-site" },
+    { value: "s2", label: "Remote" },
+    { value: "s3  ", label: "Freelancer" },
+  ];
+  const select3 = [
+    { value: "s1", label: "All Job Types" },
+    { value: "s2", label: "SoftWere" },
+    { value: "s3  ", label: "Website" },
+  ];
+  const select4 = [
+    { value: "s1", label: "Posted Anytime " },
+    { value: "s3  ", label: "Website" },
+  ];
+  const select5 = [
+    { value: "s1", label: "All Seniority Levels " },
+    { value: "s2", label: "Website" },
+  ];
+  const select6 = [
+    { value: "s1", label: "Company" },
+    { value: "s2", label: "Website" },
+  ];
+  const selectCategory = [
+    { value: 0, label: "All Categories" },
+    { value: 1, label: "Information Technology" },
+    { value: 2, label: "Software Development" },
+    { value: 3, label: "Human Resources" },
+    { value: 4, label: "Finance" },
+    { value: 5, label: "Design & Multimedia" },
+    { value: 6, label: "Telecommunications" },
+    { value: 7, label: "Engineering" },
+    { value: 8, label: "Construction & Facilities" },
+  ];
+
+
+  const [selectedCategory, setSelectedCategory] = useState(selectCategory[0]);
+  const [salaryRange, setSalaryRange] = useState([17000, 24000]);
+
+
 
   useEffect(() => {
     if (location.state) {
@@ -36,12 +102,13 @@ function JobSec3( onSelect ) {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${user?.token}`
-        }
-     } )
+          }
+        })
         .then((response) => response.json())
         .then((data) => {
           setJobs(data);
-          
+          setFilteredJobs(data)
+
           // Récupérer le logo de chaque entreprise associée aux offres
           data.forEach((job) => {
             fetchCompanyLogo(job.userAccountId)
@@ -63,11 +130,8 @@ function JobSec3( onSelect ) {
           setLoading(false);
         });
     }
-  }, [location]); // Re-lancer l'effet lorsque `location` change
+  }, [location]);
 
-  
-
-  // Fonction pour récupérer le logo de l'entreprise
   const fetchCompanyLogo = async (userAccountId) => {
     try {
       const response = await fetch(`http://localhost:5259/api/Authentication/company/${userAccountId}`);
@@ -81,9 +145,92 @@ function JobSec3( onSelect ) {
       return null; // Retourne null si une erreur survient
     }
   };
+  const displayJobs = Array.isArray(jobs) ? jobs.slice(0, 50) : [];
 
-  // Limiter l'affichage des résultats à 10
-  const displayJobs = Array.isArray(jobs) ? jobs.slice(0, 10) : [];
+
+  useEffect(() => {
+    const displayJobs = Array.isArray(jobs) ? jobs.slice(0, 50) : [];
+    setFilteredJobs(displayJobs);
+  }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [selectedLocation]);
+  useEffect(() => {
+    handleSearch();
+  }, [selectedJobType]);
+
+
+  useEffect(() => {
+    handleSearch();
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    handleSearch();
+  }, [selectedPostedOption]);
+
+  const handleSearch = () => {
+    const displayJobs = Array.isArray(jobs) ? jobs.slice(0, 50) : [];
+    const location = selectedLocation;
+    const jobType = selectedJobType.value;
+
+    console.log("Search:", searchQuery);
+    console.log("Location:", location);
+    console.log("Job Type:", jobType);
+
+
+    let filtered = displayJobs;
+
+    if (searchQuery !== "") {
+      filtered = filtered.filter(job =>
+        job.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (location && location.label !== "All Location") {
+      filtered = filtered.filter(job =>
+        job.adress?.toLowerCase().includes(location.label.toLowerCase())
+      );
+    }
+
+    if (jobType && jobType !== 0) {
+      filtered = filtered.filter(offer => Number(offer.jobTypeId) === Number(jobType));
+    }
+    if (selectedCategory && selectedCategory.value !== 0) {
+      filtered = filtered.filter(job =>
+        Number(job.categorieId) === Number(selectedCategory.value)
+      );
+    }
+    if (selectedPostedOption.value !== "any") {
+      const now = new Date();
+
+      filtered = filtered.filter(job => {
+        const postedDate = new Date(job.timestamp);
+        const timeDiff = now - postedDate;
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        switch (selectedPostedOption.value) {
+          case "today":
+            return timeDiff < oneDay;
+          case "week":
+            return timeDiff < 7 * oneDay;
+          case "month":
+            return timeDiff < 30 * oneDay;
+          default:
+            return true;
+        }
+      });
+    }
+
+
+    console.log("Jobs filtered:", filtered);
+
+    setFilteredJobs(filtered);
+  };
+
+
+
+
 
   return (
     <section className="inner-employer-section-two">
@@ -92,7 +239,109 @@ function JobSec3( onSelect ) {
           <div className="col-lg-12">
             <div className="group-4-8">
               <div className="cl4">
-                <Sidebar />
+                <div className="widget-filter st2  style-scroll po-sticky">
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSearch();
+                  }}>
+
+                    <div className="group-form">
+                      <label className="title">Search Company</label>
+                      <div className="group-input search-ip">
+                        <button>
+                          <i className="icon-search"></i>
+                        </button>
+                        <input
+                          type="text"
+                          placeholder="Job title, key words or company"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault(); // empêche le submit du formulaire
+                              handleSearch();
+                            }
+                          }} />
+                      </div>
+                    </div>
+                    <div className="group-form">
+                      <label className="title">Location</label>
+                      <div className="group-input has-icon">
+                        <i className="icon-map-pin"></i>
+                        <SelectLocation
+                          value={selectedLocation}
+                          onChange={(option) => {
+                            console.log("Option sélectionnée :", option.label);
+                            setSelectedLocation(option);
+                            handleSearch();
+
+                          }}
+                        />
+
+
+                      </div>
+                    </div>
+                    <div className="group-form">
+                      <label className="title">Job Types</label>
+                      <div className="group-input">
+                        <Dropdown
+                          options={[
+                            { value: 0, label: "All Types" },
+                            { value: 1, label: "Full Time" },
+                            { value: 2, label: "Part Time" },
+                            { value: 3, label: "Freelance" },
+                            { value: 4, label: "CDD" },
+                            { value: 5, label: "CDI" },
+                          ]}
+                          className="react-dropdown select2"
+                          onChange={(option) => {
+                            setSelectedJobType(option);
+                            console.log(option) // ici value, pas label !
+                            handleSearch();
+                          }}
+                          value={selectedJobType}
+                        />
+
+
+                      </div>
+                    </div>
+                    <div className="group-form">
+                      <label className="title">Job categories</label>
+                      <div className="group-input">
+                        <Dropdown
+                          options={selectCategory}
+                          className="react-dropdown select2"
+                          value={selectedCategory}
+                          onChange={(option) => {
+                            setSelectedCategory(option); // tu mets à jour le state
+                            handleSearch(); // tu déclenches la recherche
+                          }}
+                        />
+
+
+                      </div>
+                    </div>
+
+
+
+                    <div className="group-form">
+                      <label className="title">Posted Anytime</label>
+                      <div className="group-input">
+                        <Dropdown
+                          options={postedOptions}
+                          className="react-dropdown select2"
+                          value={selectedPostedOption}
+                          onChange={(option) => {
+                            setSelectedPostedOption(option);  // Met à jour le filtre
+                            handleSearch();                   // Lance la recherche filtrée
+                          }}
+                        />
+
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
               </div>
               <Tabs className="cl8 tf-tab">
                 <div className="wd-meta-select-job">
@@ -145,7 +394,7 @@ function JobSec3( onSelect ) {
                         </Tab>
                       </TabList>
                       <p className="nofi-job">
-                        <span>{displayJobs.length}</span> jobs recommended for you
+                        <span>{filteredJobs.length}</span> jobs recommended for you
                       </p>
                     </div>
                     <SortBuy />
@@ -153,7 +402,7 @@ function JobSec3( onSelect ) {
                 </div>
                 <div className="content-tab">
                   <TabPanel className="inner">
-                    {displayJobs.slice(0, 9).map((idx) => (
+                    {filteredJobs.slice(0, 9).map((idx) => (
                       <div key={idx.id} className="features-job mb1">
                         <div className="job-archive-header">
                           <div className="inner-box">
@@ -162,30 +411,30 @@ function JobSec3( onSelect ) {
                             </div>
                             <div className="box-content">
                               <h4>
-                                <Link   to={`/Jobsingle_v1/${idx.id}`}>
-                                                                   {(() => {
-                                                                     switch (idx.categorieId) {
-                                                                       case 1:
-                                                                         return 'Information Technology';
-                                                                       case 2:
-                                                                         return 'Software Development';
-                                                                       case 3:
-                                                                         return 'Human Resources';
-                                                                       case 4:
-                                                                         return 'Finance';
-                                                                       case 5:
-                                                                         return 'Design & Multimedia';
-                                                                       case 6:
-                                                                         return 'Telecommunications';
-                                                                       case 7:
-                                                                         return 'Engineering';
-                                                                       case 8:
-                                                                         return 'Construction & Facilities';
-                                                                       default:
-                                                                         return 'Unknown Category'; // Default case if categorieId doesn't match
-                                                                     }
-                                                                   })()}
-                                                                 </Link>
+                                <Link to={`/Jobsingle_v1/${idx.id}`}>
+                                  {(() => {
+                                    switch (idx.categorieId) {
+                                      case 1:
+                                        return 'Information Technology';
+                                      case 2:
+                                        return 'Software Development';
+                                      case 3:
+                                        return 'Human Resources';
+                                      case 4:
+                                        return 'Finance';
+                                      case 5:
+                                        return 'Design & Multimedia';
+                                      case 6:
+                                        return 'Telecommunications';
+                                      case 7:
+                                        return 'Engineering';
+                                      case 8:
+                                        return 'Construction & Facilities';
+                                      default:
+                                        return 'Unknown Category'; // Default case if categorieId doesn't match
+                                    }
+                                  })()}
+                                </Link>
                               </h4>
                               <h3>
                                 <Link to={`/Jobsingle_v1/${idx.id}`}>{idx.title} </Link>
@@ -197,27 +446,27 @@ function JobSec3( onSelect ) {
                                   {idx.adress}
                                 </li>
                                 <li>
-  <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
-  {(() => {
-    const deadlineDate = new Date(idx.deadlineTimestamp);
-    const currentDate = new Date();
-    
-    // Calculate the difference in time (in milliseconds)
-    const timeDiff = deadlineDate - currentDate;
-    
-    // Convert time difference to days
-    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    
-    // Check if the deadline is in the past, today, or in the future
-    if (daysLeft < 0) {
-      return "Deadline passed";
-    } else if (daysLeft === 0) {
-      return "Deadline is today";
-    } else {
-      return `${daysLeft} day${daysLeft > 1 ? 's' : ''} left to Apply`;
-    }
-  })()}
-</li>
+                                  <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
+                                  {(() => {
+                                    const deadlineDate = new Date(idx.deadlineTimestamp);
+                                    const currentDate = new Date();
+
+                                    // Calculate the difference in time (in milliseconds)
+                                    const timeDiff = deadlineDate - currentDate;
+
+                                    // Convert time difference to days
+                                    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                                    // Check if the deadline is in the past, today, or in the future
+                                    if (daysLeft < 0) {
+                                      return "Deadline passed";
+                                    } else if (daysLeft === 0) {
+                                      return "Deadline is today";
+                                    } else {
+                                      return `${daysLeft} day${daysLeft > 1 ? 's' : ''} left to Apply`;
+                                    }
+                                  })()}
+                                </li>
                               </ul>
                               <span className="icon-heart"></span>
                             </div>
@@ -227,25 +476,25 @@ function JobSec3( onSelect ) {
                           <div className="job-footer-left">
                             <ul className="job-tag">
                               <li>
-                                                       <Link to="#">
-                                                        {(() => {
-                                                                             switch (idx.jobTypeId) {
-                                                                               case 1:
-                                                                                 return 'Full-Time';
-                                                                               case 2:
-                                                                                 return 'Part-Time';
-                                                                               case 3:
-                                                                                 return 'Freelance';
-                                                                               case 4:
-                                                                                 return 'CDD';
-                                                                               case 5:
-                                                                                 return 'CDI';
-                                                                               default:
-                                                                                 return 'Unknown Type'; // Default case if jobTypeId doesn't match
-                                                                             }
-                                                                           })()}
-                                                                         </Link></li>
-                              
+                                <Link to="#">
+                                  {(() => {
+                                    switch (idx.jobTypeId) {
+                                      case 1:
+                                        return 'Full-Time';
+                                      case 2:
+                                        return 'Part-Time';
+                                      case 3:
+                                        return 'Freelance';
+                                      case 4:
+                                        return 'CDD';
+                                      case 5:
+                                        return 'CDI';
+                                      default:
+                                        return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                                    }
+                                  })()}
+                                </Link></li>
+
                             </ul>
                             <div className="star">
                               <span className="icon-star-full"></span>
@@ -262,7 +511,7 @@ function JobSec3( onSelect ) {
                                 {idx.salaryRange} <span className="year">/year</span>
                               </p>
                             </div>
-                          <p className="days">{moment(idx.timestamp).fromNow()}</p>
+                            <p className="days">{moment(idx.timestamp).fromNow()}</p>
                           </div>
                         </div>
                       </div>
@@ -270,16 +519,39 @@ function JobSec3( onSelect ) {
                   </TabPanel>
                   <TabPanel className="inner">
                     <div className="group-col-2">
-                      {displayJobs.map((idx) => (
+                      {filteredJobs.map((idx) => (
                         <div className="features-job cl2">
                           <div className="job-archive-header">
                             <div className="inner-box">
                               <div className="logo-company">
-                                <img src={idx.img} alt="jobtex" />
+                                <img src={companyLogos[idx.userAccountId]} alt="jobtex" />
                               </div>
                               <div className="box-content">
                                 <h4>
-                                  <Link to="/jobsingle_v1">{idx.cate}</Link>
+                                  <Link to={`/Jobsingle_v1/${idx.id}`}>
+                                    {(() => {
+                                      switch (idx.categorieId) {
+                                        case 1:
+                                          return 'Information Technology';
+                                        case 2:
+                                          return 'Software Development';
+                                        case 3:
+                                          return 'Human Resources';
+                                        case 4:
+                                          return 'Finance';
+                                        case 5:
+                                          return 'Design & Multimedia';
+                                        case 6:
+                                          return 'Telecommunications';
+                                        case 7:
+                                          return 'Engineering';
+                                        case 8:
+                                          return 'Construction & Facilities';
+                                        default:
+                                          return 'Unknown Category'; // Default case if categorieId doesn't match
+                                      }
+                                    })()}
+                                  </Link>
                                 </h4>
                                 <h3>
                                   <Link to="/jobsingle_v1">{idx.title} </Link>
@@ -288,11 +560,29 @@ function JobSec3( onSelect ) {
                                 <ul>
                                   <li>
                                     <span className="icon-map-pin"></span>
-                                    {idx.map}
+                                    {idx.adress}
                                   </li>
                                   <li>
-                                    <span className="icon-calendar"></span>
-                                    {idx.time}
+                                     <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
+                                  {(() => {
+                                    const deadlineDate = new Date(idx.deadlineTimestamp);
+                                    const currentDate = new Date();
+
+                                    // Calculate the difference in time (in milliseconds)
+                                    const timeDiff = deadlineDate - currentDate;
+
+                                    // Convert time difference to days
+                                    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                                    // Check if the deadline is in the past, today, or in the future
+                                    if (daysLeft < 0) {
+                                      return "Deadline passed";
+                                    } else if (daysLeft === 0) {
+                                      return "Deadline is today";
+                                    } else {
+                                      return `${daysLeft} day${daysLeft > 1 ? 's' : ''} left to Apply`;
+                                    }
+                                  })()}
                                   </li>
                                 </ul>
                                 <span className="icon-heart"></span>
@@ -303,11 +593,26 @@ function JobSec3( onSelect ) {
                             <div className="job-footer-left">
                               <ul className="job-tag">
                                 <li>
-                                  <Link to="#">{idx.jobs1}</Link>
+                                   <Link to="#">
+                                  {(() => {
+                                    switch (idx.jobTypeId) {
+                                      case 1:
+                                        return 'Full-Time';
+                                      case 2:
+                                        return 'Part-Time';
+                                      case 3:
+                                        return 'Freelance';
+                                      case 4:
+                                        return 'CDD';
+                                      case 5:
+                                        return 'CDI';
+                                      default:
+                                        return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                                    }
+                                  })()}
+                                </Link>
                                 </li>
-                                <li>
-                                  <Link to="#">{idx.jobs2}</Link>
-                                </li>
+                               
                               </ul>
                               <div className="star">
                                 <span className="icon-star-full"></span>
@@ -321,11 +626,11 @@ function JobSec3( onSelect ) {
                               <div className="price">
                                 <span className="icon-dolar1"></span>
                                 <p>
-                                  {idx.price}
+                                  {idx.salaryRange}
                                   <span className="year">/year</span>
                                 </p>
                               </div>
-                              <p className="days">{idx.apply}</p>
+                            <p className="days">{moment(idx.timestamp).fromNow()}</p>
                             </div>
                           </div>
                           <Link
@@ -369,3 +674,23 @@ function JobSec3( onSelect ) {
 }
 
 export default JobSec3;
+
+
+/*  <div className="group-form">
+                      <label className="title">Company</label>
+                      <div className="group-input">
+                        <Dropdown
+                          options={select6}
+                          className="react-dropdown select2"
+                          value={select6[0]}
+                        />
+                      </div>
+                    </div>
+
+                    <RangeTwo
+                      title="Salary:"
+                      value={salaryRange}
+                      onChange={setSalaryRange}
+                    />*/
+
+

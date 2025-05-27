@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Axia_Analyse.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
 
     [Route("api/[controller]")]
     [ApiController]
@@ -30,7 +30,7 @@ namespace Axia_Analyse.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
 
         public IEnumerable<JobOffer> GetAll()
         {
@@ -67,6 +67,7 @@ namespace Axia_Analyse.Controllers
         }
         [HttpGet]
         [Route("search")]
+        [AllowAnonymous]
 
         public async Task<IActionResult> SearchJobOffers(string? title, string? address, int? categoryId)
         {
@@ -135,7 +136,6 @@ namespace Axia_Analyse.Controllers
             return Ok(categoryCounts);
         }
         [HttpGet("countByCompany")]
-        [AllowAnonymous]
 
         public async Task<IActionResult> GetJobOfferCountByCompany()
         {
@@ -167,6 +167,13 @@ namespace Axia_Analyse.Controllers
             return Ok(offers);
         }
 
+        [HttpGet("country-counts")]
+        [AllowAnonymous]
+        public IActionResult GetOfferCountsByCountry()
+        {
+            var result = _jobOfferServices.GetJobOfferCountsBySupportedCountries();
+            return Ok(result);
+        }
 
     }
 }

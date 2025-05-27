@@ -133,7 +133,36 @@ namespace Axia_Analyse.Service
             return await _jobOfferRepository.GetActiveJobOffersByCompanyId(companyId);
         }
 
-       
+        public Dictionary<string, int> GetJobOfferCountsBySupportedCountries()
+        {
+            var countryKeywords = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "France", new List<string> { "france", "paris", "lyon", "marseille", "toulouse", "nice" } },
+            { "Germany", new List<string> { "germany", "berlin", "munich", "hamburg" } },
+            { "Canada", new List<string> { "canada", "toronto", "montreal", "vancouver" } },
+            { "United States", new List<string> { "united states", "new york", "los angeles", "chicago", "san francisco" } },
+            { "United Kingdom", new List<string> { "united kingdom", "london", "manchester", "birmingham" } },
+        };
+
+            var offers = _jobOfferRepository.GetAll();
+
+            var result = new Dictionary<string, int>();
+
+            foreach (var country in countryKeywords.Keys)
+            {
+                var keywords = countryKeywords[country];
+                var count = offers.Count(offer =>
+                    !string.IsNullOrWhiteSpace(offer.Adress) &&
+                    keywords.Any(keyword => offer.Adress.ToLower().Contains(keyword.ToLower()))
+                );
+
+                result[country] = count;
+            }
+
+            return result;
+        }
+
+
 
 
     }

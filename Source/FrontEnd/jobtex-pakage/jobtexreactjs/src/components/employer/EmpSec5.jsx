@@ -45,7 +45,7 @@ function EmpSec5(props) {
     { value: "last", label: "Last" },
     { value: "title", label: "Titre de l\'offre (A-Z)" },
     { value: "candidateName", label: "Nom du candidat (A-Z)" },
-    { value: "score", label: "Score (décroissant)" } // Nouveau
+    { value: "score", label: "score" } // Nouveau
   ];
 
 
@@ -132,15 +132,30 @@ function EmpSec5(props) {
           const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
           return nameA.localeCompare(nameB);
         }
-        case 'score':
-          return (a.score ?? 0) - (b.score ?? 0);
+        case "score":
+          return  (b.score ? parseFloat(JSON.parse(b.score).parts[0].text.trim()) : 0) -
+          (a.score ? parseFloat(JSON.parse(a.score).parts[0].text.trim()) : 0) ;
           default:
           return 0;
       }
     });
   }, [filteredCandidacies, sortBy, jobOffers]);
-  
+  console.log("Tri déclenché avec sortBy :", sortBy);
+  console.log("Candidatures à trier :", filteredCandidacies);
 
+
+  function extractScore(value) {
+    if (!value || !Array.isArray(value.parts) || value.parts.length === 0) return 0;
+  
+    const text = (value.parts[0]?.text || "").trim(); // => "0"
+    const num = parseFloat(text);                     // => 0
+  
+    console.log("Valeur reçue :", value, " -> Score extrait :", num);
+  
+    return isNaN(num) ? 0 : num;
+  }
+  
+  
 
 
   useEffect(() => {
@@ -359,7 +374,7 @@ function EmpSec5(props) {
         <div className="job-search-form st1 employers-form">
           <form>
             <div className="row-group-search inner-form">
-              <div className="form-group-1" style={{ width: '350px' }}>
+              <div className="form-group-1"style={{width:'700px'}} >
                 <input
                   type="text"
                   className="input-filter-search"
@@ -370,7 +385,7 @@ function EmpSec5(props) {
                 <span className="icon-search search-job"></span>
               </div>
 
-              <div className="form-group-1" style={{ width: '350px' }}>
+              <div className="form-group-1"style={{width:'400px',zIndex: 9999}} >
                 <Dropdown
                   options={dropdownOptions}
                   value={selectedJobTitle}
@@ -381,20 +396,7 @@ function EmpSec5(props) {
                   placeholder="Job Title"
                 />
               </div>
-              <div className="form-group-1" style={{ width: '350px' }}>
-                <Dropdown
-                  options={options2}
-                  className="react-dropdown select-location"
-                  value={options2[0]}
-                />
-              </div>
-              <div className="form-group-1" style={{ width: '300px  ' }}>
-                <Dropdown
-                  options={options3}
-                  className="react-dropdown select-location"
-                  value={options3[0]}
-                />
-              </div>
+              
 
             </div>
           </form>

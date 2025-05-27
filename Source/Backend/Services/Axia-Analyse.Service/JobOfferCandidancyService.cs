@@ -70,6 +70,8 @@ namespace Axia_Analyse.Service
             {
                 throw new InvalidOperationException("Le candidat a déjà postulé à cette offre.");
             }
+            TimeZoneInfo tunisTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Africa/Tunis");
+            DateTime submissionDateTunis = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tunisTimeZone);
 
             var entity = new JobOfferCandidancy
             {
@@ -78,7 +80,7 @@ namespace Axia_Analyse.Service
                 Email = dto.Email,
                 CandidateProfileId = dto.CandidateProfileId,
                 JobOfferId = dto.JobOfferId,
-                SubmissionDate = DateTime.UtcNow,
+                 SubmissionDate = submissionDateTunis, 
                 UpdatedAt = DateTime.UtcNow,
                 StatusId = JobOfferCandidancyStatus.PENDING,
                 CVurl= dto.CVurl,

@@ -16,7 +16,9 @@ namespace Axia_Analyse.Data.Interface.Entites
 
 
         public DateTime InterviewDate { get; set; }
-        public TimeOnly InterviewTime { get; set; }
+        public DateTime InterviewTime { get; set; }
+
+
         public string? Location { get; set; }
         public int StatusId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -27,6 +27,7 @@ namespace Axia_Analyse.Service.Interfaces
         IEnumerable<JobOffer> GetActive();
         Task<List<string>> GetTitleSuggestionsAsync(string query);
         Task<IEnumerable<JobOffer>> GetActiveOffersByCompanyId(int companyId);
+        Dictionary<string, int> GetJobOfferCountsBySupportedCountries();
 
 
 

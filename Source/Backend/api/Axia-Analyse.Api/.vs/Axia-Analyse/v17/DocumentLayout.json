@@ -3,14 +3,8 @@
   "WorkspaceRootPath": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\geminiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\joboffercandidancycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\joboffercandidancycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\googleauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\joboffercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,253 +17,29 @@
       "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\ijobofferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\useraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\interview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\mailnotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\interviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\chatmemory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\chatrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\telegramcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\telegramcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\cvinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\telegramservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\telegrammessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\telegrammessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\telegramuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\telegramupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\itelegramservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\joboffercandidancyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\interviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\interviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\axia-analyse.service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\googleeventapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\googleeventapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\mettingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\tokenservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\eventresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\imeetingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\slotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\token.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\token.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\eventrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\useraccountlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\useraccountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\timeslotgenerationrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\interviewinvitationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\interviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\iauthentificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\oauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\oauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\ijoboffercandidancyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\googlecalendarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\iinterviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\emailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\companydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\authentificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\authentificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\companycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\companycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\controllers\\slotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:controllers\\slotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\interview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\repositories\\slotrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\irepositories\\islotrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\islotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\repositories\\jobofferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\slot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\axiadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\interviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\repositories\\interviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\slotdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\irepositories\\ijobofferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\authentificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\repositories\\companyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\repositories\\useraccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\iinterviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\irepositories\\iinterviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65B16E0B-9000-4304-9CEE-65B3FF35B9F9}|..\\..\\Services\\Axia-Analyse.Data\\Axia-Analyse.Data.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data\\repositories\\joboffercandidancyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\irepositories\\ijoboffercandidancyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\joboffercandidancy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\axia-analyse.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:axia-analyse.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\passwordresetservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\dashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\companyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\cloudinaryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\bcryptpasswordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\jobofferdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nourhene Kadri\\AppData\\Local\\SourceServer\\d5d932f4bfc497401b353f019f60065f060511d45aea4898b20db0b242641cc6\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\joboffer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\cloudinarysettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\irepositories\\iuseraccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBC95FE6-9E59-4327-AD01-C7064712BC8F}|..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service\\joboffercandidancyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\joboffercategories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\axia-analyse.service.interfaces.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\api\\axia-analyse.api\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3370952-C82B-4FD6-A863-D4F6CC01EDD1}|Axia-Analyse.Api.csproj|solutionrelative:weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FEF23158-DB6D-4B13-AB3A-801604A3BBDB}|..\\..\\Services\\Axia-Analyse.Data.Interface\\Axia-Analyse.Data.Interface.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.data.interface\\entites\\timeslots.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75985C53-AC13-44D1-A9B3-98CD44419131}|..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj|c:\\projects\\axia solutions\\axia-analyse\\source\\backend\\services\\axia-analyse.service.interfaces\\dtos\\interviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -279,1036 +49,157 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "JobOfferController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\JobOfferController.cs",
-              "RelativeDocumentMoniker": "Controllers\\JobOfferController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\JobOfferController.cs",
-              "RelativeToolTip": "Controllers\\JobOfferController.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAjwDoAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T22:19:07.483Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserAccount.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\UserAccount.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\UserAccount.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\UserAccount.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\UserAccount.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAuwBEAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T19:13:01.799Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IJobOfferService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAuwA8AAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:48:20.522Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GoogleAuthService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\GoogleAuthService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\GoogleAuthService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\GoogleAuthService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\GoogleAuthService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABCAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T17:48:26.305Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GeminiService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\GeminiService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\GeminiService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\GeminiService.cs*",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\GeminiService.cs*",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAkwBMAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T05:33:51.033Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "JobOfferCandidancyController.cs",
               "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\JobOfferCandidancyController.cs",
               "RelativeDocumentMoniker": "Controllers\\JobOfferCandidancyController.cs",
               "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\JobOfferCandidancyController.cs",
               "RelativeToolTip": "Controllers\\JobOfferCandidancyController.cs",
-              "ViewState": "AQIAAEwAAAAAAAAAAAArwFsAAACiAAAA",
+              "ViewState": "AQIAAAEBAAAAAAAAAAAgwBwBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:51:47.086Z",
+              "WhenOpened": "2025-05-26T15:39:49.158Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MailNotificationService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "DocumentIndex": 1,
+              "Title": "JobOfferController.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\JobOfferController.cs",
+              "RelativeDocumentMoniker": "Controllers\\JobOfferController.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\JobOfferController.cs",
+              "RelativeToolTip": "Controllers\\JobOfferController.cs",
+              "ViewState": "AQIAAJIAAAAAAAAAAAAowLMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T17:56:42.052Z",
+              "WhenOpened": "2025-05-26T15:04:06.528Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "InterviewService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\InterviewService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\InterviewService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\InterviewService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\InterviewService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAApwBkAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T12:03:52.439Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "JobOfferService.cs",
               "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\JobOfferService.cs",
               "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\JobOfferService.cs",
               "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\JobOfferService.cs",
               "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\JobOfferService.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAuwAoAAAAkAAAA",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAgwJIAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:54:45.43Z",
+              "WhenOpened": "2025-05-26T15:03:33.771Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ChatMemory.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatMemory.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatMemory.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatMemory.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatMemory.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "DocumentIndex": 3,
+              "Title": "IJobOfferService.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferService.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAA6wB4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T22:52:37.743Z"
+              "WhenOpened": "2025-05-26T15:03:10.443Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAADwAAAAAAAAAAAAAAEsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T00:25:13.796Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ChatRequest.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatRequest.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatRequest.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatRequest.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\ChatRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T22:49:11.263Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CvInputModel.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CvInputModel.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CvInputModel.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CvInputModel.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CvInputModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAwAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T14:34:32.795Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "TelegramController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\TelegramController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TelegramController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\TelegramController.cs",
-              "RelativeToolTip": "Controllers\\TelegramController.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAYwDcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T13:57:21.496Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAAB8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-09T01:53:08.504Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "InterviewController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\InterviewController.cs",
-              "RelativeDocumentMoniker": "Controllers\\InterviewController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\InterviewController.cs",
-              "RelativeToolTip": "Controllers\\InterviewController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T12:03:18.019Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "TelegramMessageDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessageDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessageDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessageDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessageDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T13:57:51.065Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "TelegramService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\TelegramService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\TelegramService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\TelegramService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\TelegramService.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAYwDEAAABQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T13:56:36.318Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "TelegramUpdate.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUpdate.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUpdate.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUpdate.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUpdate.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T14:46:24.608Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "TelegramMessage.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessage.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessage.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessage.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramMessage.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T14:47:28.377Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TelegramUser.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUser.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUser.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUser.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TelegramUser.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T14:47:49.176Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "ITelegramService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\ITelegramService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\ITelegramService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\ITelegramService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\ITelegramService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAsAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T13:55:19.68Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "GoogleEventApiController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\GoogleEventApiController.cs",
-              "RelativeDocumentMoniker": "Controllers\\GoogleEventApiController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\GoogleEventApiController.cs",
-              "RelativeToolTip": "Controllers\\GoogleEventApiController.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAYwCYAAABEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T11:46:16.144Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "ItokenService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\ItokenService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\ItokenService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\ItokenService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\ItokenService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAwAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T11:06:16.618Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "IMeetingService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IMeetingService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IMeetingService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IMeetingService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IMeetingService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAsAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T12:56:53.886Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "MettingService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\MettingService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\MettingService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\MettingService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\MettingService.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAIwDQAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T13:28:04.416Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Axia-Analyse.Service.csproj",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\Axia-Analyse.Service.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-09T03:51:00.721Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "SlotService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\SlotService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\SlotService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\SlotService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\SlotService.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAAAkwFYAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:13:42.436Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "EventResponse.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventResponse.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventResponse.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventResponse.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventResponse.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAuwBQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T11:56:29.613Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "TokenServices.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\TokenServices.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\TokenServices.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\TokenServices.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\TokenServices.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAswDMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T11:08:45.43Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Token.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\Token.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\Token.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\Token.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\Token.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T10:58:35.661Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "EventRequest.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventRequest.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventRequest.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventRequest.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\EventRequest.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAYwBgAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T12:58:06.946Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "token.json",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\token.json",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\token.json",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\token.json",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\token.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAADvAQAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-03T11:14:51.065Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "InterviewDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T12:00:55.644Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "InterviewInvitationDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewInvitationDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewInvitationDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewInvitationDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewInvitationDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T12:40:26.422Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "TimeSlotGenerationRequest.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TimeSlotGenerationRequest.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TimeSlotGenerationRequest.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TimeSlotGenerationRequest.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\TimeSlotGenerationRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:39:53.955Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "UserAccountLoginDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountLoginDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountLoginDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountLoginDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountLoginDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T18:21:00.192Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "UserAccountDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\UserAccountDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBAAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T13:30:42.462Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "IAuthentificationService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IAuthentificationService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IAuthentificationService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IAuthentificationService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IAuthentificationService.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAUwA8AAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T11:42:42.692Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "IJobOfferCandidancyService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferCandidancyService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferCandidancyService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferCandidancyService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IJobOfferCandidancyService.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAASwBMAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:52:44.773Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "OauthController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\OauthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\OauthController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\OauthController.cs",
-              "RelativeToolTip": "Controllers\\OauthController.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAuwC0AAAALAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T19:15:41.04Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\TokenService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\TokenService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\TokenService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\TokenService.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAswAwAAABTAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T02:24:57.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "IInterviewService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T12:03:32.964Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "CompanyDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CompanyDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CompanyDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CompanyDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\CompanyDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAwAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:20:37.669Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "EmailSender.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\EmailSender.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\EmailSender.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\EmailSender.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\EmailSender.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAA1wAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T19:18:01.415Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "GoogleCalendarService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\GoogleCalendarService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\GoogleCalendarService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\GoogleCalendarService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\GoogleCalendarService.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAAIwEoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T17:32:01.358Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "SlotController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\SlotController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SlotController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\SlotController.cs",
-              "RelativeToolTip": "Controllers\\SlotController.cs",
-              "ViewState": "AQIAAHAAAAAAAAAAAAAnwH0AAABiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T03:33:53.882Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "Interview.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAIBQwBIAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T06:10:20.908Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "AuthentificationController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\AuthentificationController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthentificationController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\AuthentificationController.cs",
-              "RelativeToolTip": "Controllers\\AuthentificationController.cs",
-              "ViewState": "AQIAAJEAAAAAAAAAAAAwwJcAAABcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T02:42:16.876Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "CompanyController.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\CompanyController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CompanyController.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\CompanyController.cs",
-              "RelativeToolTip": "Controllers\\CompanyController.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAzwBwAAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T13:26:34.879Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 84,
-              "Title": "TimeSlots.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\TimeSlots.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\TimeSlots.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\TimeSlots.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\TimeSlots.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:35:34.52Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "EntityBase.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\EntityBase.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\EntityBase.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\EntityBase.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\EntityBase.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T14:51:26.64Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
-              "Title": "ISlotRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\ISlotRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\ISlotRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\ISlotRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\ISlotRepository.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAvwBMAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-11T04:05:49.292Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "ISlotService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\ISlotService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\ISlotService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\ISlotService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\ISlotService.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAADgvxMAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:20:25.682Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 56,
-              "Title": "AxiaDbContext.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\AxiaDbContext.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\AxiaDbContext.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\AxiaDbContext.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\AxiaDbContext.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAuwBYAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T14:24:26.15Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "SlotRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\SlotRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\SlotRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\SlotRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\SlotRepository.cs",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAkwGAAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:22:37.409Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "JobOfferRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferRepository.cs",
-              "ViewState": "AQIAAMoAAAAAAAAAAAAuwNwAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T22:22:09.003Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 55,
-              "Title": "slot.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\slot.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\slot.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\slot.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\slot.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:03:36.113Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 57,
-              "Title": "InterviewRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBkAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T12:34:51.54Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 58,
-              "Title": "SlotDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\SlotDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\SlotDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\SlotDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\SlotDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAwAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:13:49.672Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 59,
-              "Title": "IJobOfferRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferRepository.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAywCAAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T22:21:50.133Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 60,
-              "Title": "AuthentificationService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\AuthentificationService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\AuthentificationService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\AuthentificationService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\AuthentificationService.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAwBwAAABOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T02:25:12.017Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
-              "Title": "CompanyRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\CompanyRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\CompanyRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\CompanyRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\CompanyRepository.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAIwDMAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T06:41:50.347Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 62,
-              "Title": "UserAccountRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\UserAccountRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\UserAccountRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\UserAccountRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\UserAccountRepository.cs",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAkwFMAAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T18:06:24.228Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 63,
-              "Title": "IInterviewRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T14:32:10.26Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 66,
-              "Title": "JobOfferCandidancy.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCandidancy.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCandidancy.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCandidancy.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCandidancy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAIBJwBMAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T06:07:27.531Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 65,
-              "Title": "IJobOfferCandidancyRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferCandidancyRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferCandidancyRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferCandidancyRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IJobOfferCandidancyRepository.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAvwBQAAABJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:48:11.054Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 64,
-              "Title": "JobOfferCandidancyRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferCandidancyRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferCandidancyRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferCandidancyRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\JobOfferCandidancyRepository.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAuwCIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:47:36.863Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 71,
-              "Title": "CloudinaryService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\CloudinaryService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\CloudinaryService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\CloudinaryService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\CloudinaryService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T07:14:33.961Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 67,
-              "Title": "Axia-Analyse.Api.csproj",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Axia-Analyse.Api.csproj",
-              "RelativeDocumentMoniker": "Axia-Analyse.Api.csproj",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Axia-Analyse.Api.csproj",
-              "RelativeToolTip": "Axia-Analyse.Api.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-09T01:52:59.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 69,
-              "Title": "DashboardService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\DashboardService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\DashboardService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\DashboardService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\DashboardService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T07:14:36.387Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 68,
-              "Title": "PasswordResetService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\PasswordResetService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\PasswordResetService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\PasswordResetService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\PasswordResetService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T07:14:49.025Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 73,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Class1.cs",
-              "RelativeDocumentMoniker": "Class1.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Class1.cs",
-              "RelativeToolTip": "Class1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T07:10:56.35Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 70,
-              "Title": "CompanyService.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\CompanyService.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\CompanyService.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\CompanyService.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\CompanyService.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAwCgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-19T12:06:54.305Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 72,
-              "Title": "BCryptPasswordHasher.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\BCryptPasswordHasher.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\BCryptPasswordHasher.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\BCryptPasswordHasher.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\BCryptPasswordHasher.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T03:08:07.052Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 74,
-              "Title": "JobOfferDto.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\JobOfferDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\JobOfferDto.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\JobOfferDto.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\JobOfferDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T22:23:08.959Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 75,
-              "Title": "MailNotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\Nourhene Kadri\\AppData\\Local\\SourceServer\\d5d932f4bfc497401b353f019f60065f060511d45aea4898b20db0b242641cc6\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Users\\Nourhene Kadri\\AppData\\Local\\SourceServer\\d5d932f4bfc497401b353f019f60065f060511d45aea4898b20db0b242641cc6\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "ToolTip": "C:\\Users\\Nourhene Kadri\\AppData\\Local\\SourceServer\\d5d932f4bfc497401b353f019f60065f060511d45aea4898b20db0b242641cc6\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Users\\Nourhene Kadri\\AppData\\Local\\SourceServer\\d5d932f4bfc497401b353f019f60065f060511d45aea4898b20db0b242641cc6\\Source\\Backend\\Services\\Axia-Analyse.Service\\MailNotificationService.cs",
-              "ViewState": "AQIAAKgAAAAAAAAAAAAtwLkAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T19:41:30.498Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 76,
-              "Title": "JobOffer.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOffer.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOffer.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOffer.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOffer.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAA7wBsAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T10:45:51.764Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 78,
-              "Title": "IUserAccountRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IUserAccountRepository.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IUserAccountRepository.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IUserAccountRepository.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IUserAccountRepository.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAQwBoAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T18:36:40.711Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 77,
-              "Title": "CloudinarySettings.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\CloudinarySettings.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\CloudinarySettings.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\CloudinarySettings.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\CloudinarySettings.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T18:39:01.04Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 5,
               "Title": "JobOfferCandidancyService.cs",
               "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\JobOfferCandidancyService.cs",
               "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\JobOfferCandidancyService.cs",
               "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\JobOfferCandidancyService.cs",
               "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\JobOfferCandidancyService.cs",
-              "ViewState": "AQIAAI4AAAAAAAAAAEBUwI4AAAAWAAAA",
+              "ViewState": "AQIAADcAAAAAAAAAAAAgwFIAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T13:48:27.928Z"
+              "WhenOpened": "2025-05-15T18:09:34.653Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
-              "Title": "JobOfferCategories.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCategories.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCategories.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCategories.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\JobOfferCategories.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 9,
+              "Title": "IInterviewService.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\IInterviewService.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAABPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T22:22:03.833Z"
+              "WhenOpened": "2025-05-13T22:50:30.167Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
-              "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\WeatherForecast.cs",
-              "RelativeDocumentMoniker": "WeatherForecast.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\WeatherForecast.cs",
-              "RelativeToolTip": "WeatherForecast.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 10,
+              "Title": "IInterviewRepository.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\IRepositories\\IInterviewRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T03:19:49.674Z"
+              "WhenOpened": "2025-05-13T22:48:50.865Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
-              "Title": "Axia-Analyse.Service.Interfaces.csproj",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Axia-Analyse.Service.Interfaces.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-09T03:50:57.698Z"
+              "DocumentIndex": 4,
+              "Title": "Interview.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data.Interface\\Entites\\Interview.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T22:25:49.519Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
-              "Title": "Result.cs",
-              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Result.cs",
-              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Result.cs",
-              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Result.cs",
-              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Result.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 8,
+              "Title": "InterviewRepository.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Data\\Repositories\\InterviewRepository.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAA5wCIAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T03:52:30.986Z"
+              "WhenOpened": "2025-05-13T22:23:48.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InterviewService.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\InterviewService.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service\\InterviewService.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service\\InterviewService.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service\\InterviewService.cs",
+              "ViewState": "AQIAAGoAAAAAAAAAAADgv3kAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T22:03:12.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InterviewController.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\InterviewController.cs",
+              "RelativeDocumentMoniker": "Controllers\\InterviewController.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\api\\Axia-Analyse.Api\\Controllers\\InterviewController.cs",
+              "RelativeToolTip": "Controllers\\InterviewController.cs",
+              "ViewState": "AQIAAFUAAAAAAAAAAAAkwGMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T22:23:18.623Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "InterviewDto.cs",
+              "DocumentMoniker": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
+              "RelativeDocumentMoniker": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
+              "ToolTip": "C:\\Projects\\Axia Solutions\\Axia-Analyse\\Source\\Backend\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
+              "RelativeToolTip": "..\\..\\Services\\Axia-Analyse.Service.Interfaces\\Dtos\\InterviewDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T22:37:01.049Z"
             }
           ]
         }

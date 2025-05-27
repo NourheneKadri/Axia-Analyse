@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import SortBuy from "../dropdown/SortBuy";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 EmpSec1.propTypes = {};
 
 function EmpSec1(props) {
-  const [data, setData] = useState([]); 
+  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [jobOffers, setJobOffers] = useState({});
+  const navigate = useNavigate()
 
   const { className } = props;
 
@@ -99,7 +101,7 @@ function EmpSec1(props) {
                     </Tab>
                   </TabList>
                   <p className="nofi-job">
-                    <span>1249</span> employers recommended for you
+                    <span>{data.length}</span> employers recommended for you
                   </p>
                 </div>
                 <SortBuy />
@@ -123,7 +125,7 @@ function EmpSec1(props) {
                             <span className="icon-star-full"></span>
                           </div>
                           <h3>
-                            <Link to="/Employersingle_v1">{idx.name}</Link>
+                            <Link to={`/employersingle_v1/${idx.id}`}>{idx.name}</Link>
                             &nbsp;
                             <span className="icon-bolt"></span>
                           </h3>
@@ -134,7 +136,9 @@ function EmpSec1(props) {
                         </div>
                         <div className="button-readmore">
                           <span className="icon-heart"></span>
-                          <button className="btn-employer">{jobOffers[idx.name] || 0} job openings</button>
+                          <button
+                            onClick={() => navigate(`/joblist_v9/${idx.id}`)}
+                            className="btn-employer">{jobOffers[idx.name] || 0} job openings</button>
                         </div>
                       </div>
                     </div>
@@ -169,7 +173,8 @@ function EmpSec1(props) {
                     <div key={idx.id} className="employer-block style-3 cl3">
                       <div className="inner-box">
                         <div className="logo-company">
-                          <img src={idx.img} alt="jobtex" />
+                          <img
+                            src={idx.logoUrl} alt="jobtex" />
                         </div>
                         <div className="box-content">
                           <div className="star">
@@ -180,19 +185,20 @@ function EmpSec1(props) {
                             <span className="icon-star-full"></span>
                           </div>
                           <h3>
-                            <Link to="/Employersingle_v1">{idx.title}</Link>
+                            <Link to={`/joblist_v9/${idx.id}`}>{idx.name}</Link>
                             &nbsp;
                             <span className="icon-bolt"></span>
                           </h3>
                           <p className="info">
                             <span className="icon-map-pin"></span>
-                            {idx.map}
+                            &nbsp;{idx.adress}
                           </p>
                         </div>
 
                         <div className="group-btn">
                           <span className="icon-heart"></span>
-                          <button className="btn-employer">{jobOffers[idx.name] || 0}</button>
+                          <button
+                            className="btn-employer">{jobOffers[idx.name] || 0} job openings</button>
                         </div>
                       </div>
                     </div>

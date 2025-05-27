@@ -92,9 +92,9 @@ function Employer_v2(props) {
   };
   useEffect(() => {
     try {
-      const userId = Authentification?.getStoredUser?.(); 
+      const userId = Authentification?.getStoredUser?.();
       if (!userId) {
-        navigate("/login"); 
+        navigate("/login");
       } else {
         setIsAuthenticated(true);
       }
@@ -697,7 +697,7 @@ function Employer_v2(props) {
                       <div key={idx.id} className="employer-block style-2 cl2">
                         <div className="inner-box">
                           <div className="logo-company">
-                            <img src={idx.img} alt="jobtex" />
+                            <img src={idx.logoUrl} alt="jobtex" />
                           </div>
                           <div className="box-content">
                             <div className="star">
@@ -709,20 +709,27 @@ function Employer_v2(props) {
                             </div>
                             <h3>
                               <Link to="employers-single.html">
-                                {idx.title}
+                                {idx.name}
                               </Link>
                               &nbsp;
                               <span className="icon-bolt"></span>
                             </h3>
                             <p className="info">
                               <span className="icon-map-pin"></span>
-                              {idx.map}
+                                        &nbsp;   {   idx.adress} &nbsp;
+                            </p>
+                            <br/>
+                             <p className="info">
+                              <a href="mailto:{idx.email}"> <FontAwesomeIcon icon={faEnvelope} /> &nbsp;{idx.email} </a>
                             </p>
                           </div>
                           <div className="button-readmore">
-                            <span className="icon-heart"></span>
-                            <button className="btn-employer">{idx.job}</button>
-                          </div>
+                            <button
+                              className="btn-employer"
+                              onClick={() => navigate(`/joblist_v9/${idx.id}`)}
+                            >
+                              {jobOffers[idx.name] || 0}   job openings
+                            </button>                          </div>
                         </div>
                       </div>
                     ))}

@@ -21,6 +21,7 @@ import axios from "axios";
 import Header2 from "../components/header/Header2";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Header03 from "../components/header/Header03";
 
 Jobsingle_v1.propTypes = {};
 
@@ -167,7 +168,13 @@ function Jobsingle_v1(props) {
 
     formData.append("candidateProfileId", application.candidateProfileId);
     formData.append("jobOfferId", application.jobOfferId);
-    formData.append("submissionDate", new Date(application.submissionDate).toISOString());
+const submissionDate = new Date(application.submissionDate);
+
+const tunisTime = submissionDate.toLocaleString("sv-SE", {
+  timeZone: "Africa/Tunis"
+}).replace(" ", "T"); // Format ISO-like, ex: "2025-05-15T10:30:00"
+
+formData.append("submissionDate", tunisTime);
     formData.append("statusId", application.statusId);
 
     // Afficher le contenu de FormData pour vérifier
@@ -703,7 +710,11 @@ function Jobsingle_v1(props) {
           </div>
         </div>
       </div>
-      <Header2 clname="actJob2" handleMobile={handleMobile} />
+       {user ? (
+              <Header2 clname="act1" handleMobile={handleMobile} />
+            ) : (
+              <Header03 />
+            )}
 
       <section className="single-job-thumb">
         <img

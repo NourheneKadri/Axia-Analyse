@@ -18,6 +18,7 @@ import Authentification from "../Services/AuthentificationService";
 import { Input } from "reactstrap";
 import { toast } from "react-toastify";
 import Header2 from "../components/header/Header2";
+import Header03 from "../components/header/Header03";
 
 
 Candidatesingle_v1.propTypes = {};
@@ -614,7 +615,7 @@ function Candidatesingle_v1(props) {
           </div>
         </div>
       </div>
-      <Header2   clname="actCan3" handleMobile={handleMobile} />
+      <Header03  clname="actCan3" handleMobile={handleMobile} />
 
       <section className="wrapper-author-page-title style2 stc form-sticky fixed-space">
         <div className="tf-container">
@@ -665,7 +666,6 @@ function Candidatesingle_v1(props) {
               <Tabs className="job-article stc tf-tab single-job">
                 <TabList className="menu-tab stc">
                   <Tab className="ct-tab">Resumes</Tab>
-                  <Tab className="ct-tab">Portfolio</Tab>
                   <Tab className="ct-tab">Contact</Tab>
                 </TabList>
                 <div className="content-tab">
@@ -675,155 +675,17 @@ function Candidatesingle_v1(props) {
                       {Candidate.aboutMe}
                     </p>
                     
-                    <h5>Education</h5>
-                    <div className="group-infor">
-                      <div className="inner">
-                        <div className="sub-heading">
-                          FPT University <span>2019 - 2021</span>
-                        </div>
-                        <div className="heading">Graphic Design</div>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Nunc vulputate libero et velit interdum, ac
-                          aliquet odio mattis. Class aptent taciti sociosqu ad
-                          litora torquent per conubia nostra, per inceptos
-                          himenaeos.
-                        </p>
-                      </div>
-                      <div className="inner">
-                        <div className="sub-heading">
-                          TB Course <span>2019 - 2021</span>
-                        </div>
-                        <div className="heading">UX Design</div>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Nunc vulputate libero et velit interdum, ac
-                          aliquet odio mattis. Class aptent taciti sociosqu ad
-                          litora torquent per conubia nostra, per inceptos
-                          himenaeos.
-                        </p>
-                      </div>
-                    </div>
+                    
 
-                    <h5>Experience</h5>
-                    <div className="group-infor">
-                      <div className="inner">
-                        <div className="sub-heading">
-                          FPT University <span>2019 - 2021</span>
-                        </div>
-                        <div className="heading">Graphic Design</div>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Nunc vulputate libero et velit interdum, ac
-                          aliquet odio mattis. Class aptent taciti sociosqu ad
-                          litora torquent per conubia nostra, per inceptos
-                          himenaeos.
-                        </p>
-                      </div>
-                      <div className="inner">
-                        <div className="sub-heading">
-                          TB Course <span>2019 - 2021</span>
-                        </div>
-                        <div className="heading">UX Design</div>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Nunc vulputate libero et velit interdum, ac
-                          aliquet odio mattis. Class aptent taciti sociosqu ad
-                          litora torquent per conubia nostra, per inceptos
-                          himenaeos.
-                        </p>
-                      </div>
-                    </div>
+                    
 
-                    <div className="group-skill group-col-2" ref={progressRef}>
-                      <div className="inner cl2">
-                        <h5>management skills</h5>
-                        <div className="wd-cv-skill">
-                          <div className="progress-item">
-                            <div className="progress-heading">
-                              <div className="heading-progress">HTML & cSS</div>
-                              <Progress targetHeight={targetHeight} done="60" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="wd-cv-skill">
-                          <div className="progress-item">
-                            <div className="progress-heading">
-                              <div className="heading-progress">word</div>
-                              <Progress targetHeight={targetHeight} done="90" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="wd-cv-skill">
-                          <div className="progress-item">
-                            <div className="progress-heading">
-                              <div className="heading-progress">Excel</div>
-                              <Progress targetHeight={targetHeight} done="90" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="inner cl2">
-                        <h5>Design</h5>
-                        <div className="wd-cv-skill">
-                          <div className="progress-item">
-                            <div className="progress-heading">
-                              <div className="heading-progress">Figma</div>
-                              <Progress targetHeight={targetHeight} done="80" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="wd-cv-skill">
-                          <div className="progress-item">
-                            <div className="progress-heading">
-                              <div className="heading-progress">Photoshop</div>
-                              <Progress targetHeight={targetHeight} done="70" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="wd-cv-skill">
-                          <div className="progress-item">
-                            <div className="progress-heading">
-                              <div className="heading-progress">
-                                Ilustration
-                              </div>
-                              <Progress targetHeight={targetHeight} done="90" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <h5>Portfolio</h5>
-                    <div className="video-thumb">
-                      <div className="content-tab2">
-                        <div className="inner">
-                          <div className="thumb">
-                            <img
-                              src={require("../assets/images/review/thumbv3.jpg")}
-                              alt="images"
-                            />
-                            <Video />
-                          </div>
-                        </div>
-                      </div>
-                      <Gallery />
-                    </div>
+                   
 
                     <div className="form-candidate">
                       
                     </div>
                   </TabPanel>
-                  <TabPanel className="inner-content animation-tab">
-                    <h5>About me</h5>
-                    <p>
-                      Are you a User Experience Designer with a track record of
-                      delivering intuitive digital experiences that drive
-                      results? Are you a strategic storyteller and systems
-                      thinker who can concept and craft smart, world-class
-                      campaigns across a variety of mediums?
-                    </p>
-                  </TabPanel>
+                 
                   <TabPanel className="inner-content animation-tab">
                     <div className="form-candidate">
                     <form onSubmit={handleSubmit}>
@@ -974,3 +836,138 @@ function Candidatesingle_v1(props) {
 }
 
 export default Candidatesingle_v1;
+/*<h5>Education</h5>
+                    <div className="group-infor">
+                      <div className="inner">
+                        <div className="sub-heading">
+                          FPT University <span>2019 - 2021</span>
+                        </div>
+                        <div className="heading">Graphic Design</div>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nunc vulputate libero et velit interdum, ac
+                          aliquet odio mattis. Class aptent taciti sociosqu ad
+                          litora torquent per conubia nostra, per inceptos
+                          himenaeos.
+                        </p>
+                      </div>
+                      <div className="inner">
+                        <div className="sub-heading">
+                          TB Course <span>2019 - 2021</span>
+                        </div>
+                        <div className="heading">UX Design</div>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nunc vulputate libero et velit interdum, ac
+                          aliquet odio mattis. Class aptent taciti sociosqu ad
+                          litora torquent per conubia nostra, per inceptos
+                          himenaeos.
+                        </p>
+                      </div>
+                    </div>
+                    <h5>Experience</h5>
+                    <div className="group-infor">
+                      <div className="inner">
+                        <div className="sub-heading">
+                          FPT University <span>2019 - 2021</span>
+                        </div>
+                        <div className="heading">Graphic Design</div>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nunc vulputate libero et velit interdum, ac
+                          aliquet odio mattis. Class aptent taciti sociosqu ad
+                          litora torquent per conubia nostra, per inceptos
+                          himenaeos.
+                        </p>
+                      </div>
+                      <div className="inner">
+                        <div className="sub-heading">
+                          TB Course <span>2019 - 2021</span>
+                        </div>
+                        <div className="heading">UX Design</div>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nunc vulputate libero et velit interdum, ac
+                          aliquet odio mattis. Class aptent taciti sociosqu ad
+                          litora torquent per conubia nostra, per inceptos
+                          himenaeos.
+                        </p>
+                      </div>
+                    </div>
+                     <div className="group-skill group-col-2" ref={progressRef}>
+                      <div className="inner cl2">
+                        <h5>management skills</h5>
+                        <div className="wd-cv-skill">
+                          <div className="progress-item">
+                            <div className="progress-heading">
+                              <div className="heading-progress">HTML & cSS</div>
+                              <Progress targetHeight={targetHeight} done="60" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="wd-cv-skill">
+                          <div className="progress-item">
+                            <div className="progress-heading">
+                              <div className="heading-progress">word</div>
+                              <Progress targetHeight={targetHeight} done="90" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="wd-cv-skill">
+                          <div className="progress-item">
+                            <div className="progress-heading">
+                              <div className="heading-progress">Excel</div>
+                              <Progress targetHeight={targetHeight} done="90" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="inner cl2">
+                        <h5>Design</h5>
+                        <div className="wd-cv-skill">
+                          <div className="progress-item">
+                            <div className="progress-heading">
+                              <div className="heading-progress">Figma</div>
+                              <Progress targetHeight={targetHeight} done="80" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="wd-cv-skill">
+                          <div className="progress-item">
+                            <div className="progress-heading">
+                              <div className="heading-progress">Photoshop</div>
+                              <Progress targetHeight={targetHeight} done="70" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="wd-cv-skill">
+                          <div className="progress-item">
+                            <div className="progress-heading">
+                              <div className="heading-progress">
+                                Ilustration
+                              </div>
+                              <Progress targetHeight={targetHeight} done="90" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    <h5>Portfolio</h5>
+                    <div className="video-thumb">
+                      <div className="content-tab2">
+                        <div className="inner">
+                          <div className="thumb">
+                            <img
+                              src={require("../assets/images/review/thumbv3.jpg")}
+                              alt="images"
+                            />
+                            <Video />
+                          </div>
+                        </div>
+                      </div>
+                      <Gallery />
+                    </div>
+
+                    */

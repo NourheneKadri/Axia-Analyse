@@ -22,10 +22,10 @@ import toast from 'react-hot-toast';
 JobSec1.propTypes = {};
 
 function JobSec1(props) {
-  const [data, setData] = useState([]); 
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(null); 
-  const [open, setOpen] = useState(false); 
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
@@ -36,7 +36,7 @@ function JobSec1(props) {
 
   const [companyLogos, setCompanyLogos] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const jobsPerPage = 3; 
+  const jobsPerPage = 4;
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const [sortBy, setSortBy] = useState("default"); // Default sorting by date
@@ -44,29 +44,29 @@ function JobSec1(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedJobType, setSelectedJobType] = useState("");
-  const user = Authentification.getStoredUser() 
-   const [jobOffer, setJobOffer] = useState({
-      title: "",
-      categorieId: "",
-      jobTypeId: "",
-      adress: "",
-      experienceLevel: "",
-      responsibilities: "",
-      postNumber: "",
-      requirements: "",
-      salaryRange: "",
-      skillsRequired: "",
-      deadlineTimestamp: "",
-      userAccountId: user ? user.userAccountId : "", // S'assurer que l'ID est récupéré de l'utilisateur stocké
-      description: "",
-      status: "open"
-    });
+  const user = Authentification.getStoredUser()
+  const [jobOffer, setJobOffer] = useState({
+    title: "",
+    categorieId: "",
+    jobTypeId: "",
+    adress: "",
+    experienceLevel: "",
+    responsibilities: "",
+    postNumber: "",
+    requirements: "",
+    salaryRange: "",
+    skillsRequired: "",
+    deadlineTimestamp: "",
+    userAccountId: user ? user.userAccountId : "", // S'assurer que l'ID est récupéré de l'utilisateur stocké
+    description: "",
+    status: "open"
+  });
   const options = [
     { value: "12", label: "12 Per Page" },
     { value: "1", label: "1 Per Page" },
     { value: "10", label: "10 Per Page" },
   ];
-  
+
   const sortOptions = [
     { value: "default", label: "Sort by (Default)" },
     { value: "new", label: "New" },
@@ -90,9 +90,9 @@ function JobSec1(props) {
     { id: 4, name: "CDD" },
     { id: 5, name: "CDI" },
   ];
-  
-   // Gérer le changement des champs du formulaire
-   const handleInputChangeAdd = (e) => {
+
+  // Gérer le changement des champs du formulaire
+  const handleInputChangeAdd = (e) => {
     setJobOffer({ ...jobOffer, [e.target.name]: e.target.value });
   };
 
@@ -104,34 +104,35 @@ function JobSec1(props) {
   // Soumettre le formulaire à l'API
   const handleSubmitAdd = async (e) => {
     e.preventDefault();
-    
+
     try {
 
       // Envoi de la requête POST avec les données du formulaire
       const response = await JobOfferServices.createJobOffer(jobOffer)
-      if(response){
-      toast.success("Offre ajoutée avec succès");
-      fetchData();
-      setJobOffer({
-        title: "",
-        categorieId: "",
-        jobTypeId: "",
-        adress: "",
-        experienceLevel: "",
-        responsibilities: "",
-        postNumber: "",
-        requirements: "",
-        salaryRange: "",
-        skillsRequired: "",
-        deadlineTimestamp: "",
-        userAccountId: user ? user.userAccountId : "",
-        description: "",
-        status: "open"
-      });
+      if (response) {
+        toast.success("Offre ajoutée avec succès");
+        fetchData();
+        setJobOffer({
+          title: "",
+          categorieId: "",
+          jobTypeId: "",
+          adress: "",
+          experienceLevel: "",
+          responsibilities: "",
+          postNumber: "",
+          requirements: "",
+          salaryRange: "",
+          skillsRequired: "",
+          deadlineTimestamp: "",
+          userAccountId: user ? user.userAccountId : "",
+          description: "",
+          status: "open"
+        });
 
-      // Si la requête est réussie, afficher un message de succès
-      toggleAddModal();}
-      else{
+        // Si la requête est réussie, afficher un message de succès
+        toggleAddModal();
+      }
+      else {
         toast.error("Il y a une erreur. Veuillez vérifier vos informations.");
 
       }
@@ -141,14 +142,14 @@ function JobSec1(props) {
 
     }
   };
-  
-  
+
+
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
-  
-  
+
+
   const handleLocationChange = (selectedLocation) => {
     setSelectedLocation(selectedLocation);
     if (selectedLocation.label === "All Location") {
@@ -163,13 +164,13 @@ function JobSec1(props) {
     return ''; // Retourne une chaîne vide si text est undefined ou non une chaîne
   };
   const filteredJobs = data.filter((job) => {
-    
+
     const matchesLocation = selectedLocation && selectedLocation.label !== "All Location"
-    ? job.adress.includes(selectedLocation.label)
-    : true;
+      ? job.adress.includes(selectedLocation.label)
+      : true;
     const matchesSearch = normalizeText(job.title).includes(normalizeText(searchTerm));
     const matchesJobType = selectedJobType ? job.jobTypeId.toString() === selectedJobType : true;
-      return matchesSearch && matchesLocation && matchesJobType;
+    return matchesSearch && matchesLocation && matchesJobType;
 
   });
 
@@ -203,14 +204,14 @@ function JobSec1(props) {
       setCurrentPage(currentPage + 1);
     }
   };
-  
+
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-  
-  
+
+
   const handleInputChange = (e) => {
     setSelectedJob({ ...selectedJob, [e.target.name]: e.target.value });
   };
@@ -219,68 +220,68 @@ function JobSec1(props) {
     setSelectedJob({ ...selectedJob, deadlineTimestamp: e.target.value });
   };
   //JobOffersc
- 
-    // Remplace l'URL ci-dessous par celle de ton API
-    const fetchData = async () => {
-      try {
-        const response = await JobOfferServices.getJobOffers();
-        //console.log("data", response.data);
-    
-        // Axios ne fournit pas 'ok', donc on vérifie via le status
-        if (response.status !== 200) {
-          throw new Error("Erreur lors de la récupération des données");
-        }
-    
-        const result = response.data; // Ton tableau d'offres
-        //console.log("cc", result);
-    
 
-        const filteredJobOffers = result.filter(job => job.userAccountId === user.userAccountId);
-        //console.log("filteredJobOffers",filteredJobOffers)
+  // Remplace l'URL ci-dessous par celle de ton API
+  const fetchData = async () => {
+    try {
+      const response = await JobOfferServices.getJobOffers();
+      //console.log("data", response.data);
 
-        setData(filteredJobOffers); 
-        filteredJobOffers.forEach(async (job) => {
-          const companyLogo = await fetchCompanyLogo(job.userAccountId);
-          setCompanyLogos((prevLogos) => ({
-            ...prevLogos,
-            [job.userAccountId]: companyLogo,
-          }));
-        });
-      } catch (error) {
-        setError(error.message); // Gérer l'erreur
-      } finally {
-        setLoading(false); // Fin du chargement
+      // Axios ne fournit pas 'ok', donc on vérifie via le status
+      if (response.status !== 200) {
+        throw new Error("Erreur lors de la récupération des données");
       }
-    };
-    useEffect(() => {
+
+      const result = response.data; // Ton tableau d'offres
+      //console.log("cc", result);
+
+
+      const filteredJobOffers = result.filter(job => job.userAccountId === user.userAccountId);
+      //console.log("filteredJobOffers",filteredJobOffers)
+
+      setData(filteredJobOffers);
+      filteredJobOffers.forEach(async (job) => {
+        const companyLogo = await fetchCompanyLogo(job.userAccountId);
+        setCompanyLogos((prevLogos) => ({
+          ...prevLogos,
+          [job.userAccountId]: companyLogo,
+        }));
+      });
+    } catch (error) {
+      setError(error.message); // Gérer l'erreur
+    } finally {
+      setLoading(false); // Fin du chargement
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, []); // Le tableau vide signifie que cet effet s'exécute une seule fois, lors du montage du composant.
 
-  
+
   // Fermer le modal
   const handleClose = () => {
     setOpen(false);
     setSelectedJob(null);
   };
 
-  
+
   const handleChange = (e) => {
     setSelectedJob({ ...selectedJob, [e.target.name]: e.target.value });
   };
   // Delete JobOffer
   const handleDelete = async (id) => {
     console.log("Tentative de suppression de l'offre avec ID:", id);
-   
+
     try {
       // Récupérer le token depuis le stockage local (ou un autre mécanisme d'authentification)
       const token = user.token;// Si le token est stocké dans le localStorage
-  
+
       // Vérifier si le token existe
       if (!token) {
         console.error('Aucun token trouvé');
         return;
       }
-  
+
       // Effectuer la requête DELETE avec le token dans l'en-tête
       const response = await fetch(`http://localhost:5259/api/JobOffer/delete/${id}`, {
         method: 'GET', // Utiliser la méthode DELETE pour supprimer
@@ -289,20 +290,20 @@ function JobSec1(props) {
           'Content-Type': 'application/json', // Assurez-vous que le content-type est correct
         },
       });
-  
+
       // Vérifier si la suppression a réussi
       if (!response.ok) {
         throw new Error('Erreur lors de la suppression');
         toast.error("Erreur lors de la suppression")
       }
-  
+
       // Rafraîchir les données après la suppression
-  
+
       // Mettre à jour l'état pour enlever l'offre supprimée
       toast.success("Offre supprimée avec succès")
       setData((prevData) => prevData.filter((job) => job.id !== id));
       fetchData()
-  
+
       //console.log('Offre supprimée avec succès');
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
@@ -310,10 +311,10 @@ function JobSec1(props) {
 
     }
 
-   
+
   };
-  
-  
+
+
 
   const fetchCompanyLogo = async (userAccountId) => {
     try {
@@ -332,7 +333,7 @@ function JobSec1(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   const token = user?.token;
+    const token = user?.token;
     try {
 
       const response = await fetch(`http://localhost:5259/api/JobOffer/Update`, {
@@ -356,9 +357,9 @@ function JobSec1(props) {
       toast.success("Offre Modifée avec succés")
 
       toggleModal();
-        } catch (error) {
+    } catch (error) {
       console.error("Erreur:", error);
-        toast.error("Échec de la mise à jour")
+      toast.error("Échec de la mise à jour")
     }
   };
   const handleEdit = (job) => {
@@ -374,16 +375,16 @@ function JobSec1(props) {
   if (error) {
     return <div>Error: {error}</div>;
   }
- 
+
   const addJobOffer = (newJobOffer) => {
     setData((prevOffers) => [...prevOffers, newJobOffer]);
   };
 
 
   return (
-   
+
     <section className="inner-jobs-section">
-      <div className="tf-container" style={{paddingBottom:"38px"}}>
+      <div className="tf-container" style={{ paddingBottom: "38px" }}>
         <div className="job-search-form inner-form-map st1">
           <form action="/job-list-sidebar">
             <div className="row-group-search">
@@ -399,282 +400,27 @@ function JobSec1(props) {
               </div>
               <div className="form-group-2">
                 <span className="icon-map-pin"></span>
-                <SelectLocation value={selectedLocation}onChange={handleLocationChange} />
+                <SelectLocation value={selectedLocation} onChange={handleLocationChange} />
 
               </div>
-              <div className="form-group-3">
-                <span className="icon-filter"></span>
-                <div
-                  className={`filter-radio ${isOpen ? "open" : ""}`}
-                  onClick={handleClick}
-                >
-                  <p>Filter More</p>
-                </div>
-              </div>
-              <div
-                className={`wd-filter-radio ${
-                  isOpen ? "modal-menu--open" : ""
-                }`}
-              >
-                <div className="content">
-                  <div className="fl-cl lc1">
-                    <h6>On-site/Remote</h6>
-                    <ul>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-1" />
-                          <label htmlFor="checkbox-1"></label>
-                        </div>
-                        <label>On-site (1,675)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-2" />
-                          <label htmlFor="checkbox-2"></label>
-                        </div>
-                        <label>Remote (5,675)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-3" />
-                          <label htmlFor="checkbox-3"></label>
-                        </div>
-                        <label>Hybrid (6,675)</label>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="fl-cl lc2">
-                    <h6>All Job Types</h6>
-                    <ul>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-4" />
-                          <label htmlFor="checkbox-4"></label>
-                        </div>
-                        <label>All Job Types (1,675)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-5" />
-                          <label htmlFor="checkbox-5"></label>
-                        </div>
-                        <label>Full-time (623)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-6" />
-                          <label htmlFor="checkbox-6"></label>
-                        </div>
-                        <label>Part-time (45)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-7" />
-                          <label htmlFor="checkbox-7"></label>
-                        </div>
-                        <label>Contract (65)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-8" />
-                          <label htmlFor="checkbox-8"></label>
-                        </div>
-                        <label>Internship (9)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-9" />
-                          <label htmlFor="checkbox-9"></label>
-                        </div>
-                        <label>Temporary (4)</label>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="fl-cl lc3">
-                    <h6>All Salary</h6>
-                    <ul>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-10" />
-                          <label htmlFor="checkbox-10"></label>
-                        </div>
-                        <label>All Salaries (6,277)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-11" />
-                          <label htmlFor="checkbox-11"></label>
-                        </div>
-                        <label>$50,000+ (2,277)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-12" />
-                          <label htmlFor="checkbox-12"></label>
-                        </div>
-                        <label>$70,000+ (1,627)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-13" />
-                          <label htmlFor="checkbox-13"></label>
-                        </div>
-                        <label>$90,000+ (7,627)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-14" />
-                          <label htmlFor="checkbox-14"></label>
-                        </div>
-                        <label>$110,000+ (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-15" />
-                          <label htmlFor="checkbox-15"></label>
-                        </div>
-                        <label>$130,000+ (527)</label>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="fl-cl lc4">
-                    <h6>Any Distance</h6>
-                    <ul>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-16" />
-                          <label htmlFor="checkbox-16"></label>
-                        </div>
-                        <label>Any Distance (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-17" />
-                          <label htmlFor="checkbox-17"></label>
-                        </div>
-                        <label>within 5 miles (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-18" />
-                          <label htmlFor="checkbox-18"></label>
-                        </div>
-                        <label>within 10 miles (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-19" />
-                          <label htmlFor="checkbox-19"></label>
-                        </div>
-                        <label>within 25 miles (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-20" />
-                          <label htmlFor="checkbox-20"></label>
-                        </div>
-                        <label>within 50 miles (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-21" />
-                          <label htmlFor="checkbox-21"></label>
-                        </div>
-                        <label>within 100 miles (227)</label>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="fl-cl lc5">
-                    <h6>Posted Anytime</h6>
-                    <ul>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-22" />
-                          <label htmlFor="checkbox-22"></label>
-                        </div>
-                        <label>Posted Anytime</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-23" />
-                          <label htmlFor="checkbox-23"></label>
-                        </div>
-                        <label>Last 1 days (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-24" />
-                          <label htmlFor="checkbox-24"></label>
-                        </div>
-                        <label>Last 3 days (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-25" />
-                          <label htmlFor="checkbox-25"></label>
-                        </div>
-                        <label>Last 7 days (227)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-26" />
-                          <label htmlFor="checkbox-26"></label>
-                        </div>
-                        <label>Last 14 days (227)</label>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="fl-cl lc6">
-                    <h6>All Seniority Levels</h6>
-                    <ul>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-27" />
-                          <label htmlFor="checkbox-27"></label>
-                        </div>
-                        <label>All Seniority Levels</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-28" />
-                          <label htmlFor="checkbox-28"></label>
-                        </div>
-                        <label>Entry Level (24)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-29" />
-                          <label htmlFor="checkbox-29"></label>
-                        </div>
-                        <label>Mid Senior Level (34)</label>
-                      </li>
-                      <li>
-                        <div className="round">
-                          <input type="checkbox" id="checkbox-30" />
-                          <label htmlFor="checkbox-30"></label>
-                        </div>
-                        <label>Executive (12)</label>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+             
+             
               <div className="form-group-4">
-                <Button 
-                 style={{
-                  fontWeight: 700,
-                  fontSize: "16px",
-                  lineHeight: "26px",
-                  padding: "12px 32px",
-                  backgroundColor: "#0e7abf",
-                  color: "#ffffff",
-                  borderRadius: "4px",
-                  textTransform: "none",
-                  width: "100%",
-                  border: "none",
-                  cursor: "pointer"
-                }}
-                onClick={toggleAddModal} >Add Jobs</Button>
+                <Button
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    lineHeight: "26px",
+                    padding: "12px 32px",
+                    backgroundColor: "#0e7abf",
+                    color: "#ffffff",
+                    borderRadius: "4px",
+                    textTransform: "none",
+                    width: "100%",
+                    border: "none",
+                    cursor: "pointer"
+                  }}
+                  onClick={toggleAddModal} >Add Jobs</Button>
               </div>
             </div>
           </form>
@@ -737,13 +483,13 @@ function JobSec1(props) {
                   </p>
                 </div>
                 <div className="group-select">
-                <Dropdown options={options} className="react-dropdown sort-buy" value={options[0]} />
-                <Dropdown
-                  options={sortOptions}
-                  className="react-dropdown sort-buy"
-                  value={sortOptions.find((option) => option.value === sortBy)}
-                  onChange={handleSortChange}
-                /> </div>
+                  <Dropdown options={options} className="react-dropdown sort-buy" value={options[0]} />
+                  <Dropdown
+                    options={sortOptions}
+                    className="react-dropdown sort-buy"
+                    value={sortOptions.find((option) => option.value === sortBy)}
+                    onChange={handleSortChange}
+                  /> </div>
               </div>
             </div>
             <div className="content-tab">
@@ -753,42 +499,42 @@ function JobSec1(props) {
                     <div className="inner-box">
                       <div className="company">
                         <div className="logo-company">
-                        {companyLogos[idx.userAccountId] ? (
-                <img src={companyLogos[idx.userAccountId]} alt="Company Logo" />
-              ) : (
-                <p>No Logo</p>
-              )}
+                          {companyLogos[idx.userAccountId] ? (
+                            <img src={companyLogos[idx.userAccountId]} alt="Company Logo" />
+                          ) : (
+                            <p>No Logo</p>
+                          )}
                         </div>
                         <div className="box-content">
                           <h4>
-                           <Link to="#  ">
-                                                               {(() => {
-                                                                 switch (idx.categorieId) {
-                                                                   case 1:
-                                                                     return 'Information Technology';
-                                                                   case 2:
-                                                                     return 'Software Development';
-                                                                   case 3:
-                                                                     return 'Human Resources';
-                                                                   case 4:
-                                                                     return 'Finance';
-                                                                   case 5:
-                                                                     return 'Design & Multimedia';
-                                                                   case 6:
-                                                                     return 'Telecommunications';
-                                                                   case 7:
-                                                                     return 'Engineering';
-                                                                   case 8:
-                                                                     return 'Construction & Facilities';
-                                                                   default:
-                                                                     return 'Unknown Category'; // Default case if categorieId doesn't match
-                                                                 }
-                                                               })()}
-                                                             </Link>
+                            <Link to="#  ">
+                              {(() => {
+                                switch (idx.categorieId) {
+                                  case 1:
+                                    return 'Information Technology';
+                                  case 2:
+                                    return 'Software Development';
+                                  case 3:
+                                    return 'Human Resources';
+                                  case 4:
+                                    return 'Finance';
+                                  case 5:
+                                    return 'Design & Multimedia';
+                                  case 6:
+                                    return 'Telecommunications';
+                                  case 7:
+                                    return 'Engineering';
+                                  case 8:
+                                    return 'Construction & Facilities';
+                                  default:
+                                    return 'Unknown Category'; // Default case if categorieId doesn't match
+                                }
+                              })()}
+                            </Link>
                           </h4>
                           <h3>
                             <Link to={`/Jobsingle_v1/${idx.id}`}>{idx.title}</Link>
-                          
+
                             <span className="icon-bolt"></span>
                           </h3>
                           <div className="star">
@@ -810,25 +556,25 @@ function JobSec1(props) {
                       <div className="category">
                         <ul className="job-tag">
                           <li>
-                                                   <Link to="#">
-                                                    {(() => {
-                                                                         switch (idx.jobTypeId) {
-                                                                           case 1:
-                                                                             return 'Full-Time';
-                                                                           case 2:
-                                                                             return 'Part-Time';
-                                                                           case 3:
-                                                                             return 'Freelance';
-                                                                           case 4:
-                                                                             return 'CDD';
-                                                                           case 5:
-                                                                             return 'CDI';
-                                                                           default:
-                                                                             return 'Unknown Type'; // Default case if jobTypeId doesn't match
-                                                                         }
-                                                                       })()}
-                                                                     </Link></li>
-                          
+                            <Link to="#">
+                              {(() => {
+                                switch (idx.jobTypeId) {
+                                  case 1:
+                                    return 'Full-Time';
+                                  case 2:
+                                    return 'Part-Time';
+                                  case 3:
+                                    return 'Freelance';
+                                  case 4:
+                                    return 'CDD';
+                                  case 5:
+                                    return 'CDI';
+                                  default:
+                                    return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                                }
+                              })()}
+                            </Link></li>
+
                         </ul>
                       </div>
                       <div className="salary">
@@ -838,34 +584,34 @@ function JobSec1(props) {
                         </p>
                       </div>
                       <div className="group-btn">
-                      
-                      <div style={{ display: 'flex', gap: '10px',cursor: 'pointer' }}>
-                      <div 
-                                onClick={() => {
-                                
-                                  handleDelete(idx.id);
-                                }} 
-                                style={{
-                                  width: '35px', height: '35px', 
-                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                  borderRadius: '50%', border: '1px solid #ccc', 
-                                  backgroundColor: '#f9f9f9', cursor: 'pointer', zIndex: 9999
-                                }}
-                              >
-                                <DeleteIcon style={{ color: '#9e9e9e' }} />
-                              </div>
 
-                              <div onClick={() => handleEdit(idx)} style={{
-                                width: '35px', height: '35px', 
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                borderRadius: '50%', border: '1px solid #ccc', 
-                                backgroundColor: '#f9f9f9', cursor: 'pointer',zIndex: 9999
-                              }}>
-                                <EditIcon style={{ color: '#9e9e9e' }} />
-                              </div>
-                            </div>
+                        <div style={{ display: 'flex', gap: '10px', cursor: 'pointer' }}>
+                          <div
+                            onClick={() => {
 
-                       
+                              handleDelete(idx.id);
+                            }}
+                            style={{
+                              width: '35px', height: '35px',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              borderRadius: '50%', border: '1px solid #ccc',
+                              backgroundColor: '#f9f9f9', cursor: 'pointer', zIndex: 9999
+                            }}
+                          >
+                            <DeleteIcon style={{ color: '#9e9e9e' }} />
+                          </div>
+
+                          <div onClick={() => handleEdit(idx)} style={{
+                            width: '35px', height: '35px',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            borderRadius: '50%', border: '1px solid #ccc',
+                            backgroundColor: '#f9f9f9', cursor: 'pointer', zIndex: 9999
+                          }}>
+                            <EditIcon style={{ color: '#9e9e9e' }} />
+                          </div>
+                        </div>
+
+
                       </div>
                     </div>
                     <Link
@@ -876,330 +622,572 @@ function JobSec1(props) {
                   </div>
                 ))}
 
-                
 
-<ul className="pagination-job padding" style={{ listStyle: 'none', display: 'flex', justifyContent: 'center', padding: 0 }}>
-  <li style={{ margin: '0 5px' }}>
-    <Link 
-      onClick={currentPage > 1 ? prevPage : undefined} 
-      className={currentPage === 1 ? "disabled" : ""}
-    >
-      <i className="icon-keyboard_arrow_left"></i>
-    </Link>
-  </li>
 
-  {[...Array(totalPages)].map((_, index) => (
-    <li key={index} style={{ margin: '0 5px' }} className={currentPage === index + 1 ? "current" : ""}>
-      <Link onClick={() => paginate(index + 1)}>{index + 1}</Link>
-    </li>
-  ))}
-
-  <li style={{ margin: '0 5px' }}>
-    <Link 
-      onClick={currentPage < totalPages ? nextPage : undefined} 
-      className={currentPage === totalPages ? "disabled" : ""}
-    >
-      <i className="icon-keyboard_arrow_right"></i>
-    </Link>
-  </li>
-</ul>
+               
 
 
 
               </TabPanel>
-              
+ <TabPanel className="inner">
+                    <div className="group-col-2">
+                      {currentJobs.map((idx) => (
+                        <div className="features-job cl2">
+                          <div className="job-archive-header">
+                            <div className="inner-box">
+
+                              <div className="logo-company">
+                                <img src={companyLogos[idx.userAccountId]} alt="jobtex" />
+                              </div>
+                              <div className="box-content">
+                                <h4>
+                                  <Link to={`/Jobsingle_v1/${idx.id}`}>
+                                    {(() => {
+                                      switch (idx.categorieId) {
+                                        case 1:
+                                          return 'Information Technology';
+                                        case 2:
+                                          return 'Software Development';
+                                        case 3:
+                                          return 'Human Resources';
+                                        case 4:
+                                          return 'Finance';
+                                        case 5:
+                                          return 'Design & Multimedia';
+                                        case 6:
+                                          return 'Telecommunications';
+                                        case 7:
+                                          return 'Engineering';
+                                        case 8:
+                                          return 'Construction & Facilities';
+                                        default:
+                                          return 'Unknown Category'; // Default case if categorieId doesn't match
+                                      }
+                                    })()}
+                                  </Link>
+                                </h4>
+                                <h3>
+                                  <Link to="/jobsingle_v1">{idx.title} </Link>
+                                  <span className="icon-bolt"></span>
+                                </h3>
+                                <ul>
+                                  <li>
+                                    <span className="icon-map-pin"></span>
+                                    {idx.adress}
+                                  </li>
+                                  <li>
+                                     <span className="icon-calendar" style={{ marginRight: '5px' }}></span>
+                                  {(() => {
+                                    const deadlineDate = new Date(idx.deadlineTimestamp);
+                                    const currentDate = new Date();
+
+                                    // Calculate the difference in time (in milliseconds)
+                                    const timeDiff = deadlineDate - currentDate;
+
+                                    // Convert time difference to days
+                                    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                                    // Check if the deadline is in the past, today, or in the future
+                                    if (daysLeft < 0) {
+                                      return "Deadline passed";
+                                    } else if (daysLeft === 0) {
+                                      return "Deadline is today";
+                                    } else {
+                                      return `${daysLeft} day${daysLeft > 1 ? 's' : ''} left to Apply`;
+                                    }
+                                  })()}
+                                  </li>
+                                </ul>
+                                
+                                  
+
+                              </div>
+                            </div>
+                          </div>
+                          <div className="job-archive-footer">
+                            <div className="job-footer-left">
+                              <ul className="job-tag">
+                                <li>
+                                   <Link to="#">
+                                  {(() => {
+                                    switch (idx.jobTypeId) {
+                                      case 1:
+                                        return 'Full-Time';
+                                      case 2:
+                                        return 'Part-Time';
+                                      case 3:
+                                        return 'Freelance';
+                                      case 4:
+                                        return 'CDD';
+                                      case 5:
+                                        return 'CDI';
+                                      default:
+                                        return 'Unknown Type'; // Default case if jobTypeId doesn't match
+                                    }
+                                  })()}
+                                </Link>
+                                </li>
+                               
+                              </ul>
+                              <div className="star">
+                                <span className="icon-star-full"></span>
+                                <span className="icon-star-full"></span>
+                                <span className="icon-star-full"></span>
+                                <span className="icon-star-full"></span>
+                                <span className="icon-star-full"></span>
+                              </div>
+                            </div>
+                            <div className="job-footer-right">
+                              <div className="price">
+                                <span className="icon-dolar1"></span>
+                                <p>
+                                  {idx.salaryRange}
+                                  <span className="year">/year</span>
+                                </p>
+                              </div>
+                            <p className="days">{moment(idx.timestamp).fromNow()}</p>
+                            </div>
+                          </div>
+                          <Link
+                            to="/jobsingle_v1"
+                            className="jobtex-link-item"
+                            tabIndex="0"
+                          ></Link>
+                        </div>
+                        
+                      ))}
+
+                     
+
+                    </div>
+                  </TabPanel>
+
             </div>
           </Tabs>
+           <ul className="pagination-job padding" style={{ listStyle: 'none', display: 'flex', justifyContent: 'center', padding: 0 }}>
+                  <li style={{ margin: '0 5px' }}>
+                    <Link
+                      onClick={currentPage > 1 ? prevPage : undefined}
+                      className={currentPage === 1 ? "disabled" : ""}
+                    >
+                      <i className="icon-keyboard_arrow_left"></i>
+                    </Link>
+                  </li>
+
+                  {[...Array(totalPages)].map((_, index) => (
+                    <li key={index} style={{ margin: '0 5px' }} className={currentPage === index + 1 ? "current" : ""}>
+                      <Link onClick={() => paginate(index + 1)}>{index + 1}</Link>
+                    </li>
+                  ))}
+
+                  <li style={{ margin: '0 5px' }}>
+                    <Link
+                      onClick={currentPage < totalPages ? nextPage : undefined}
+                      className={currentPage === totalPages ? "disabled" : ""}
+                    >
+                      <i className="icon-keyboard_arrow_right"></i>
+                    </Link>
+                  </li>
+                </ul>
         </div>
       </div>
 
 
       <Modal isOpen={modal} toggle={toggleModal} centered style={{ maxWidth: "50%", width: "50%" }}>
-  <ModalBody className="modal-body p-5">
-    <div className="text-center mb-4">
-      <h5 className="modal-title">Edit Job Offer</h5>
-    </div>
+        <ModalBody className="modal-body p-5">
+          <div className="text-center mb-4">
+            <h5 className="modal-title">Edit Job Offer</h5>
+          </div>
 
-    <div className="position-absolute end-0 top-0 p-3">
-      <button type="button" onClick={toggleModal} className="btn-close" aria-label="Close"></button>
-    </div>
+          <div className="position-absolute end-0 top-0 p-3">
+            <button type="button" onClick={toggleModal} className="btn-close" aria-label="Close"></button>
+          </div>
 
-    <Form onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Job Title</Label>
-          <Input 
-            type="text" 
-            name="title" 
-            value={selectedJob?.title || ''} 
-            onChange={handleInputChange} 
-            placeholder="Job title" 
-            required 
-          />
-          <Input
-            type="hidden"
-            name="userAccountId"
-            value={selectedJob?.userAccountId || ''} 
-          />
-        </Col>
-        <Col md={6}>
-          <Label>Number of Positions</Label>
-          <Input 
-            type="number" 
-            name="postNumber" 
-            value={selectedJob?.postNumber || ''} 
-            onChange={handleInputChange} 
-            placeholder="Number of positions" 
-          />
-        </Col>
-      </Row>
+          <Form onSubmit={handleSubmit}>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Job Title</Label>
+                <Input
+                  type="text"
+                  name="title"
+                  value={selectedJob?.title || ''}
+                  onChange={handleInputChange}
+                  placeholder="Job title"
+                  required
+                />
+                <Input
+                  type="hidden"
+                  name="userAccountId"
+                  value={selectedJob?.userAccountId || ''}
+                />
+              </Col>
+              <Col md={6}>
+                <Label>Number of Positions</Label>
+                <Input
+                  type="number"
+                  name="postNumber"
+                  value={selectedJob?.postNumber || ''}
+                  onChange={handleInputChange}
+                  placeholder="Number of positions"
+                />
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Category</Label>
-          <Input 
-            type="select" 
-            name="categorieId" 
-            value={selectedJob?.categorieId || ''} 
-            onChange={handleInputChange} 
-            required
-          >
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </Input>
-        </Col>
-        <Col md={6}>
-          <Label>Job Type</Label>
-          <Input 
-            type="select" 
-            name="jobTypeId" 
-            value={selectedJob?.jobTypeId || ''} 
-            onChange={handleInputChange} 
-            required
-          >
-            <option value="">Select a job type</option>
-            {jobTypes.map((type) => (
-              <option key={type.id} value={type.id}>{type.name}</option>
-            ))}
-          </Input>
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Category</Label>
+                <Input
+                  type="select"
+                  name="categorieId"
+                  value={selectedJob?.categorieId || ''}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select a category</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </Input>
+              </Col>
+              <Col md={6}>
+                <Label>Job Type</Label>
+                <Input
+                  type="select"
+                  name="jobTypeId"
+                  value={selectedJob?.jobTypeId || ''}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select a job type</option>
+                  {jobTypes.map((type) => (
+                    <option key={type.id} value={type.id}>{type.name}</option>
+                  ))}
+                </Input>
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Address</Label>
-          <Input 
-            type="text" 
-            name="adress" 
-            value={selectedJob?.adress || ''} 
-            onChange={handleInputChange} 
-            placeholder="Job location" 
-            required 
-          />
-        </Col>
-        <Col md={6}>
-          <Label>Experience Level</Label>
-          <Input 
-            type="select" 
-            name="experienceLevel" 
-            value={selectedJob?.experienceLevel || ''} 
-            onChange={handleInputChange} 
-            required
-          >
-            <option value="">Select experience level</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-            <option value="Manager">Manager</option>
-            <option value="Director">Director</option>
-            <option value="VP">Vice President</option>
-            <option value="C-Level">C-Level</option>
-          </Input>
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Address</Label>
+                <Input
+                  type="text"
+                  name="adress"
+                  value={selectedJob?.adress || ''}
+                  onChange={handleInputChange}
+                  placeholder="Job location"
+                  required
+                />
+              </Col>
+              <Col md={6}>
+                <Label>Experience Level</Label>
+                <Input
+                  type="select"
+                  name="experienceLevel"
+                  value={selectedJob?.experienceLevel || ''}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select experience level</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Senior">Senior</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Director">Director</option>
+                  <option value="VP">Vice President</option>
+                  <option value="C-Level">C-Level</option>
+                </Input>
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Salary Range</Label>
-          <Input 
-            type="text" 
-            name="salaryRange" 
-            value={selectedJob?.salaryRange || ''} 
-            onChange={handleInputChange} 
-            placeholder="Salary range" 
-          />
-        </Col>
-        <Col md={6}>
-          <Label>Application Deadline</Label>
-          <Input 
-            type="date" 
-            name="deadlineTimestamp" 
-            value={selectedJob?.deadlineTimestamp ? moment(selectedJob.deadlineTimestamp).format("YYYY-MM-DD") : ''} 
-            onChange={handleDateChange} 
-            required 
-          />
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Salary Range</Label>
+                <Input
+                  type="text"
+                  name="salaryRange"
+                  value={selectedJob?.salaryRange || ''}
+                  onChange={handleInputChange}
+                  placeholder="Salary range"
+                />
+              </Col>
+              <Col md={6}>
+                <Label>Application Deadline</Label>
+                <Input
+                  type="date"
+                  name="deadlineTimestamp"
+                  value={selectedJob?.deadlineTimestamp ? moment(selectedJob.deadlineTimestamp).format("YYYY-MM-DD") : ''}
+                  onChange={handleDateChange}
+                  required
+                />
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={12}>
-          <Label>Requirements</Label>
-          <Input 
-            type="text" 
-            name="requirements" 
-            value={selectedJob?.requirements || ''} 
-            onChange={handleInputChange} 
-            placeholder="Specific requirements" 
-          />
-        </Col>
-        <Col md={12}>
-          <Label>Required Skills</Label>
-          <textarea 
-            className="form-control" 
-            name="skillsRequired" 
-            value={selectedJob?.skillsRequired || ''} 
-            onChange={handleInputChange} 
-            placeholder="e.g., React, Node.js, SQL, Agile" 
-            rows="3" 
-            required
-          ></textarea>
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={12}>
+                <Label>Requirements</Label>
+                <Input
+                  type="text"
+                  name="requirements"
+                  value={selectedJob?.requirements || ''}
+                  onChange={handleInputChange}
+                  placeholder="Specific requirements"
+                />
+              </Col>
+              <Col md={12}>
+                <Label>Required Skills</Label>
+                <textarea
+                  className="form-control"
+                  name="skillsRequired"
+                  value={selectedJob?.skillsRequired || ''}
+                  onChange={handleInputChange}
+                  placeholder="e.g., React, Node.js, SQL, Agile"
+                  rows="3"
+                  required
+                ></textarea>
+              </Col>
+            </Row>
 
-      <div className="mb-3">
-        <Label>Job Description</Label>
-        <textarea 
-          className="form-control" 
-          name="description" 
-          value={selectedJob?.description || ''} 
-          onChange={handleInputChange} 
-          placeholder="Job description" 
-          rows="4" 
-          required
-        ></textarea>
-      </div>
+            <div className="mb-3">
+              <Label>Job Description</Label>
+              <textarea
+                className="form-control"
+                name="description"
+                value={selectedJob?.description || ''}
+                onChange={handleInputChange}
+                placeholder="Job description"
+                rows="4"
+                required
+              ></textarea>
+            </div>
 
-      <Button type="submit" className="btn btn-primary w-100">
-        Update
-      </Button>
-    </Form>
-  </ModalBody>
-</Modal>
+            <Button type="submit" className="btn btn-primary w-100">
+              Update
+            </Button>
+          </Form>
+        </ModalBody>
+      </Modal>
 
 
       <Modal isOpen={isAddModalOpen} toggle={toggleAddModal} centered style={{ maxWidth: "50%", width: "50%" }}>
-  <ModalBody className="modal-body p-5">
-    <div className="text-center mb-4">
-      <h5 className="modal-title">Create a New Job Offer</h5>
-    </div>
+        <ModalBody className="modal-body p-5">
+          <div className="text-center mb-4">
+            <h5 className="modal-title">Create a New Job Offer</h5>
+          </div>
 
-    <div className="position-absolute end-0 top-0 p-3">
-      <button type="button" onClick={toggleAddModal} className="btn-close" aria-label="Close"></button>
-    </div>
+          <div className="position-absolute end-0 top-0 p-3">
+            <button type="button" onClick={toggleAddModal} className="btn-close" aria-label="Close"></button>
+          </div>
 
-    <Form onSubmit={handleSubmitAdd}>
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Job Title</Label>
-          <Input type="text" name="title" value={jobOffer.title} onChange={handleInputChangeAdd} placeholder="Job Title" required />
-        </Col>
-        <Col md={6}>
-          <Label>Number of Positions</Label>
-          <Input type="number" name="postNumber" value={jobOffer.postNumber} onChange={handleInputChangeAdd} placeholder="Job Number" />
-        </Col>
-      </Row>
+          <Form onSubmit={handleSubmitAdd}>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Job Title</Label>
+                <Input type="text" name="title" value={jobOffer.title} onChange={handleInputChangeAdd} placeholder="Job Title" required />
+              </Col>
+              <Col md={6}>
+                <Label>Number of Positions</Label>
+                <Input type="number" name="postNumber" value={jobOffer.postNumber} onChange={handleInputChangeAdd} placeholder="Job Number" />
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Category</Label>
-          <Input type="select" name="categorieId" value={jobOffer.categorieId} onChange={handleInputChangeAdd} required>
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </Input>
-        </Col>
-        <Col md={6}>
-          <Label>Job Type</Label>
-          <Input type="select" name="jobTypeId" value={jobOffer.jobTypeId} onChange={handleInputChangeAdd} required>
-            <option value="">Select a type</option>
-            {jobTypes.map((type) => (
-              <option key={type.id} value={type.id}>{type.name}</option>
-            ))}
-          </Input>
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Category</Label>
+                <Input type="select" name="categorieId" value={jobOffer.categorieId} onChange={handleInputChangeAdd} required>
+                  <option value="">Select a category</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </Input>
+              </Col>
+              <Col md={6}>
+                <Label>Job Type</Label>
+                <Input type="select" name="jobTypeId" value={jobOffer.jobTypeId} onChange={handleInputChangeAdd} required>
+                  <option value="">Select a type</option>
+                  {jobTypes.map((type) => (
+                    <option key={type.id} value={type.id}>{type.name}</option>
+                  ))}
+                </Input>
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Address</Label>
-          <Input type="text" name="adress" value={jobOffer.adress} onChange={handleInputChangeAdd} placeholder="Address" required />
-        </Col>
-        <Col md={6}>
-          <Label>Experience Level</Label>
-          <Input type="select" name="experienceLevel" value={jobOffer.experienceLevel} onChange={handleInputChangeAdd} required>
-            <option value="">Select experience level</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-            <option value="Manager">Manager</option>
-            <option value="Director">Director</option>
-            <option value="VP">Vice President</option>
-            <option value="C-Level">C-Level Executive</option>
-          </Input>
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Address</Label>
+                <Input type="text" name="adress" value={jobOffer.adress} onChange={handleInputChangeAdd} placeholder="Address" required />
+              </Col>
+              <Col md={6}>
+                <Label>Experience Level</Label>
+                <Input type="select" name="experienceLevel" value={jobOffer.experienceLevel} onChange={handleInputChangeAdd} required>
+                  <option value="">Select experience level</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Senior">Senior</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Director">Director</option>
+                  <option value="VP">Vice President</option>
+                  <option value="C-Level">C-Level Executive</option>
+                </Input>
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={6}>
-          <Label>Salary Range</Label>
-          <Input type="text" name="salaryRange" value={jobOffer.salaryRange} onChange={handleInputChangeAdd} placeholder="Salary" />
-        </Col>
-        <Col md={6}>
-          <Label>Deadline</Label>
-          <Input type="date" name="deadlineTimestamp" value={jobOffer.deadlineTimestamp ? moment(jobOffer.deadlineTimestamp).format("YYYY-MM-DD") : ""} onChange={handleDateChangeAdd} required />
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={6}>
+                <Label>Salary Range</Label>
+                <Input type="text" name="salaryRange" value={jobOffer.salaryRange} onChange={handleInputChangeAdd} placeholder="Salary" />
+              </Col>
+              <Col md={6}>
+                <Label>Deadline</Label>
+                <Input type="date" name="deadlineTimestamp" value={jobOffer.deadlineTimestamp ? moment(jobOffer.deadlineTimestamp).format("YYYY-MM-DD") : ""} onChange={handleDateChangeAdd} required />
+              </Col>
+            </Row>
 
-      <Row className="mb-3">
-        <Col md={12}>
-          <Label>Requirements</Label>
-          <Input 
-            type="text" 
-            name="requirements" 
-            value={jobOffer.requirements} 
-            onChange={handleInputChangeAdd} 
-            placeholder="Specific requirements" 
-          />
-        </Col>
-        <Col md={12}>
-          <Label>Required Skills</Label>
-          <textarea 
-            className="form-control" 
-            name="skillsRequired" 
-            value={jobOffer.skillsRequired} 
-            onChange={handleInputChangeAdd} 
-            placeholder="E.g., React, Node.js, SQL, Agile" 
-            rows="3" 
-            required
-          ></textarea>
-        </Col>
-      </Row>
+            <Row className="mb-3">
+              <Col md={12}>
+                <Label>Requirements</Label>
+                <Input
+                  type="text"
+                  name="requirements"
+                  value={jobOffer.requirements}
+                  onChange={handleInputChangeAdd}
+                  placeholder="Specific requirements"
+                />
+              </Col>
+              <Col md={12}>
+                <Label>Required Skills</Label>
+                <textarea
+                  className="form-control"
+                  name="skillsRequired"
+                  value={jobOffer.skillsRequired}
+                  onChange={handleInputChangeAdd}
+                  placeholder="E.g., React, Node.js, SQL, Agile"
+                  rows="3"
+                  required
+                ></textarea>
+              </Col>
+            </Row>
 
-      <div className="mb-3">
-        <Label>Job Description</Label>
-        <textarea className="form-control" name="description" value={jobOffer.description} onChange={handleInputChangeAdd} placeholder="Job Description" rows="4" required></textarea>
-      </div>
+            <div className="mb-3">
+              <Label>Job Description</Label>
+              <textarea className="form-control" name="description" value={jobOffer.description} onChange={handleInputChangeAdd} placeholder="Job Description" rows="4" required></textarea>
+            </div>
 
-      <Button type="submit" className="btn btn-primary w-100">
-        Add Job Offer
-      </Button>
-    </Form>
-  </ModalBody>
-</Modal>
+            <Button type="submit" className="btn btn-primary w-100">
+              Add Job Offer
+            </Button>
+          </Form>
+        </ModalBody>
+      </Modal>
 
     </section>
   );
 }
 
 export default JobSec1;
+/* 
+
+
+ <div className="form-group-3">
+                <span className="icon-filter"></span>
+                <div
+                  className={`filter-radio ${isOpen ? "open" : ""}`}
+                  onClick={handleClick}
+                >
+                  <p>Filter More</p>
+                </div>
+              </div>
+<div
+                className={`wd-filter-radio ${isOpen ? "modal-menu--open" : ""
+                  }`}
+              >
+                <div className="content">
+                  <div className="fl-cl lc2">
+                    <h6>All Job Types</h6>
+                    <ul>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-4" />
+                          <label htmlFor="checkbox-4"></label>
+                        </div>
+                        <label>All Job Types (1,675)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-5" />
+                          <label htmlFor="checkbox-5"></label>
+                        </div>
+                        <label>Full-time (623)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-6" />
+                          <label htmlFor="checkbox-6"></label>
+                        </div>
+                        <label>Part-time (45)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-7" />
+                          <label htmlFor="checkbox-7"></label>
+                        </div>
+                        <label>Contract (65)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-8" />
+                          <label htmlFor="checkbox-8"></label>
+                        </div>
+                        <label>Internship (9)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-9" />
+                          <label htmlFor="checkbox-9"></label>
+                        </div>
+                        <label>Temporary (4)</label>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div className="fl-cl lc3">
+                    <h6>Posted Anytime</h6>
+                      <ul>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-22" />
+                          <label htmlFor="checkbox-22"></label>
+                        </div>
+                        <label>Posted Anytime</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-23" />
+                          <label htmlFor="checkbox-23"></label>
+                        </div>
+                        <label>Last 1 days (227)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-24" />
+                          <label htmlFor="checkbox-24"></label>
+                        </div>
+                        <label>Last 3 days (227)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-25" />
+                          <label htmlFor="checkbox-25"></label>
+                        </div>
+                        <label>Last 7 days (227)</label>
+                      </li>
+                      <li>
+                        <div className="round">
+                          <input type="checkbox" id="checkbox-26" />
+                          <label htmlFor="checkbox-26"></label>
+                        </div>
+                        <label>Last 14 days (227)</label>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                 
+                </div>
+              </div>*/

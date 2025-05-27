@@ -35,11 +35,14 @@ class Authentification {
 
   static async login(email, password) {
     try {
+      const now = new Date();
+      const expiresInMinutes = 24;
+      now.setTime(now.getTime() + expiresInMinutes* 60* 60 * 1000);
       const response = await axios.post(API_URL_Login, { email, password });
        console.log(response.data)
       // Stocker toute la réponse sous forme de JSON dans le cookie
       Cookies.set(COOKIE_NAME, JSON.stringify(response.data), {
-        expires: 5, // Expire après 5 minutes
+        expires: now, // Expire après 5 minutes
         secure: true, 
         sameSite: "Strict"
       });
@@ -79,19 +82,27 @@ class Authentification {
 
   // Obtenir le token actuel depuis le cookie
   static getToken() {
-    return Cookies.get(COOKIE_NAME);
+  const stored = Cookies.get(COOKIE_NAME);
+  if (!stored) return null;
+  try {
+    const parsed = JSON.parse(stored);
+    return parsed.token;
+  } catch {
+    return null;
   }
+}
+
 
   // Attacher le token aux en-têtes pour les requêtes authentifiées
-  static attachTokenToHeaders() {
-    const token = Cookies.get(COOKIE_NAME);
-    if (token && !isTokenExpired(token)) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      // Si le token est expiré, déconnecter l'utilisateur
-      this.logout();
-    }
+ static attachTokenToHeaders() {
+  const token = this.getToken();
+  if (token && !isTokenExpired(token)) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    this.logout();
   }
+}
+
   static async requestPasswordReset(email) {
     try {
       const response = await axios.post(API_URL, { email }); // Pas besoin de token ici
@@ -120,7 +131,7 @@ class Authentification {
 
   // Optionnel: Vérification périodique du token pour déconnexion automatique
   static startTokenExpirationCheck() {
-    const token = Cookies.get(COOKIE_NAME);
+     const token = this.getToken();
     if (token && !isTokenExpired(token)) {
       const decoded = jwtDecode(token);
       const timeUntilExpiration = decoded.exp * 1000 - Date.now();

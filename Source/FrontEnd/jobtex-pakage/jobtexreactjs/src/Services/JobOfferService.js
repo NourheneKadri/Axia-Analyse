@@ -66,6 +66,31 @@ class JobOfferServices {
             throw error; 
         }
     }
+
+     static async getJobCategories() {
+        return axios.get(`${JOBOFFER_API_BASE_URL}/jobcategories`, { headers: authHeader() });
+    }
+
+    static async getJobCategoryCounts() {
+        return axios.get(`${JOBOFFER_API_BASE_URL}/jobcategoriescount`, { headers: authHeader() });
+    }
+
+    static async getJobOfferCountByCompany() {
+        return axios.get(`${JOBOFFER_API_BASE_URL}/countByCompany`, { headers: authHeader() });
+    }
+
+    static async getJobOffersByUserAccountId(userAccountId) {
+        return axios.get(`${JOBOFFER_API_BASE_URL}/by-user/${userAccountId}`, { headers: authHeader() });
+    }
+
+    static async getTitleSuggestions(query) {
+        return axios.get(`${JOBOFFER_API_BASE_URL}/suggestions?query=${encodeURIComponent(query)}`, { headers: authHeader() });
+    }
+
+    static async getJobOfferCountsBySupportedCountries() {
+        return axios.get(`${JOBOFFER_API_BASE_URL}/country-counts`, { headers: authHeader() });
+    }
+
     
 }
 export default JobOfferServices;

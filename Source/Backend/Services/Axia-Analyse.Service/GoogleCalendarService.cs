@@ -69,6 +69,72 @@ namespace Axia_Analyse.Service
 
             return null;
         }
+
+        public async Task<string?> CreateGoogleMeetEvent(string accessToken, InterviewDto interview)
+        {
+            // Crée un EventRequest en utilisant les données d'interview
+
+            var candidate = await _authentificationService.GetUserAccountByIdAsync(interview.CandidateId);
+            var recruteur  = await _authentificationService.GetUserAccountByIdAsync(interview.recruiterId);
+            var eventRequest = new EventRequest
+            {
+                Summary = "Entretien avec le candidat",
+                Location = interview.Location,
+                Description = "Entretien pour le poste",
+                Start = new EventRequest.EventTime
+                {
+                    DateTime = interview.InterviewDate.Add(interview.InterviewTime.ToTimeSpan()),
+                    TimeZone = "Europe/Paris" // Remplace par le fuseau horaire correct
+                },
+                End = new EventRequest.EventTime
+                {
+                    DateTime = interview.InterviewDate.Add(interview.InterviewTime.ToTimeSpan()).AddMinutes(30), // Durée de 30 minutes par exemple
+                    TimeZone = "Europe/Paris"
+                },
+                Attendees = new[]
+                {
+                new EventRequest.EventAttendee { Email = candidate.Email }, // Assure-toi de récupérer l'email du candidat
+                new EventRequest.EventAttendee { Email = recruteur.Email }, // Assure-toi de récupérer l'email du recruteur
+            },
+                ConferenceDataa = new EventRequest.ConferenceData
+                {
+                    CreateRequest = new EventRequest.CreateRequest
+                    {
+                        RequestId = Guid.NewGuid().ToString(),
+                        ConferenceSolutionKey = new EventRequest.ConferenceSolutionKey
+                        {
+                            Type = "hangoutsMeet"
+                        }
+                    }
+                }
+            };
+
+            var jsonContent = JsonSerializer.Serialize(eventRequest);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1")
+            {
+                Content = content
+            };
+
+            requestMessage.Headers.Add("Authorization", $"Bearer {accessToken}");
+
+            var response = await _httpClient.SendAsync(requestMessage);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var createdEvent = JsonSerializer.Deserialize<JsonElement>(responseContent);
+                string? meetLink = null;
+
+                if (createdEvent.ValueKind != JsonValueKind.Undefined && createdEvent.TryGetProperty("hangoutLink", out JsonElement hangoutLinkElement))
+                {
+                    meetLink = hangoutLinkElement.GetString();
+                }
+                return meetLink;
+            }
+
+            return null;
+        }
     }
 
 }

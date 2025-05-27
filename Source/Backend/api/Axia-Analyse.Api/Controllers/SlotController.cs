@@ -121,14 +121,18 @@ namespace Axia_Analyse.Controllers
         [HttpPost("generate")]
         public async Task<IActionResult> GenerateTimeSlots([FromBody] TimeSlotGenerationRequest request)
         {
-            if (request.StartDate >= request.EndDate || (request.StartDate == request.EndDate && request.StartTime >= request.EndTime))
+            var startDateTime = request.StartDate.Date + request.StartTime.ToTimeSpan();
+            var endDateTime = request.EndDate.Date + request.EndTime.ToTimeSpan();
+
+            if (startDateTime >= endDateTime)
             {
-                return BadRequest(new { message = "La date de fin doit être après la date de début" });
+                return BadRequest(new { message = "La date et l'heure de fin doivent être après celles de début" });
             }
 
             var slots = await _slotService.GenerateTimeSlotsAsync(request);
             return Ok(slots);
         }
+
 
         [HttpGet("GetByDateAndRecruiter")]
         public async Task<IActionResult> GetByDateAndRecruiter(DateTime date, int recruiterId)

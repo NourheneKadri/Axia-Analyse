@@ -29,6 +29,7 @@ import { useNavigate } from "react-router-dom";
 import Authentification from "../Services/AuthentificationService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Header03 from "../components/header/Header03";
 
 
 
@@ -46,6 +47,7 @@ function Home_v7(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [userRole, setUserRole] = useState("");
 
+  const user = Authentification.getStoredUser()
 
 
 
@@ -62,11 +64,11 @@ function Home_v7(props) {
     }
   };
   const handleLogout = () => {
-    const result =  Authentification.logout()
+    const result = Authentification.logout()
     window.href.location("http://localhost:3000/login")
-  
+
   };
-  
+
   const handleMobile = () => {
     const getMobile = document.querySelector(".menu-mobile-popup");
     setShowMobile(!isShowMobile);
@@ -91,7 +93,7 @@ function Home_v7(props) {
     }
   }, [navigate]);
 */
- 
+
   return (
     <>
       <div className="menu-mobile-popup">
@@ -133,15 +135,14 @@ function Home_v7(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "home" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "home" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
                               <Link to="/">Home Page  </Link>
                             </li>
-                           
+
                           </ul>
                         </Collapse>
                       </li>
@@ -160,21 +161,20 @@ function Home_v7(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "job" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "job" ? "block" : "none"
+                                }`,
                             }}
                           >
                             {userRole === 3 && (
-      <>
-                            <li className="menu-item menu-item-mobile">
-                              <Link to="/joblist_v1">List </Link>
-                            </li>
-                            </> )}
+                              <>
+                                <li className="menu-item menu-item-mobile">
+                                  <Link to="/joblist_v1">List </Link>
+                                </li>
+                              </>)}
                             <li className="menu-item menu-item-mobile">
                               <Link to="/job-grid">Grid Layout</Link>
                             </li>
-                            
+
                           </ul>
                         </Collapse>
                       </li>
@@ -193,9 +193,8 @@ function Home_v7(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "employers" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "employers" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item">
@@ -237,7 +236,7 @@ function Home_v7(props) {
                             </li>
                             <li className="menu-item">
                               <Link to="/employernotfound">
-                                 My candidancyt Found
+                                My candidancyt Found
                               </Link>
                             </li>
                           </ul>
@@ -257,9 +256,8 @@ function Home_v7(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "candidate" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "candidate" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -321,9 +319,8 @@ function Home_v7(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "blog" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "blog" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -363,9 +360,8 @@ function Home_v7(props) {
                           <ul
                             className="sub-menu-mobile"
                             style={{
-                              display: `${
-                                toggle.key === "pages" ? "block" : "none"
-                              }`,
+                              display: `${toggle.key === "pages" ? "block" : "none"
+                                }`,
                             }}
                           >
                             <li className="menu-item menu-item-mobile">
@@ -464,16 +460,16 @@ function Home_v7(props) {
               </TabPanel>
             </div>
           </Tabs>
-          
+
           <div className="header-customize-item button">
-         <p>cc</p>
+            <p>cc</p>
           </div>
           <div className="header-customize-item button">
-          <button onClick={handleLogout}>
-    <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
-    <span>Logout</span> {/* Optional text next to the icon */}
-  </button>
-  </div>
+            <button onClick={handleLogout}>
+              <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
+              <span>Logout</span> {/* Optional text next to the icon */}
+            </button>
+          </div>
           <div className="mobile-footer">
             <div className="icon-infor d-flex aln-center">
               <div className="icon">
@@ -528,7 +524,12 @@ function Home_v7(props) {
           </div>
         </div>
       </div>
-      <Header2 clname="act1" handleMobile={handleMobile} />
+
+      {user ? (
+        <Header2 clname="act1" handleMobile={handleMobile} />
+      ) : (
+        <Header03 />
+      )}
       <Banner07 />
       <Category07 data={dataCate} />
 

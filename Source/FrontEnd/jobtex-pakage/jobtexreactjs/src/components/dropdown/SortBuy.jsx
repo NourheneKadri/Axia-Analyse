@@ -27,7 +27,6 @@ function SortBuy(props) {
   const toggleModal = () => setModal(!modal);
   const [sortBy, setSortBy] = useState("default"); // Default sorting
   const { currentJobs = [] } = props;
-  console.log('jobs', currentJobs)
 
 
   const [jobOffer, setJobOffer] = useState({

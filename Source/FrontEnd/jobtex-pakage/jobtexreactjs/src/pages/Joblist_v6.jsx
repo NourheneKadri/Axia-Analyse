@@ -9,6 +9,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { Collapse } from "react-collapse";
 import logo from "../assets/images/logo.png";
 import Header4 from "../components/header/Header4";
+import Header2 from "../components/header/Header2";
 
 Joblist_v6.propTypes = {};
 
@@ -527,7 +528,7 @@ function Joblist_v6(props) {
           </div>
         </div>
       </div>
-      <Header4 clname="actJob1" handleMobile={handleMobile} />
+      <Header2 clname="actJob1" handleMobile={handleMobile} />
       <JobSec6 data={dataJobs} />
       <Gotop />
     </>
